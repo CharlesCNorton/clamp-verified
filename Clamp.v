@@ -772,6 +772,245 @@ Definition clamp_prim (x lo hi : PrimFloat.float) : PrimFloat.float :=
     let hi' := prim_max lo hi in
     prim_max lo' (prim_min x hi').
 
+(** ** Auxiliary Lemmas for Primitive Float Min/Max *)
+
+Lemma prim_min_nan_l : forall x y,
+  PrimFloat.is_nan x = true -> prim_min x y = x.
+Proof.
+  intros x y Hnan. unfold prim_min. rewrite Hnan. reflexivity.
+Qed.
+
+Lemma prim_min_nan_r : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = true -> prim_min x y = y.
+Proof.
+  intros x y Hx Hy. unfold prim_min. rewrite Hx, Hy. reflexivity.
+Qed.
+
+Lemma prim_max_nan_l : forall x y,
+  PrimFloat.is_nan x = true -> prim_max x y = x.
+Proof.
+  intros x y Hnan. unfold prim_max. rewrite Hnan. reflexivity.
+Qed.
+
+Lemma prim_max_nan_r : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = true -> prim_max x y = y.
+Proof.
+  intros x y Hx Hy. unfold prim_max. rewrite Hx, Hy. reflexivity.
+Qed.
+
+Lemma prim_min_not_nan : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  PrimFloat.is_nan (prim_min x y) = false.
+Proof.
+  intros x y Hx Hy. unfold prim_min. rewrite Hx, Hy.
+  destruct (PrimFloat.leb x y); assumption.
+Qed.
+
+Lemma prim_max_not_nan : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  PrimFloat.is_nan (prim_max x y) = false.
+Proof.
+  intros x y Hx Hy. unfold prim_max. rewrite Hx, Hy.
+  destruct (PrimFloat.leb x y); assumption.
+Qed.
+
+Lemma prim_min_select : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  prim_min x y = x \/ prim_min x y = y.
+Proof.
+  intros x y Hx Hy. unfold prim_min. rewrite Hx, Hy.
+  destruct (PrimFloat.leb x y); auto.
+Qed.
+
+Lemma prim_max_select : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  prim_max x y = x \/ prim_max x y = y.
+Proof.
+  intros x y Hx Hy. unfold prim_max. rewrite Hx, Hy.
+  destruct (PrimFloat.leb x y); auto.
+Qed.
+
+(** Reflexivity of leb for non-NaN floats.
+    This follows from IEEE 754: any non-NaN value compares <= to itself.
+    Proved via Flocq's Prim2B correspondence and case analysis on
+    binary_float constructors. *)
+
+Lemma Rle_bool_refl : forall x : R, Raux.Rle_bool x x = true.
+Proof.
+  intros x. apply Raux.Rle_bool_true. apply Rle_refl.
+Qed.
+
+Lemma Bleb_refl : forall (prec emax : BinNums.Z)
+  (f : BinarySingleNaN.binary_float prec emax),
+  BinarySingleNaN.is_nan f = false ->
+  BinarySingleNaN.Bleb f f = true.
+Proof.
+  intros prec emax f Hnan.
+  unfold BinarySingleNaN.Bleb.
+  destruct f.
+  - reflexivity.
+  - simpl. destruct s; reflexivity.
+  - simpl in Hnan. discriminate.
+  - simpl. unfold SpecFloat.SFleb. simpl.
+    rewrite BinInt.Z.compare_refl.
+    rewrite BinPos.Pos.compare_refl.
+    destruct s; reflexivity.
+Qed.
+
+Lemma leb_refl : forall x,
+  PrimFloat.is_nan x = false -> PrimFloat.leb x x = true.
+Proof.
+  intros x Hnan.
+  rewrite leb_equiv.
+  apply Bleb_refl.
+  rewrite <- is_nan_equiv. exact Hnan.
+Qed.
+
+(** Commutativity holds when the comparison is symmetric (x = y case). *)
+Lemma prim_min_comm_eq : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  x = y -> prim_min x y = prim_min y x.
+Proof.
+  intros x y Hx Hy Heq. subst. reflexivity.
+Qed.
+
+Lemma prim_max_comm_eq : forall x y,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan y = false ->
+  x = y -> prim_max x y = prim_max y x.
+Proof.
+  intros x y Hx Hy Heq. subst. reflexivity.
+Qed.
+
+(** ** Bounds Theorems for clamp_prim
+
+    When no NaN is present, clamp_prim satisfies the same bounds
+    invariants as the integer and real variants.
+
+    Note: Full ordering proofs require Flocq's [Prim2B] correspondence
+    theorems. Here we prove the structural properties that don't depend
+    on the float ordering axioms. *)
+
+Theorem clamp_prim_nan_propagate_x : forall x lo hi,
+  PrimFloat.is_nan x = true -> clamp_prim x lo hi = x.
+Proof.
+  intros x lo hi Hnan. unfold clamp_prim. rewrite Hnan. reflexivity.
+Qed.
+
+Theorem clamp_prim_nan_propagate_lo : forall x lo hi,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan lo = true ->
+  clamp_prim x lo hi = lo.
+Proof.
+  intros x lo hi Hx Hlo. unfold clamp_prim. rewrite Hx, Hlo. reflexivity.
+Qed.
+
+Theorem clamp_prim_nan_propagate_hi : forall x lo hi,
+  PrimFloat.is_nan x = false -> PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = true -> clamp_prim x lo hi = hi.
+Proof.
+  intros x lo hi Hx Hlo Hhi. unfold clamp_prim. rewrite Hx, Hlo, Hhi. reflexivity.
+Qed.
+
+Theorem clamp_prim_not_nan : forall x lo hi,
+  PrimFloat.is_nan x = false ->
+  PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = false ->
+  PrimFloat.is_nan (clamp_prim x lo hi) = false.
+Proof.
+  intros x lo hi Hx Hlo Hhi.
+  unfold clamp_prim. rewrite Hx, Hlo, Hhi.
+  apply prim_max_not_nan.
+  - apply prim_min_not_nan; assumption.
+  - apply prim_min_not_nan.
+    + exact Hx.
+    + apply prim_max_not_nan; assumption.
+Qed.
+
+(** The result of clamp_prim is one of: lo, hi, or x.
+    This is the selection property, analogous to [clamp_is_selection]. *)
+
+Theorem clamp_prim_is_selection : forall x lo hi,
+  PrimFloat.is_nan x = false ->
+  PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = false ->
+  clamp_prim x lo hi = prim_min lo hi \/
+  clamp_prim x lo hi = prim_max lo hi \/
+  clamp_prim x lo hi = x.
+Proof.
+  intros x lo hi Hx Hlo Hhi.
+  unfold clamp_prim. rewrite Hx, Hlo, Hhi.
+  set (lo' := prim_min lo hi).
+  set (hi' := prim_max lo hi).
+  assert (Hlo' : PrimFloat.is_nan lo' = false) by (apply prim_min_not_nan; assumption).
+  assert (Hhi' : PrimFloat.is_nan hi' = false) by (apply prim_max_not_nan; assumption).
+  destruct (prim_max_select lo' (prim_min x hi') Hlo') as [Hsel1 | Hsel2].
+  - apply prim_min_not_nan; [exact Hx | exact Hhi'].
+  - left. exact Hsel1.
+  - destruct (prim_min_select x hi' Hx Hhi') as [Hsel3 | Hsel4].
+    + right. right. rewrite Hsel2. exact Hsel3.
+    + right. left. rewrite Hsel2, Hsel4. reflexivity.
+Qed.
+
+(** For finite, non-NaN floats where lo <= hi in the IEEE sense,
+    we can prove the bounds hold using boolean reflection.
+
+    Note: These proofs require careful unfolding since prim_min/prim_max
+    have nested conditionals on is_nan. *)
+
+Theorem clamp_prim_lower_bound_ordered : forall x lo hi,
+  PrimFloat.is_nan x = false ->
+  PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = false ->
+  PrimFloat.leb lo hi = true ->
+  PrimFloat.leb lo (clamp_prim x lo hi) = true.
+Proof.
+  intros x lo hi Hx Hlo Hhi Horder.
+  unfold clamp_prim. rewrite Hx, Hlo, Hhi.
+  unfold prim_min, prim_max.
+  rewrite Hlo, Hhi, Horder.
+  rewrite Hx, Hhi.
+  destruct (PrimFloat.leb x hi) eqn:Exhi.
+  - rewrite Hlo, Hx.
+    destruct (PrimFloat.leb lo x) eqn:Elox.
+    + exact Elox.
+    + apply leb_refl. exact Hlo.
+  - rewrite Hlo, Hhi, Horder.
+    exact Horder.
+Qed.
+
+Theorem clamp_prim_upper_bound_ordered : forall x lo hi,
+  PrimFloat.is_nan x = false ->
+  PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = false ->
+  PrimFloat.leb lo hi = true ->
+  PrimFloat.leb (clamp_prim x lo hi) hi = true.
+Proof.
+  intros x lo hi Hx Hlo Hhi Horder.
+  unfold clamp_prim. rewrite Hx, Hlo, Hhi.
+  unfold prim_min, prim_max.
+  rewrite Hlo, Hhi, Horder.
+  rewrite Hx, Hhi.
+  destruct (PrimFloat.leb x hi) eqn:Exhi.
+  - rewrite Hlo, Hx.
+    destruct (PrimFloat.leb lo x) eqn:Elox.
+    + exact Exhi.
+    + exact Horder.
+  - rewrite Hlo, Hhi, Horder.
+    apply leb_refl. exact Hhi.
+Qed.
+
+Theorem clamp_prim_in_bounds_ordered : forall x lo hi,
+  PrimFloat.is_nan x = false ->
+  PrimFloat.is_nan lo = false ->
+  PrimFloat.is_nan hi = false ->
+  PrimFloat.leb lo hi = true ->
+  PrimFloat.leb lo (clamp_prim x lo hi) = true /\
+  PrimFloat.leb (clamp_prim x lo hi) hi = true.
+Proof.
+  intros x lo hi Hx Hlo Hhi Horder. split.
+  - apply clamp_prim_lower_bound_ordered; assumption.
+  - apply clamp_prim_upper_bound_ordered; assumption.
+Qed.
+
 Close Scope R_scope.
 Open Scope Z_scope.
 
