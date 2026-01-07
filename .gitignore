@@ -1,0 +1,24 @@
+# Coq compiled artifacts
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.*.aux
+*.lia.cache
+.lia.cache
+
+# OCaml compiled artifacts
+*.cmo
+*.cmi
+*.cmx
+*.o
+*.exe
+*.byte
+*.native
+
+# Editor/IDE
+*~
+\#*\#
+.merlin
+_build/
