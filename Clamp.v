@@ -36,11 +36,7 @@ Definition clamp (x lo hi : Z) : Z :=
 
 (** * Auxiliary Lemmas
 
-    These lemmas about Z.min, Z.max, and boolean comparisons
-    simplify the main proofs. *)
-
-Lemma min_max_relation : forall a b, Z.min a b <= Z.max a b.
-Proof. intros. lia. Qed.
+    Reflection lemmas for boolean comparisons. *)
 
 Lemma ltb_reflect : forall x y, x <? y = true <-> x < y.
 Proof. intros. apply Z.ltb_lt. Qed.
@@ -50,12 +46,21 @@ Proof. intros. apply Z.ltb_ge. Qed.
 
 Lemma gtb_reflect : forall x y, x >? y = true <-> x > y.
 Proof.
-  intros. rewrite Z.gtb_ltb. rewrite Z.ltb_lt. lia.
+  intros. rewrite Z.gtb_ltb, Z.ltb_lt. lia.
 Qed.
 
 Lemma gtb_reflect_false : forall x y, x >? y = false <-> x <= y.
 Proof.
-  intros. rewrite Z.gtb_ltb. rewrite Z.ltb_ge. lia.
+  intros. rewrite Z.gtb_ltb, Z.ltb_ge. lia.
+Qed.
+
+(** Key min/max ordering fact, proved via library lemmas. *)
+Lemma min_le_max : forall a b, Z.min a b <= Z.max a b.
+Proof.
+  intros.
+  apply Z.le_trans with a.
+  - apply Z.le_min_l.
+  - apply Z.le_max_l.
 Qed.
 
 (** * Core Bounds Theorems
@@ -70,12 +75,12 @@ Proof.
   unfold clamp.
   destruct (x <? Z.min lo hi) eqn:E1.
   - (* x < min: return min *)
-    lia.
+    apply Z.le_refl.
   - destruct (x >? Z.max lo hi) eqn:E2.
-    + (* x > max: return max, which >= min *)
-      apply ltb_reflect_false in E1. lia.
+    + (* x > max: return max >= min *)
+      apply min_le_max.
     + (* min <= x <= max: return x *)
-      apply ltb_reflect_false in E1. lia.
+      apply ltb_reflect_false in E1. exact E1.
 Qed.
 
 Theorem clamp_upper_bound : forall x lo hi,
@@ -84,13 +89,13 @@ Proof.
   intros x lo hi.
   unfold clamp.
   destruct (x <? Z.min lo hi) eqn:E1.
-  - (* x < min: return min, which <= max *)
-    lia.
+  - (* x < min: return min <= max *)
+    apply min_le_max.
   - destruct (x >? Z.max lo hi) eqn:E2.
     + (* x > max: return max *)
-      lia.
+      apply Z.le_refl.
     + (* min <= x <= max: return x *)
-      apply gtb_reflect_false in E2. lia.
+      apply gtb_reflect_false in E2. exact E2.
 Qed.
 
 Theorem clamp_in_bounds : forall x lo hi,
@@ -121,7 +126,40 @@ Proof.
   - destruct (x >? Z.max lo hi) eqn:E2.
     + apply gtb_reflect in E2. apply clamp_at_max. exact E2.
     + apply ltb_reflect_false in E1. apply gtb_reflect_false in E2.
-      apply clamp_identity. lia.
+      apply clamp_identity. split; assumption.
+Qed.
+
+(** * Algebraic Equivalence
+
+    clamp can be expressed purely in terms of Z.min and Z.max.
+    This equivalence simplifies reasoning about algebraic properties. *)
+
+Theorem clamp_algebraic : forall x lo hi,
+  clamp x lo hi = Z.max (Z.min lo hi) (Z.min x (Z.max lo hi)).
+Proof.
+  intros x lo hi.
+  unfold clamp.
+  destruct (x <? Z.min lo hi) eqn:E1.
+  - (* x < min lo hi *)
+    apply ltb_reflect in E1.
+    assert (Hxmax: x <= Z.max lo hi) by
+      (apply Z.le_trans with (Z.min lo hi); [apply Z.lt_le_incl; exact E1 | apply min_le_max]).
+    replace (Z.min x (Z.max lo hi)) with x by (symmetry; apply Z.min_l; exact Hxmax).
+    replace (Z.max (Z.min lo hi) x) with (Z.min lo hi) by (symmetry; apply Z.max_l; apply Z.lt_le_incl; exact E1).
+    reflexivity.
+  - destruct (x >? Z.max lo hi) eqn:E2.
+    + (* x > max lo hi *)
+      apply gtb_reflect in E2.
+      assert (Hmaxlex: Z.max lo hi <= x) by (apply Z.gt_lt_iff in E2; apply Z.lt_le_incl; exact E2).
+      replace (Z.min x (Z.max lo hi)) with (Z.max lo hi) by (symmetry; apply Z.min_r; exact Hmaxlex).
+      replace (Z.max (Z.min lo hi) (Z.max lo hi)) with (Z.max lo hi) by (symmetry; apply Z.max_r; apply min_le_max).
+      reflexivity.
+    + (* min lo hi <= x <= max lo hi *)
+      apply ltb_reflect_false in E1.
+      apply gtb_reflect_false in E2.
+      replace (Z.min x (Z.max lo hi)) with x by (symmetry; apply Z.min_l; exact E2).
+      replace (Z.max (Z.min lo hi) x) with x by (symmetry; apply Z.max_r; exact E1).
+      reflexivity.
 Qed.
 
 (** * Idempotence
@@ -136,9 +174,13 @@ Proof.
   pose proof (clamp_in_bounds x lo hi) as [Hlo Hhi].
   unfold clamp at 1.
   destruct (clamp x lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1. lia.
+  - apply ltb_reflect in E1.
+    exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
+    apply Z.le_lt_trans with (clamp x lo hi); assumption.
   - destruct (clamp x lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. lia.
+    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
+      exfalso. apply (Z.lt_irrefl (Z.max lo hi)).
+      apply Z.lt_le_trans with (clamp x lo hi); assumption.
     + reflexivity.
 Qed.
 
@@ -152,9 +194,11 @@ Proof.
   intros lo hi.
   unfold clamp.
   destruct (Z.min lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1. lia.
+  - apply ltb_reflect in E1. exfalso. apply (Z.lt_irrefl _ E1).
   - destruct (Z.min lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. lia.
+    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
+      exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
+      apply Z.le_lt_trans with (Z.max lo hi); [apply min_le_max | exact E2].
     + reflexivity.
 Qed.
 
@@ -164,9 +208,12 @@ Proof.
   intros lo hi.
   unfold clamp.
   destruct (Z.max lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1. lia.
+  - apply ltb_reflect in E1.
+    exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
+    apply Z.le_lt_trans with (Z.max lo hi); [apply min_le_max | exact E1].
   - destruct (Z.max lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. lia.
+    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
+      exfalso. apply (Z.lt_irrefl _ E2).
     + reflexivity.
 Qed.
 
@@ -177,9 +224,13 @@ Proof.
   intros x lo hi [Hlo Hhi].
   unfold clamp.
   destruct (x <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1. lia.
+  - apply ltb_reflect in E1.
+    exfalso. apply (Z.lt_irrefl x).
+    apply Z.lt_le_trans with (Z.min lo hi); assumption.
   - destruct (x >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. lia.
+    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
+      exfalso. apply (Z.lt_irrefl x).
+      apply Z.le_lt_trans with (Z.max lo hi); [assumption | exact E2].
     + reflexivity.
 Qed.
 
@@ -192,44 +243,24 @@ Theorem clamp_symmetric : forall x lo hi,
 Proof.
   intros x lo hi.
   unfold clamp.
-  replace (Z.min hi lo) with (Z.min lo hi) by lia.
-  replace (Z.max hi lo) with (Z.max lo hi) by lia.
+  rewrite Z.min_comm.
+  rewrite Z.max_comm.
   reflexivity.
 Qed.
 
 (** * Monotonicity
 
     clamp preserves order: if x <= y, then clamp x <= clamp y.
-    This is crucial for reasoning about sequences and intervals. *)
+    Proved via the algebraic equivalence using monotonicity of min/max. *)
 
 Theorem clamp_monotone : forall x y lo hi,
   x <= y -> clamp x lo hi <= clamp y lo hi.
 Proof.
   intros x y lo hi Hxy.
-  pose proof (clamp_in_bounds x lo hi) as [HxLo HxHi].
-  pose proof (clamp_in_bounds y lo hi) as [HyLo HyHi].
-  unfold clamp.
-  destruct (x <? Z.min lo hi) eqn:Ex1;
-  destruct (y <? Z.min lo hi) eqn:Ey1.
-  - (* both below min *)
-    lia.
-  - (* x below, y not below *)
-    destruct (y >? Z.max lo hi) eqn:Ey2.
-    + lia.
-    + apply ltb_reflect_false in Ey1. lia.
-  - (* x not below, y below: contradiction *)
-    apply ltb_reflect in Ey1. apply ltb_reflect_false in Ex1. lia.
-  - (* both not below min *)
-    destruct (x >? Z.max lo hi) eqn:Ex2;
-    destruct (y >? Z.max lo hi) eqn:Ey2.
-    + (* both above max *)
-      lia.
-    + (* x above, y not above: contradiction *)
-      apply gtb_reflect in Ex2. apply gtb_reflect_false in Ey2. lia.
-    + (* x not above, y above *)
-      apply gtb_reflect_false in Ex2. lia.
-    + (* both in range *)
-      apply gtb_reflect_false in Ex2. apply gtb_reflect_false in Ey2. lia.
+  rewrite !clamp_algebraic.
+  apply Z.max_le_compat_l.
+  apply Z.min_le_compat_r.
+  exact Hxy.
 Qed.
 
 (** * Proper Instance for Setoid Reasoning *)
@@ -254,7 +285,9 @@ Proof.
   intros x lo1 hi1 lo2 hi2 HloLoose HhiLoose.
   apply clamp_fixpoint_interior.
   pose proof (clamp_in_bounds x lo1 hi1) as [Hlo Hhi].
-  lia.
+  split.
+  - apply Z.le_trans with (Z.min lo1 hi1); assumption.
+  - apply Z.le_trans with (Z.max lo1 hi1); assumption.
 Qed.
 
 (** * Termination Certificate
@@ -282,11 +315,10 @@ Qed.
 
 Section BoundedIntegers.
 
-  (** A bounded integer is a Z with proof it lies in [lo, hi]. *)
+  (** A bounded integer is a Z with proof it lies in [BOUND_LO, BOUND_HI]. *)
 
   Variable BOUND_LO : Z.
   Variable BOUND_HI : Z.
-  Hypothesis BOUNDS_VALID : BOUND_LO <= BOUND_HI.
 
   Definition in_bounds (z : Z) : Prop := BOUND_LO <= z <= BOUND_HI.
 
@@ -298,7 +330,8 @@ Section BoundedIntegers.
   Definition mk_bounded (z : Z) (H : in_bounds z) : bounded :=
     exist _ z H.
 
-  (** clamp is closed: if lo, hi are in bounds, result is in bounds. *)
+  (** clamp is closed: if lo, hi are in bounds, result is in bounds.
+      This is the key theorem for overflow safety. *)
   Theorem clamp_closed : forall x lo hi,
     in_bounds lo -> in_bounds hi ->
     in_bounds (clamp x lo hi).
@@ -307,12 +340,12 @@ Section BoundedIntegers.
     unfold in_bounds.
     pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
     split.
-    - (* BOUND_LO <= clamp x lo hi *)
-      assert (BOUND_LO <= Z.min lo hi) by lia.
-      lia.
-    - (* clamp x lo hi <= BOUND_HI *)
-      assert (Z.max lo hi <= BOUND_HI) by lia.
-      lia.
+    - apply Z.le_trans with (Z.min lo hi).
+      + apply Z.min_glb; assumption.
+      + exact Hmin.
+    - apply Z.le_trans with (Z.max lo hi).
+      + exact Hmax.
+      + apply Z.max_lub; assumption.
   Qed.
 
   (** Bounded clamp: takes bounded inputs, returns bounded output. *)
@@ -329,7 +362,7 @@ Section BoundedIntegers.
     intros. unfold clamp_bounded, bounded_val, mk_bounded. simpl. reflexivity.
   Qed.
 
-  (** All properties lift to the bounded variant. *)
+  (** Properties lift to the bounded variant via the unbounded proofs. *)
 
   Theorem clamp_bounded_idempotent : forall x lo hi,
     clamp x (bounded_val lo) (bounded_val hi) =
@@ -350,16 +383,14 @@ End BoundedIntegers.
 
 (** * Machine Integer Instantiation
 
-    Instantiate for 63-bit signed integers (OCaml int on 64-bit). *)
+    Instantiate for 63-bit signed integers (OCaml int on 64-bit).
+    Note: These constants are for specification only; the clamp function
+    itself operates on mathematical integers. *)
 
 Definition INT63_MIN : Z := -(2^62).
 Definition INT63_MAX : Z := 2^62 - 1.
 
-Lemma int63_bounds_valid : INT63_MIN <= INT63_MAX.
-Proof. unfold INT63_MIN, INT63_MAX. lia. Qed.
-
 Definition int63_in_bounds := in_bounds INT63_MIN INT63_MAX.
-Definition int63 := bounded INT63_MIN INT63_MAX.
 
 (** If all inputs are valid int63, clamp produces valid int63. *)
 Theorem clamp_int63_safe : forall x lo hi,
@@ -373,22 +404,30 @@ Qed.
 
     The critical theorem: clamp never produces a value outside the
     range of its bounds, so if bounds fit in machine integers, the
-    result fits in machine integers. No overflow possible. *)
+    result fits in machine integers. *)
 
 Theorem clamp_no_overflow : forall x lo hi MIN MAX,
-  MIN <= MAX ->
-  MIN <= lo <= MAX ->
-  MIN <= hi <= MAX ->
+  MIN <= lo -> lo <= MAX ->
+  MIN <= hi -> hi <= MAX ->
   MIN <= clamp x lo hi <= MAX.
 Proof.
-  intros x lo hi MIN MAX Hvalid [HloMin HloMax] [HhiMin HhiMax].
+  intros x lo hi MIN MAX HloMin HloMax HhiMin HhiMax.
   pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
   split.
-  - assert (MIN <= Z.min lo hi) by lia. lia.
-  - assert (Z.max lo hi <= MAX) by lia. lia.
+  - apply Z.le_trans with (Z.min lo hi).
+    + apply Z.min_glb; assumption.
+    + exact Hmin.
+  - apply Z.le_trans with (Z.max lo hi).
+    + exact Hmax.
+    + apply Z.max_lub; assumption.
 Qed.
 
-(** * Extraction *)
+(** * Extraction
+
+    We extract to OCaml. The clamp function extracts to executable code.
+    Proof terms (clamp_in_bounds, clamp_no_overflow, etc.) are in Prop
+    and erase during extraction; they exist for Coq-side verification
+    only, not as runtime checks. *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -396,5 +435,4 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-(** Extract both unbounded and the closure proof components. *)
-Extraction "clamp.ml" clamp clamp_in_bounds clamp_no_overflow.
+Extraction "clamp.ml" clamp.

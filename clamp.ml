@@ -1,7 +1,4 @@
 
-type __ = Obj.t
-let __ = let rec f _ = Obj.repr f in Obj.repr f
-
 type comparison =
 | Eq
 | Lt
@@ -53,13 +50,3 @@ let clamp x lo hi =
   let lo' = Z.min lo hi in
   let hi' = Z.max lo hi in
   if Z.ltb x lo' then lo' else if Z.gtb x hi' then hi' else x
-
-(** val clamp_in_bounds : __ **)
-
-let clamp_in_bounds =
-  __
-
-(** val clamp_no_overflow : __ **)
-
-let clamp_no_overflow =
-  __
