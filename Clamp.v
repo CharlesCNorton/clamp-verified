@@ -16,15 +16,13 @@
 (******************************************************************************)
 
 (* TODO:
-   1. Relegate clamp_monotone_direct (16-way case split) to comment or
-      pedagogical note; keep algebraic proof as canonical.
-   2. In clamp_verified obligation, destruct bounds explicitly:
+   1. In clamp_verified obligation, destruct bounds explicitly:
       pose proof (safe_int_in_bounds lo) as [HloMIN HloMAX].
-   3. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
+   2. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
       stay in native int range.
-   4. Add extraction directives to replace INT63 symbolic computation with
+   3. Add extraction directives to replace INT63 symbolic computation with
       literal Int.min_int/Int.max_int.
-   5. Add extraction directives mapping Coq reals to OCaml floats
+   4. Add extraction directives mapping Coq reals to OCaml floats
       (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
 *)
 
@@ -342,13 +340,14 @@ Proof.
   exact Hxy.
 Qed.
 
-(** Alternative direct proof via case analysis. *)
+(** Alternative direct proof via case analysis (pedagogical).
+    The algebraic proof above is preferred: cleaner, faster to compile.
 
 Theorem clamp_monotone_direct : forall x y lo hi,
   x <= y -> clamp x lo hi <= clamp y lo hi.
 Proof.
   intros x y lo hi Hxy.
-  unfold clamp.
+  rewrite !clamp_conditional. simpl.
   destruct (x <? Z.min lo hi) eqn:Ex1;
   destruct (y <? Z.min lo hi) eqn:Ey1;
   destruct (x >? Z.max lo hi) eqn:Ex2;
@@ -361,6 +360,7 @@ Proof.
   apply gtb_reflect in Ey2 || apply gtb_reflect_false in Ey2;
   lia.
 Qed.
+*)
 
 (** * Proper Instance for Setoid Reasoning *)
 
