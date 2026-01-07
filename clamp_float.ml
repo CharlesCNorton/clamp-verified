@@ -1,57 +1,41 @@
-(* IEEE 754 Float Clamp - Verified Implementation
 
-   This implementation corresponds to the Coq specification in Clamp.v.
-   The theorems clamp_ieee_* prove correctness of this implementation.
+(** val negb : bool -> bool **)
 
-   IEEE 754 semantics:
-   - NaN in any operand propagates to result (quiet NaN)
-   - +∞ clamps to upper bound, -∞ clamps to lower bound
-   - Swapped bounds (lo > hi) are normalized via min/max
-   - Negative zero equals positive zero for comparison purposes
-*)
+let negb = function
+| true -> false
+| false -> true
 
-(** [clamp_float x lo hi] bounds [x] to the interval [min(lo,hi), max(lo,hi)].
+(** val eqb : Float64.t -> Float64.t -> bool **)
 
-    NaN handling: If any input is NaN, returns NaN.
-    Infinity handling: +∞ clamps to max(lo,hi), -∞ clamps to min(lo,hi).
+let eqb = Float64.eq
 
-    Verified properties (from Clamp.v):
-    - clamp_ieee_nan_propagates: NaN input → NaN output
-    - clamp_ieee_finite_in_bounds: finite inputs → result in [lo', hi']
-    - clamp_ieee_symmetric: clamp x lo hi = clamp x hi lo
-    - clamp_ieee_preserves_finite: non-NaN inputs → non-NaN output
-    - clamp_float_ieee_equiv: matches algebraic specification
-*)
-let clamp_float (x : float) (lo : float) (hi : float) : float =
-  if Float.is_nan x || Float.is_nan lo || Float.is_nan hi then
-    Float.nan
-  else
-    let lo' = Float.min lo hi in
-    let hi' = Float.max lo hi in
-    Float.max lo' (Float.min x hi')
+(** val leb : Float64.t -> Float64.t -> bool **)
 
-(** [clamp_float_safe x lo hi] returns [Some v] if lo <= hi, [None] otherwise.
+let leb = Float64.le
 
-    Use this variant when swapped bounds indicate a caller bug rather than
-    a valid alternative representation.
-*)
-let clamp_float_safe (x : float) (lo : float) (hi : float) : float option =
-  if Float.is_nan x || Float.is_nan lo || Float.is_nan hi then
-    Some Float.nan
-  else if lo <= hi then
-    Some (clamp_float x lo hi)
-  else
-    None
+(** val is_nan : Float64.t -> bool **)
 
-(** [is_clamped x lo hi] returns true if x is within [lo, hi]. *)
-let is_clamped (x : float) (lo : float) (hi : float) : bool =
-  if Float.is_nan x || Float.is_nan lo || Float.is_nan hi then
-    false
-  else
-    let lo' = Float.min lo hi in
-    let hi' = Float.max lo hi in
-    lo' <= x && x <= hi'
+let is_nan f =
+  negb (eqb f f)
 
-(** [clamp_float_list xs lo hi] clamps each element of [xs]. *)
-let clamp_float_list (xs : float list) (lo : float) (hi : float) : float list =
-  List.map (fun x -> clamp_float x lo hi) xs
+(** val prim_min : Float64.t -> Float64.t -> Float64.t **)
+
+let prim_min x y =
+  if is_nan x then x else if is_nan y then y else if leb x y then x else y
+
+(** val prim_max : Float64.t -> Float64.t -> Float64.t **)
+
+let prim_max x y =
+  if is_nan x then x else if is_nan y then y else if leb x y then y else x
+
+(** val clamp_prim : Float64.t -> Float64.t -> Float64.t -> Float64.t **)
+
+let clamp_prim x lo hi =
+  if is_nan x
+  then x
+  else if is_nan lo
+       then lo
+       else if is_nan hi
+            then hi
+            else let lo' = prim_min lo hi in
+                 let hi' = prim_max lo hi in prim_max lo' (prim_min x hi')

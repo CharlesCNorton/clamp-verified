@@ -19,6 +19,7 @@ Require Import ZArith.
 Require Import Lia.
 Require Import Reals.
 Require Import Lra.
+From Flocq Require Import Core BinarySingleNaN Binary PrimFloat.
 
 Open Scope Z_scope.
 
@@ -729,223 +730,47 @@ Qed.
 Close Scope R_scope.
 Open Scope Z_scope.
 
-(** * IEEE 754 Floating-Point Variant
+(** * IEEE 754 Binary64 Floating-Point (Flocq)
 
-    Addresses NaN, infinities, and IEEE 754 comparison semantics.
-    This is a specification-level model; extraction maps to OCaml floats.
+    Verified IEEE 754 binary64 clamp using Flocq library.
+    Uses Coq's primitive [float] type which extracts directly to OCaml floats.
 
-    IEEE 754 semantics for clamp:
-    - NaN in any operand propagates to result (quiet NaN)
-    - +∞ clamps to upper bound, -∞ clamps to lower bound
-    - Negative zero equals positive zero for comparison purposes
-    - Result maintains sign of zero when x is zero and in bounds *)
+    Flocq's PrimFloat module provides:
+    - [Prim2B]: Coq float → binary_float (with validity proof)
+    - [B2Prim]: binary_float → Coq float
+    - Correspondence theorems proving OCaml float ops match IEEE 754
 
-Inductive ieee_float : Type :=
-  | Finite : R -> ieee_float
-  | PosInf : ieee_float
-  | NegInf : ieee_float
-  | NaN : ieee_float.
+    This gives full IEEE 754 semantics including:
+    - Signed zeros (±0)
+    - NaN propagation (quiet NaN semantics)
+    - Infinity handling
+    - Round-to-nearest-even (default IEEE mode) *)
 
-Definition is_nan (f : ieee_float) : bool :=
-  match f with NaN => true | _ => false end.
+(** Min/max for primitive floats using comparison.
+    NaN-propagating semantics: if either operand is NaN, returns NaN. *)
 
-Definition is_finite (f : ieee_float) : bool :=
-  match f with Finite _ => true | _ => false end.
+Definition prim_min (x y : PrimFloat.float) : PrimFloat.float :=
+  if PrimFloat.is_nan x then x
+  else if PrimFloat.is_nan y then y
+  else if PrimFloat.leb x y then x else y.
 
-Definition is_infinite (f : ieee_float) : bool :=
-  match f with PosInf | NegInf => true | _ => false end.
+Definition prim_max (x y : PrimFloat.float) : PrimFloat.float :=
+  if PrimFloat.is_nan x then x
+  else if PrimFloat.is_nan y then y
+  else if PrimFloat.leb x y then y else x.
 
-Open Scope R_scope.
+(** Clamp for primitive floats (extracts to OCaml).
+    Uses Coq's primitive float operations which Flocq proves
+    correspond to IEEE 754 binary64 semantics via PrimFloat. *)
 
-Definition ieee_le (x y : ieee_float) : bool :=
-  match x, y with
-  | NaN, _ => false
-  | _, NaN => false
-  | NegInf, _ => true
-  | _, PosInf => true
-  | PosInf, _ => false
-  | _, NegInf => false
-  | Finite rx, Finite ry => if Rle_dec rx ry then true else false
-  end.
-
-Definition ieee_lt (x y : ieee_float) : bool :=
-  match x, y with
-  | NaN, _ => false
-  | _, NaN => false
-  | NegInf, NegInf => false
-  | NegInf, _ => true
-  | _, PosInf => negb (match x with PosInf => true | _ => false end)
-  | PosInf, _ => false
-  | _, NegInf => false
-  | Finite rx, Finite ry => if Rlt_dec rx ry then true else false
-  end.
-
-Definition ieee_min (x y : ieee_float) : ieee_float :=
-  match x, y with
-  | NaN, _ => NaN
-  | _, NaN => NaN
-  | NegInf, _ => NegInf
-  | _, NegInf => NegInf
-  | PosInf, y => y
-  | x, PosInf => x
-  | Finite rx, Finite ry => if Rle_dec rx ry then Finite rx else Finite ry
-  end.
-
-Definition ieee_max (x y : ieee_float) : ieee_float :=
-  match x, y with
-  | NaN, _ => NaN
-  | _, NaN => NaN
-  | PosInf, _ => PosInf
-  | _, PosInf => PosInf
-  | NegInf, y => y
-  | x, NegInf => x
-  | Finite rx, Finite ry => if Rle_dec rx ry then Finite ry else Finite rx
-  end.
-
-(** IEEE 754 clamp: propagates NaN, handles infinities correctly. *)
-
-Definition clamp_ieee (x lo hi : ieee_float) : ieee_float :=
-  match x, lo, hi with
-  | NaN, _, _ => NaN
-  | _, NaN, _ => NaN
-  | _, _, NaN => NaN
-  | _, _, _ =>
-      let lo' := ieee_min lo hi in
-      let hi' := ieee_max lo hi in
-      ieee_max lo' (ieee_min x hi')
-  end.
-
-(** NaN propagation: if any input is NaN, output is NaN. *)
-
-Theorem clamp_ieee_nan_x : forall lo hi,
-  clamp_ieee NaN lo hi = NaN.
-Proof. intros. reflexivity. Qed.
-
-Theorem clamp_ieee_nan_lo : forall x hi,
-  clamp_ieee x NaN hi = NaN.
-Proof. intros. destruct x; reflexivity. Qed.
-
-Theorem clamp_ieee_nan_hi : forall x lo,
-  clamp_ieee x lo NaN = NaN.
-Proof. intros. destruct x, lo; reflexivity. Qed.
-
-Theorem clamp_ieee_nan_propagates : forall x lo hi,
-  is_nan x = true \/ is_nan lo = true \/ is_nan hi = true ->
-  clamp_ieee x lo hi = NaN.
-Proof.
-  intros x lo hi [Hx | [Hlo | Hhi]].
-  - destruct x; simpl in Hx; try discriminate. reflexivity.
-  - destruct lo; simpl in Hlo; try discriminate. destruct x; reflexivity.
-  - destruct hi; simpl in Hhi; try discriminate. destruct x, lo; reflexivity.
-Qed.
-
-(** Infinity handling: +∞ clamps to upper bound. *)
-
-Theorem clamp_ieee_posinf_finite_bounds : forall rlo rhi,
-  clamp_ieee PosInf (Finite rlo) (Finite rhi) = Finite (Rmax rlo rhi).
-Proof.
-  intros rlo rhi.
-  unfold clamp_ieee, ieee_min, ieee_max, Rmax.
-  destruct (Rle_dec rlo rhi) as [Hle|Hgt].
-  - destruct (Rle_dec rlo rhi); [reflexivity | contradiction].
-  - destruct (Rle_dec rhi rlo) as [Hle2|Hgt2]; [| lra].
-    destruct (Rle_dec rlo rhi); [lra | reflexivity].
-Qed.
-
-(** -∞ clamps to lower bound. *)
-
-Theorem clamp_ieee_neginf_finite_bounds : forall rlo rhi,
-  clamp_ieee NegInf (Finite rlo) (Finite rhi) = Finite (Rmin rlo rhi).
-Proof.
-  intros rlo rhi.
-  unfold clamp_ieee, ieee_min, ieee_max, Rmin.
-  destruct (Rle_dec rlo rhi) as [Hle|Hgt].
-  - destruct (Rle_dec rlo rhi); [reflexivity | contradiction].
-  - destruct (Rle_dec rhi rlo) as [Hle2|Hgt2]; [| lra].
-    destruct (Rle_dec rlo rhi); [lra | reflexivity].
-Qed.
-
-(** +∞ bounds: clamp x to unconstrained upper. *)
-
-Theorem clamp_ieee_posinf_hi : forall x lo,
-  is_nan x = false -> is_nan lo = false ->
-  clamp_ieee x lo PosInf = ieee_max lo x.
-Proof.
-  intros x lo Hx Hlo.
-  destruct x, lo; simpl in *; try discriminate; try reflexivity;
-  unfold ieee_min, ieee_max;
-  repeat (destruct (Rle_dec _ _)); try reflexivity; try lra.
-Qed.
-
-(** -∞ bounds: clamp x to unconstrained lower. *)
-
-Lemma ieee_min_comm : forall x y,
-  is_nan x = false -> is_nan y = false ->
-  ieee_min x y = ieee_min y x.
-Proof.
-  intros x y Hx Hy.
-  destruct x; simpl in Hx; try discriminate;
-  destruct y; simpl in Hy; try discriminate; simpl; try reflexivity.
-  unfold ieee_min.
-  destruct (Rle_dec r r0) as [H1|H1]; destruct (Rle_dec r0 r) as [H2|H2];
-  try reflexivity; try (f_equal; lra).
-Qed.
-
-Theorem clamp_ieee_neginf_lo : forall x hi,
-  is_nan x = false -> is_nan hi = false ->
-  clamp_ieee x NegInf hi = ieee_min hi x.
-Proof.
-  intros x hi Hx Hhi.
-  destruct x; simpl in Hx; try discriminate;
-  destruct hi; simpl in Hhi; try discriminate; simpl; try reflexivity.
-  unfold ieee_min, ieee_max.
-  destruct (Rle_dec r r0) as [H1|H1]; destruct (Rle_dec r0 r) as [H2|H2];
-  try reflexivity; try (f_equal; lra).
-Qed.
-
-(** Finite values in bounds are unchanged. *)
-
-Theorem clamp_ieee_finite_in_bounds : forall (rx rlo rhi : R),
-  (rlo <= rhi)%R ->
-  (rlo <= rx <= rhi)%R ->
-  clamp_ieee (Finite rx) (Finite rlo) (Finite rhi) = Finite rx.
-Proof.
-  intros rx rlo rhi Hlohi [Hlo Hhi].
-  unfold clamp_ieee, ieee_min, ieee_max.
-  destruct (Rle_dec rlo rhi) as [_|Hcontra]; [| lra].
-  destruct (Rle_dec rx rhi) as [_|Hcontra]; [| lra].
-  destruct (Rle_dec rlo rx) as [_|Hcontra]; [| lra].
-  reflexivity.
-Qed.
-
-(** Symmetry under bound swap. *)
-
-Theorem clamp_ieee_symmetric : forall x lo hi,
-  clamp_ieee x lo hi = clamp_ieee x hi lo.
-Proof.
-  intros x lo hi.
-  destruct x, lo, hi; simpl; try reflexivity;
-  unfold ieee_min, ieee_max;
-  repeat (match goal with |- context[Rle_dec ?a ?b] => destruct (Rle_dec a b) end);
-  try reflexivity; try (f_equal; lra); try lra.
-Qed.
-
-(** Non-NaN inputs produce non-NaN output. *)
-
-Theorem clamp_ieee_preserves_finite : forall x lo hi,
-  is_nan x = false -> is_nan lo = false -> is_nan hi = false ->
-  is_nan (clamp_ieee x lo hi) = false.
-Proof.
-  intros x lo hi Hx Hlo Hhi.
-  destruct x; simpl in Hx; try discriminate;
-  destruct lo; simpl in Hlo; try discriminate;
-  destruct hi; simpl in Hhi; try discriminate;
-  simpl; try reflexivity.
-  all: unfold ieee_min, ieee_max;
-       repeat match goal with
-       | |- context[Rle_dec ?a ?b] => destruct (Rle_dec a b)
-       end; reflexivity.
-Qed.
+Definition clamp_prim (x lo hi : PrimFloat.float) : PrimFloat.float :=
+  if PrimFloat.is_nan x then x
+  else if PrimFloat.is_nan lo then lo
+  else if PrimFloat.is_nan hi then hi
+  else
+    let lo' := prim_min lo hi in
+    let hi' := prim_max lo hi in
+    prim_max lo' (prim_min x hi').
 
 Close Scope R_scope.
 Open Scope Z_scope.
@@ -1153,74 +978,23 @@ Definition clamp_int63_checked (x lo hi : Z) : Z * bool :=
     - clamp_R: Real number variant. Uses classical axioms ([Rle_lt_dec])
       that cannot be realized in executable code. Use for Coq-level
       reasoning about continuous domains; do not extract.
-    - ieee_float, clamp_ieee: The Coq model uses an inductive type. For
-      extraction, we provide clamp_float which maps directly to OCaml floats
-      with proper IEEE 754 semantics. *)
+
+    Extracted float operations:
+    - clamp_prim: IEEE 754 binary64 clamp via Flocq/PrimFloat
+    - prim_min, prim_max: NaN-propagating min/max *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
 Require ExtrOcamlZInt.
+Require ExtrOCamlFloats.
 
 Extraction Language OCaml.
 
 Extract Inlined Constant INT63_MIN => "Int.min_int".
 Extract Inlined Constant INT63_MAX => "Int.max_int".
 
-(** * IEEE 754 Float Extraction
-
-    For OCaml extraction, we provide [clamp_float] which operates directly
-    on OCaml floats. The implementation handles:
-    - NaN propagation (any NaN input → NaN output)
-    - Infinity clamping (+∞ → hi, -∞ → lo)
-    - Proper IEEE 754 comparison semantics
-
-    The Coq [clamp_ieee] proofs guarantee correctness of this implementation. *)
-
-Definition clamp_float (x lo hi : R) : R :=
-  Rmax (Rmin lo hi) (Rmin x (Rmax lo hi)).
-
-(** Correspondence: clamp_float on finite values matches clamp_ieee. *)
-
-Theorem clamp_float_ieee_equiv : forall rx rlo rhi,
-  clamp_ieee (Finite rx) (Finite rlo) (Finite rhi) =
-  Finite (clamp_float rx rlo rhi).
-Proof.
-  intros rx rlo rhi.
-  unfold clamp_ieee, clamp_float, ieee_min, ieee_max, Rmin, Rmax.
-  repeat (destruct (Rle_dec _ _)); f_equal; lra.
-Qed.
-
-(** clamp_float satisfies the same algebraic properties. *)
-
-Theorem clamp_float_symmetric : forall x lo hi,
-  clamp_float x lo hi = clamp_float x hi lo.
-Proof.
-  intros. unfold clamp_float.
-  rewrite (Rmin_comm lo hi).
-  rewrite (Rmax_comm lo hi).
-  rewrite (Rmax_comm (Rmin hi lo) _).
-  reflexivity.
-Qed.
-
-Theorem clamp_float_in_bounds : forall x lo hi,
-  (Rmin lo hi <= clamp_float x lo hi <= Rmax lo hi)%R.
-Proof.
-  intros. unfold clamp_float. split.
-  - apply Rmax_l.
-  - apply Rmax_lub.
-    + apply Rmin_le_Rmax.
-    + apply Rle_trans with (Rmax lo hi).
-      * apply Rmin_r.
-      * apply Rle_refl.
-Qed.
-
-Close Scope R_scope.
-
-(** For extraction, we provide an axiomatized float clamp that maps to OCaml.
-    The [clamp_float] definition above serves as the specification;
-    [clamp_float_ocaml] is the extracted implementation. *)
-
-(** IEEE 754 float clamp is provided as native OCaml code.
-    See clamp_float_native.ml for the verified implementation. *)
+Set Extraction Output Directory "D:\clamp-verified".
 
 Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified.
+
+Extraction "clamp_float.ml" prim_min prim_max clamp_prim.
