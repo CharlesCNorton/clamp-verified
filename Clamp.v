@@ -16,11 +16,9 @@
 (******************************************************************************)
 
 (* TODO:
-   1. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
-      stay in native int range.
-   2. Add extraction directives to replace INT63 symbolic computation with
+   1. Add extraction directives to replace INT63 symbolic computation with
       literal Int.min_int/Int.max_int.
-   3. Add extraction directives mapping Coq reals to OCaml floats
+   2. Add extraction directives mapping Coq reals to OCaml floats
       (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
 *)
 
@@ -510,6 +508,48 @@ Theorem clamp_int63_safe : forall x lo hi,
   int63_in_bounds (clamp x lo hi).
 Proof.
   intros. apply clamp_closed; assumption.
+Qed.
+
+(** Intermediate computations stay in range.
+    When bounds are valid int63, Z.min and Z.max of bounds are also valid.
+    This guarantees no overflow in any subexpression of clamp. *)
+
+Theorem zmin_in_bounds : forall lo hi,
+  int63_in_bounds lo -> int63_in_bounds hi ->
+  int63_in_bounds (Z.min lo hi).
+Proof.
+  intros lo hi [HloMin HloMax] [HhiMin HhiMax].
+  unfold int63_in_bounds, in_bounds. split.
+  - apply Z.min_glb; assumption.
+  - apply Z.le_trans with lo.
+    + apply Z.le_min_l.
+    + exact HloMax.
+Qed.
+
+Theorem zmax_in_bounds : forall lo hi,
+  int63_in_bounds lo -> int63_in_bounds hi ->
+  int63_in_bounds (Z.max lo hi).
+Proof.
+  intros lo hi [HloMin HloMax] [HhiMin HhiMax].
+  unfold int63_in_bounds, in_bounds. split.
+  - apply Z.le_trans with lo.
+    + exact HloMin.
+    + apply Z.le_max_l.
+  - apply Z.max_lub; assumption.
+Qed.
+
+Theorem clamp_intermediates_safe : forall x lo hi,
+  int63_in_bounds lo -> int63_in_bounds hi ->
+  int63_in_bounds (Z.min lo hi) /\
+  int63_in_bounds (Z.max lo hi) /\
+  int63_in_bounds (clamp x lo hi).
+Proof.
+  intros x lo hi Hlo Hhi.
+  split.
+  - apply zmin_in_bounds; assumption.
+  - split.
+    + apply zmax_in_bounds; assumption.
+    + apply clamp_int63_safe; assumption.
 Qed.
 
 (** * Real Number Variant
