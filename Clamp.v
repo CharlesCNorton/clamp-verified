@@ -16,8 +16,6 @@
 (******************************************************************************)
 
 (* TODO:
-   - Fix make_safe obligation: use exact H instead of split; assumption.
-   - Fix clamp_verified obligation: destruct safe_int_in_bounds conjunction.
    - Make clamp_R computable: replace Rle_dec with Rle_lt_dec.
    - Add clamp_safe : Z -> Z -> Z -> option Z with runtime bounds check.
    - Add Hint database for downstream proof automation.
