@@ -16,21 +16,15 @@
 (******************************************************************************)
 
 (* TODO:
-   1. Consider making algebraic form (Z.max lo' (Z.min x hi')) the primary
-      definition to collapse case-analysis proofs.
-   2. Refactor clamp_fixpoint_min/clamp_fixpoint_max to derive from
-      clamp_fixpoint_interior + min_le_max instead of redoing boolean destructs.
-   3. Refactor clamp_change_iff to use existing clamp_trichotomy and
-      clamp_fixpoint_interior instead of re-unfolding clamp.
-   4. Relegate clamp_monotone_direct (16-way case split) to comment or
+   1. Relegate clamp_monotone_direct (16-way case split) to comment or
       pedagogical note; keep algebraic proof as canonical.
-   5. In clamp_verified obligation, destruct bounds explicitly:
+   2. In clamp_verified obligation, destruct bounds explicitly:
       pose proof (safe_int_in_bounds lo) as [HloMIN HloMAX].
-   6. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
+   3. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
       stay in native int range.
-   7. Add extraction directives to replace INT63 symbolic computation with
+   4. Add extraction directives to replace INT63 symbolic computation with
       literal Int.min_int/Int.max_int.
-   8. Add extraction directives mapping Coq reals to OCaml floats
+   5. Add extraction directives mapping Coq reals to OCaml floats
       (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
 *)
 
@@ -49,11 +43,37 @@ Open Scope Z_scope.
     lo > hi, ensuring the function is total and symmetric. *)
 
 Definition clamp (x lo hi : Z) : Z :=
+  Z.max (Z.min lo hi) (Z.min x (Z.max lo hi)).
+
+(** Equivalence to conditional form, useful for computation and extraction. *)
+Lemma clamp_conditional : forall x lo hi,
+  clamp x lo hi =
   let lo' := Z.min lo hi in
   let hi' := Z.max lo hi in
   if x <? lo' then lo'
   else if x >? hi' then hi'
   else x.
+Proof.
+  intros x lo hi.
+  unfold clamp.
+  assert (Hminmax: Z.min lo hi <= Z.max lo hi) by
+    (apply Z.le_trans with lo; [apply Z.le_min_l | apply Z.le_max_l]).
+  destruct (x <? Z.min lo hi) eqn:E1.
+  - apply Z.ltb_lt in E1.
+    rewrite (Z.min_l x (Z.max lo hi)) by lia.
+    rewrite Z.max_l by lia.
+    reflexivity.
+  - apply Z.ltb_ge in E1.
+    destruct (x >? Z.max lo hi) eqn:E2.
+    + apply Z.gtb_lt in E2.
+      rewrite (Z.min_r x (Z.max lo hi)) by lia.
+      rewrite Z.max_r by exact Hminmax.
+      reflexivity.
+    + rewrite Z.gtb_ltb in E2. apply Z.ltb_ge in E2.
+      rewrite (Z.min_l x (Z.max lo hi)) by exact E2.
+      rewrite Z.max_r by exact E1.
+      reflexivity.
+Qed.
 
 (** * Auxiliary Lemmas
 
@@ -92,31 +112,16 @@ Qed.
 Theorem clamp_lower_bound : forall x lo hi,
   Z.min lo hi <= clamp x lo hi.
 Proof.
-  intros x lo hi.
-  unfold clamp.
-  destruct (x <? Z.min lo hi) eqn:E1.
-  - (* x < min: return min *)
-    apply Z.le_refl.
-  - destruct (x >? Z.max lo hi) eqn:E2.
-    + (* x > max: return max >= min *)
-      apply min_le_max.
-    + (* min <= x <= max: return x *)
-      apply ltb_reflect_false in E1. exact E1.
+  intros x lo hi. unfold clamp. apply Z.le_max_l.
 Qed.
 
 Theorem clamp_upper_bound : forall x lo hi,
   clamp x lo hi <= Z.max lo hi.
 Proof.
-  intros x lo hi.
-  unfold clamp.
-  destruct (x <? Z.min lo hi) eqn:E1.
-  - (* x < min: return min <= max *)
-    apply min_le_max.
-  - destruct (x >? Z.max lo hi) eqn:E2.
-    + (* x > max: return max *)
-      apply Z.le_refl.
-    + (* min <= x <= max: return x *)
-      apply gtb_reflect_false in E2. exact E2.
+  intros x lo hi. unfold clamp.
+  apply Z.max_lub.
+  - apply min_le_max.
+  - apply Z.le_min_r.
 Qed.
 
 Theorem clamp_in_bounds : forall x lo hi,
@@ -187,7 +192,7 @@ Theorem clamp_trichotomy : forall x lo hi,
   clamp_result x lo hi (clamp x lo hi).
 Proof.
   intros x lo hi.
-  unfold clamp.
+  rewrite clamp_conditional. simpl.
   destruct (x <? Z.min lo hi) eqn:E1.
   - apply ltb_reflect in E1. apply clamp_at_min. exact E1.
   - destruct (x >? Z.max lo hi) eqn:E2.
@@ -206,55 +211,25 @@ Proof.
     destruct Htri as [Hlt | Hgt | [Hlo Hhi]].
     + left. exact Hlt.
     + right. exact Hgt.
-    + exfalso. apply Hne.
-      unfold clamp.
-      destruct (x <? Z.min lo hi) eqn:E1.
-      * apply ltb_reflect in E1. lia.
-      * destruct (x >? Z.max lo hi) eqn:E2.
-        -- apply gtb_reflect in E2. lia.
-        -- reflexivity.
+    + exfalso. apply Hne. reflexivity.
   - intros [Hlt | Hgt].
     + unfold clamp.
-      apply Z.ltb_lt in Hlt. rewrite Hlt.
-      lia.
+      rewrite (Z.min_l x (Z.max lo hi)) by (apply Z.le_trans with (Z.min lo hi); [lia | apply min_le_max]).
+      rewrite Z.max_l by lia. lia.
     + unfold clamp.
-      destruct (x <? Z.min lo hi) eqn:E1.
-      * apply ltb_reflect in E1. lia.
-      * assert (Hgtb: (x >? Z.max lo hi) = true) by (apply Z.gtb_lt; lia).
-        rewrite Hgtb. lia.
+      rewrite (Z.min_r x (Z.max lo hi)) by lia.
+      rewrite Z.max_r by apply min_le_max. lia.
 Qed.
 
-(** * Algebraic Equivalence
+(** * Algebraic Form
 
-    clamp can be expressed purely in terms of Z.min and Z.max.
-    This equivalence simplifies reasoning about algebraic properties. *)
+    clamp is defined as Z.max (Z.min lo hi) (Z.min x (Z.max lo hi)).
+    This lemma is now definitional. *)
 
 Theorem clamp_algebraic : forall x lo hi,
   clamp x lo hi = Z.max (Z.min lo hi) (Z.min x (Z.max lo hi)).
 Proof.
-  intros x lo hi.
-  unfold clamp.
-  destruct (x <? Z.min lo hi) eqn:E1.
-  - (* x < min lo hi *)
-    apply ltb_reflect in E1.
-    assert (Hxmax: x <= Z.max lo hi) by
-      (apply Z.le_trans with (Z.min lo hi); [apply Z.lt_le_incl; exact E1 | apply min_le_max]).
-    replace (Z.min x (Z.max lo hi)) with x by (symmetry; apply Z.min_l; exact Hxmax).
-    replace (Z.max (Z.min lo hi) x) with (Z.min lo hi) by (symmetry; apply Z.max_l; apply Z.lt_le_incl; exact E1).
-    reflexivity.
-  - destruct (x >? Z.max lo hi) eqn:E2.
-    + (* x > max lo hi *)
-      apply gtb_reflect in E2.
-      assert (Hmaxlex: Z.max lo hi <= x) by (apply Z.gt_lt_iff in E2; apply Z.lt_le_incl; exact E2).
-      replace (Z.min x (Z.max lo hi)) with (Z.max lo hi) by (symmetry; apply Z.min_r; exact Hmaxlex).
-      replace (Z.max (Z.min lo hi) (Z.max lo hi)) with (Z.max lo hi) by (symmetry; apply Z.max_r; apply min_le_max).
-      reflexivity.
-    + (* min lo hi <= x <= max lo hi *)
-      apply ltb_reflect_false in E1.
-      apply gtb_reflect_false in E2.
-      replace (Z.min x (Z.max lo hi)) with x by (symmetry; apply Z.min_l; exact E2).
-      replace (Z.max (Z.min lo hi) x) with x by (symmetry; apply Z.max_r; exact E1).
-      reflexivity.
+  intros x lo hi. reflexivity.
 Qed.
 
 (** * Fixpoints at Bounds
@@ -264,47 +239,27 @@ Qed.
 Theorem clamp_fixpoint_min : forall lo hi,
   clamp (Z.min lo hi) lo hi = Z.min lo hi.
 Proof.
-  intros lo hi.
-  unfold clamp.
-  destruct (Z.min lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1. exfalso. apply (Z.lt_irrefl _ E1).
-  - destruct (Z.min lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
-      exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
-      apply Z.le_lt_trans with (Z.max lo hi); [apply min_le_max | exact E2].
-    + reflexivity.
+  intros lo hi. unfold clamp.
+  replace (Z.min (Z.min lo hi) (Z.max lo hi)) with (Z.min lo hi)
+    by (symmetry; apply Z.min_l; apply min_le_max).
+  apply Z.max_id.
 Qed.
 
 Theorem clamp_fixpoint_max : forall lo hi,
   clamp (Z.max lo hi) lo hi = Z.max lo hi.
 Proof.
-  intros lo hi.
-  unfold clamp.
-  destruct (Z.max lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1.
-    exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
-    apply Z.le_lt_trans with (Z.max lo hi); [apply min_le_max | exact E1].
-  - destruct (Z.max lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
-      exfalso. apply (Z.lt_irrefl _ E2).
-    + reflexivity.
+  intros lo hi. unfold clamp.
+  rewrite Z.min_id.
+  apply Z.max_r. apply min_le_max.
 Qed.
 
 Theorem clamp_fixpoint_interior : forall x lo hi,
   Z.min lo hi <= x <= Z.max lo hi ->
   clamp x lo hi = x.
 Proof.
-  intros x lo hi [Hlo Hhi].
-  unfold clamp.
-  destruct (x <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1.
-    exfalso. apply (Z.lt_irrefl x).
-    apply Z.lt_le_trans with (Z.min lo hi); assumption.
-  - destruct (x >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
-      exfalso. apply (Z.lt_irrefl x).
-      apply Z.le_lt_trans with (Z.max lo hi); [assumption | exact E2].
-    + reflexivity.
+  intros x lo hi [Hlo Hhi]. unfold clamp.
+  rewrite (Z.min_l x (Z.max lo hi)) by exact Hhi.
+  apply Z.max_r. exact Hlo.
 Qed.
 
 (** * Idempotence
@@ -325,10 +280,9 @@ Qed.
 Theorem clamp_symmetric : forall x lo hi,
   clamp x lo hi = clamp x hi lo.
 Proof.
-  intros x lo hi.
-  unfold clamp.
-  rewrite Z.min_comm.
-  rewrite Z.max_comm.
+  intros x lo hi. unfold clamp.
+  rewrite (Z.min_comm lo hi).
+  rewrite (Z.max_comm lo hi).
   reflexivity.
 Qed.
 
@@ -446,11 +400,10 @@ Proof.
   rewrite Z.min_l in Hmin by lia.
   rewrite Z.max_r in Hmax by lia.
   unfold clamp at 1.
-  rewrite Z.min_l by lia.
-  rewrite Z.max_r by lia.
-  assert (clamp x lo1 hi1 <? lo2 = true) as E.
-  { apply Z.ltb_lt. lia. }
-  rewrite E. reflexivity.
+  replace (Z.min lo2 hi2) with lo2 by (symmetry; apply Z.min_l; lia).
+  replace (Z.max lo2 hi2) with hi2 by (symmetry; apply Z.max_r; lia).
+  rewrite (Z.min_l (clamp x lo1 hi1) hi2) by lia.
+  apply Z.max_l. lia.
 Qed.
 
 Theorem clamp_disjoint_right : forall x lo1 hi1 lo2 hi2,
@@ -462,13 +415,10 @@ Proof.
   rewrite Z.min_l in Hmin by lia.
   rewrite Z.max_r in Hmax by lia.
   unfold clamp at 1.
-  rewrite Z.min_l by lia.
-  rewrite Z.max_r by lia.
-  assert (clamp x lo1 hi1 <? lo2 = false) as E1.
-  { apply Z.ltb_ge. lia. }
-  assert (clamp x lo1 hi1 >? hi2 = true) as E2.
-  { apply Z.gtb_lt. lia. }
-  rewrite E1, E2. reflexivity.
+  replace (Z.min lo2 hi2) with lo2 by (symmetry; apply Z.min_l; lia).
+  replace (Z.max lo2 hi2) with hi2 by (symmetry; apply Z.max_r; lia).
+  rewrite (Z.min_r (clamp x lo1 hi1) hi2) by lia.
+  apply Z.max_r. lia.
 Qed.
 
 (** * Bounded Integer Variant
