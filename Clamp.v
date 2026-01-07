@@ -15,6 +15,25 @@
 (*                                                                            *)
 (******************************************************************************)
 
+(* TODO:
+   1. Consider making algebraic form (Z.max lo' (Z.min x hi')) the primary
+      definition to collapse case-analysis proofs.
+   2. Refactor clamp_fixpoint_min/clamp_fixpoint_max to derive from
+      clamp_fixpoint_interior + min_le_max instead of redoing boolean destructs.
+   3. Refactor clamp_change_iff to use existing clamp_trichotomy and
+      clamp_fixpoint_interior instead of re-unfolding clamp.
+   4. Relegate clamp_monotone_direct (16-way case split) to comment or
+      pedagogical note; keep algebraic proof as canonical.
+   5. In clamp_verified obligation, destruct bounds explicitly:
+      pose proof (safe_int_in_bounds lo) as [HloMIN HloMAX].
+   6. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
+      stay in native int range.
+   7. Add extraction directives to replace INT63 symbolic computation with
+      literal Int.min_int/Int.max_int.
+   8. Add extraction directives mapping Coq reals to OCaml floats
+      (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
+*)
+
 Require Import ZArith.
 Require Import Lia.
 Require Import Morphisms.
