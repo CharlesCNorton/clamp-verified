@@ -15,6 +15,19 @@
 (*                                                                            *)
 (******************************************************************************)
 
+(* TODO:
+   - Fix comment: change "used by clamp_closed" to "used by clamp_verified".
+   - Fix make_safe obligation: use exact H instead of split; assumption.
+   - Fix clamp_verified obligation: destruct safe_int_in_bounds conjunction.
+   - Move Reals/Lra imports into separate module for integer-only users.
+   - Document clamp_R as specification-only in section header.
+   - Document ExtrOcamlZInt bounded semantics caveat in extraction section.
+   - Add Hint database for downstream proof automation.
+   - Add composition law for overlapping intervals.
+   - Add concrete witnesses (Example and Compute on specific values).
+   - Add negative tests demonstrating rejection of invalid inputs.
+*)
+
 Require Import ZArith.
 Require Import Lia.
 Require Import Morphisms.
@@ -192,28 +205,6 @@ Proof.
       reflexivity.
 Qed.
 
-(** * Idempotence
-
-    Clamping an already-clamped value has no effect.
-    This is essential for compositional reasoning. *)
-
-Theorem clamp_idempotent : forall x lo hi,
-  clamp (clamp x lo hi) lo hi = clamp x lo hi.
-Proof.
-  intros x lo hi.
-  pose proof (clamp_in_bounds x lo hi) as [Hlo Hhi].
-  unfold clamp at 1.
-  destruct (clamp x lo hi <? Z.min lo hi) eqn:E1.
-  - apply ltb_reflect in E1.
-    exfalso. apply (Z.lt_irrefl (Z.min lo hi)).
-    apply Z.le_lt_trans with (clamp x lo hi); assumption.
-  - destruct (clamp x lo hi >? Z.max lo hi) eqn:E2.
-    + apply gtb_reflect in E2. apply Z.gt_lt_iff in E2.
-      exfalso. apply (Z.lt_irrefl (Z.max lo hi)).
-      apply Z.lt_le_trans with (clamp x lo hi); assumption.
-    + reflexivity.
-Qed.
-
 (** * Fixpoints at Bounds
 
     Values at the bounds are unchanged by clamping. *)
@@ -264,6 +255,17 @@ Proof.
     + reflexivity.
 Qed.
 
+(** * Idempotence
+
+    Clamping an already-clamped value has no effect.
+    This is essential for compositional reasoning. *)
+
+Theorem clamp_idempotent : forall x lo hi,
+  clamp (clamp x lo hi) lo hi = clamp x lo hi.
+Proof.
+  intros. apply clamp_fixpoint_interior. apply clamp_in_bounds.
+Qed.
+
 (** * Symmetry Under Bound Swap
 
     Swapping lo and hi does not change the result. *)
@@ -291,6 +293,26 @@ Proof.
   apply Z.max_le_compat_l.
   apply Z.min_le_compat_r.
   exact Hxy.
+Qed.
+
+(** Alternative direct proof via case analysis. *)
+
+Theorem clamp_monotone_direct : forall x y lo hi,
+  x <= y -> clamp x lo hi <= clamp y lo hi.
+Proof.
+  intros x y lo hi Hxy.
+  unfold clamp.
+  destruct (x <? Z.min lo hi) eqn:Ex1;
+  destruct (y <? Z.min lo hi) eqn:Ey1;
+  destruct (x >? Z.max lo hi) eqn:Ex2;
+  destruct (y >? Z.max lo hi) eqn:Ey2;
+  try apply Z.le_refl;
+  try apply min_le_max;
+  apply ltb_reflect in Ex1 || apply ltb_reflect_false in Ex1;
+  apply ltb_reflect in Ey1 || apply ltb_reflect_false in Ey1;
+  apply gtb_reflect in Ex2 || apply gtb_reflect_false in Ex2;
+  apply gtb_reflect in Ey2 || apply gtb_reflect_false in Ey2;
+  lia.
 Qed.
 
 (** * Proper Instance for Setoid Reasoning *)
@@ -352,8 +374,12 @@ Section BoundedIntegers.
     unfold in_bounds.
     pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
     split.
-    - apply Z.le_trans with (Z.min lo hi); [apply Z.min_glb | ]; assumption.
-    - apply Z.le_trans with (Z.max lo hi); [ | apply Z.max_lub]; assumption.
+    - apply Z.le_trans with (Z.min lo hi).
+      + apply Z.min_glb; assumption.
+      + assumption.
+    - apply Z.le_trans with (Z.max lo hi).
+      + assumption.
+      + apply Z.max_lub; assumption.
   Qed.
 
   (** Bounded clamp: takes bounded inputs, returns bounded output. *)
@@ -533,8 +559,12 @@ Proof.
   intros x lo hi MIN MAX HloMin HloMax HhiMin HhiMax.
   pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
   split.
-  - apply Z.le_trans with (Z.min lo hi); [apply Z.min_glb | ]; assumption.
-  - apply Z.le_trans with (Z.max lo hi); [ | apply Z.max_lub]; assumption.
+  - apply Z.le_trans with (Z.min lo hi).
+    + apply Z.min_glb; assumption.
+    + assumption.
+  - apply Z.le_trans with (Z.max lo hi).
+    + assumption.
+    + apply Z.max_lub; assumption.
 Qed.
 
 (** * Verified Clamp for Coq-Level Reasoning
