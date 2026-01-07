@@ -60,10 +60,6 @@ val clamp : int -> int -> int -> int
 
 val clamp_safe : int -> int -> int -> int option
 
-val iNT63_MIN : int
-
-val iNT63_MAX : int
-
 val clamp_list : int list -> int -> int -> int list
 
 val check_bounds : int -> int -> int -> bool

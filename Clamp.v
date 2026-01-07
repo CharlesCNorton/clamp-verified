@@ -16,9 +16,7 @@
 (******************************************************************************)
 
 (* TODO:
-   1. Add extraction directives to replace INT63 symbolic computation with
-      literal Int.min_int/Int.max_int.
-   2. Add extraction directives mapping Coq reals to OCaml floats
+   1. Add extraction directives mapping Coq reals to OCaml floats
       (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
 *)
 
@@ -826,5 +824,10 @@ Require ExtrOcamlBasic.
 Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
+
+(** Replace INT63 symbolic computation with literal Int.min_int/Int.max_int.
+    These constants are computed at Coq level but extract to efficient literals. *)
+Extract Inlined Constant INT63_MIN => "Int.min_int".
+Extract Inlined Constant INT63_MAX => "Int.max_int".
 
 Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified.

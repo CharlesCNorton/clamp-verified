@@ -198,20 +198,6 @@ let clamp x lo hi =
 let clamp_safe x lo hi =
   if Z.leb lo hi then Some (clamp x lo hi) else None
 
-(** val iNT63_MIN : int **)
-
-let iNT63_MIN =
-  Z.opp
-    (Z.pow ((fun p->2*p) 1) ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-      ((fun p->1+2*p) ((fun p->1+2*p) 1))))))
-
-(** val iNT63_MAX : int **)
-
-let iNT63_MAX =
-  Z.sub
-    (Z.pow ((fun p->2*p) 1) ((fun p->2*p) ((fun p->1+2*p) ((fun p->1+2*p)
-      ((fun p->1+2*p) ((fun p->1+2*p) 1)))))) 1
-
 (** val clamp_list : int list -> int -> int -> int list **)
 
 let clamp_list xs lo hi =
@@ -243,14 +229,14 @@ let clamp_checked mIN mAX x lo hi =
 (** val clamp_int63_verified : int -> safe_int -> safe_int -> safe_int **)
 
 let clamp_int63_verified x lo hi =
-  clamp_verified iNT63_MIN iNT63_MAX x lo hi
+  clamp_verified Int.min_int Int.max_int x lo hi
 
 (** val check_int63_bounds : int -> bool **)
 
 let check_int63_bounds =
-  check_bounds iNT63_MIN iNT63_MAX
+  check_bounds Int.min_int Int.max_int
 
 (** val clamp_int63_checked : int -> int -> int -> int * bool **)
 
 let clamp_int63_checked x lo hi =
-  clamp_checked iNT63_MIN iNT63_MAX x lo hi
+  clamp_checked Int.min_int Int.max_int x lo hi
