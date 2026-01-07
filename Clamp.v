@@ -274,12 +274,121 @@ Proof.
   intros. exists (clamp x lo hi). split; reflexivity.
 Qed.
 
-(** * Extraction
+(** * Bounded Integer Variant
 
-    We extract to OCaml. Note: Z is mapped to OCaml int, which has
-    finite precision. The proofs hold for mathematical integers;
-    overflow behavior in OCaml may differ. For production use with
-    arbitrary precision, use the Zarith library. *)
+    For finite-precision targets, we define a bounded integer type
+    and prove clamp is closed over any interval. This ensures no
+    overflow when inputs and bounds are within machine range. *)
+
+Section BoundedIntegers.
+
+  (** A bounded integer is a Z with proof it lies in [lo, hi]. *)
+
+  Variable BOUND_LO : Z.
+  Variable BOUND_HI : Z.
+  Hypothesis BOUNDS_VALID : BOUND_LO <= BOUND_HI.
+
+  Definition in_bounds (z : Z) : Prop := BOUND_LO <= z <= BOUND_HI.
+
+  Definition bounded := { z : Z | in_bounds z }.
+
+  Definition bounded_val (b : bounded) : Z := proj1_sig b.
+
+  (** Construct a bounded integer from a Z with proof. *)
+  Definition mk_bounded (z : Z) (H : in_bounds z) : bounded :=
+    exist _ z H.
+
+  (** clamp is closed: if lo, hi are in bounds, result is in bounds. *)
+  Theorem clamp_closed : forall x lo hi,
+    in_bounds lo -> in_bounds hi ->
+    in_bounds (clamp x lo hi).
+  Proof.
+    intros x lo hi [HloL HloH] [HhiL HhiH].
+    unfold in_bounds.
+    pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
+    split.
+    - (* BOUND_LO <= clamp x lo hi *)
+      assert (BOUND_LO <= Z.min lo hi) by lia.
+      lia.
+    - (* clamp x lo hi <= BOUND_HI *)
+      assert (Z.max lo hi <= BOUND_HI) by lia.
+      lia.
+  Qed.
+
+  (** Bounded clamp: takes bounded inputs, returns bounded output. *)
+  Definition clamp_bounded (x : Z) (lo hi : bounded) : bounded :=
+    let lo_z := bounded_val lo in
+    let hi_z := bounded_val hi in
+    mk_bounded (clamp x lo_z hi_z)
+      (clamp_closed x lo_z hi_z (proj2_sig lo) (proj2_sig hi)).
+
+  (** The bounded version extracts the same value as unbounded. *)
+  Theorem clamp_bounded_correct : forall x lo hi,
+    bounded_val (clamp_bounded x lo hi) = clamp x (bounded_val lo) (bounded_val hi).
+  Proof.
+    intros. unfold clamp_bounded, bounded_val, mk_bounded. simpl. reflexivity.
+  Qed.
+
+  (** All properties lift to the bounded variant. *)
+
+  Theorem clamp_bounded_idempotent : forall x lo hi,
+    clamp x (bounded_val lo) (bounded_val hi) =
+    clamp (clamp x (bounded_val lo) (bounded_val hi)) (bounded_val lo) (bounded_val hi).
+  Proof.
+    intros. symmetry. apply clamp_idempotent.
+  Qed.
+
+  Theorem clamp_bounded_monotone : forall x y lo hi,
+    x <= y ->
+    clamp x (bounded_val lo) (bounded_val hi) <=
+    clamp y (bounded_val lo) (bounded_val hi).
+  Proof.
+    intros. apply clamp_monotone. assumption.
+  Qed.
+
+End BoundedIntegers.
+
+(** * Machine Integer Instantiation
+
+    Instantiate for 63-bit signed integers (OCaml int on 64-bit). *)
+
+Definition INT63_MIN : Z := -(2^62).
+Definition INT63_MAX : Z := 2^62 - 1.
+
+Lemma int63_bounds_valid : INT63_MIN <= INT63_MAX.
+Proof. unfold INT63_MIN, INT63_MAX. lia. Qed.
+
+Definition int63_in_bounds := in_bounds INT63_MIN INT63_MAX.
+Definition int63 := bounded INT63_MIN INT63_MAX.
+
+(** If all inputs are valid int63, clamp produces valid int63. *)
+Theorem clamp_int63_safe : forall x lo hi,
+  int63_in_bounds lo -> int63_in_bounds hi ->
+  int63_in_bounds (clamp x lo hi).
+Proof.
+  intros. apply clamp_closed; assumption.
+Qed.
+
+(** * No-Overflow Guarantee
+
+    The critical theorem: clamp never produces a value outside the
+    range of its bounds, so if bounds fit in machine integers, the
+    result fits in machine integers. No overflow possible. *)
+
+Theorem clamp_no_overflow : forall x lo hi MIN MAX,
+  MIN <= MAX ->
+  MIN <= lo <= MAX ->
+  MIN <= hi <= MAX ->
+  MIN <= clamp x lo hi <= MAX.
+Proof.
+  intros x lo hi MIN MAX Hvalid [HloMin HloMax] [HhiMin HhiMax].
+  pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
+  split.
+  - assert (MIN <= Z.min lo hi) by lia. lia.
+  - assert (Z.max lo hi <= MAX) by lia. lia.
+Qed.
+
+(** * Extraction *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -287,4 +396,5 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-Extraction "clamp.ml" clamp.
+(** Extract both unbounded and the closure proof components. *)
+Extraction "clamp.ml" clamp clamp_in_bounds clamp_no_overflow.

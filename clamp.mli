@@ -1,4 +1,6 @@
 
+type __ = Obj.t
+
 type comparison =
 | Eq
 | Lt
@@ -25,3 +27,7 @@ module Z :
  end
 
 val clamp : int -> int -> int -> int
+
+val clamp_in_bounds : __
+
+val clamp_no_overflow : __
