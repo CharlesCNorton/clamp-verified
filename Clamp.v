@@ -16,13 +16,11 @@
 (******************************************************************************)
 
 (* TODO:
-   1. In clamp_verified obligation, destruct bounds explicitly:
-      pose proof (safe_int_in_bounds lo) as [HloMIN HloMAX].
-   2. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
+   1. Add theorem proving intermediate computations (Z.min, Z.max, comparisons)
       stay in native int range.
-   3. Add extraction directives to replace INT63 symbolic computation with
+   2. Add extraction directives to replace INT63 symbolic computation with
       literal Int.min_int/Int.max_int.
-   4. Add extraction directives mapping Coq reals to OCaml floats
+   3. Add extraction directives mapping Coq reals to OCaml floats
       (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
 *)
 
@@ -699,12 +697,10 @@ Section VerifiedClamp.
   Program Definition clamp_verified (x : Z) (lo hi : safe_int) : safe_int :=
     mk_safe_int (clamp x (safe_val lo) (safe_val hi)) _.
   Next Obligation.
+    pose proof (safe_int_in_bounds lo) as [HloMIN HloMAX].
+    pose proof (safe_int_in_bounds hi) as [HhiMIN HhiMAX].
     apply check_bounds_correct.
-    apply clamp_no_overflow.
-    - apply safe_int_in_bounds.
-    - apply safe_int_in_bounds.
-    - apply safe_int_in_bounds.
-    - apply safe_int_in_bounds.
+    apply clamp_no_overflow; assumption.
   Defined.
 
   (** The verified version computes the same value. *)
