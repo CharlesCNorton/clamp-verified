@@ -16,7 +16,6 @@
 (******************************************************************************)
 
 (* TODO:
-   - Fix comment: change "used by clamp_closed" to "used by clamp_verified".
    - Fix make_safe obligation: use exact H instead of split; assumption.
    - Fix clamp_verified obligation: destruct safe_int_in_bounds conjunction.
    - Move Reals/Lra imports into separate module for integer-only users.
@@ -548,7 +547,7 @@ Qed.
 (** * No-Overflow Guarantee
 
     The canonical overflow-safety theorem: if bounds fit in [MIN, MAX],
-    the result fits in [MIN, MAX]. Used by [clamp_closed] in sections
+    the result fits in [MIN, MAX]. Used by [clamp_verified] in sections
     and by extraction-time safety proofs. *)
 
 Theorem clamp_no_overflow : forall x lo hi MIN MAX,
