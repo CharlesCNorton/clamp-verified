@@ -15,10 +15,7 @@
 (*                                                                            *)
 (******************************************************************************)
 
-(* TODO:
-   1. Add extraction directives mapping Coq reals to OCaml floats
-      (Rmin -> Float.min, Rle_lt_dec -> <=), with NaN caveat comment.
-*)
+(* No remaining TODOs. *)
 
 Require Import ZArith.
 Require Import Lia.
@@ -830,4 +827,23 @@ Extraction Language OCaml.
 Extract Inlined Constant INT63_MIN => "Int.min_int".
 Extract Inlined Constant INT63_MAX => "Int.max_int".
 
-Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified.
+(** Extraction of Coq reals to OCaml floats.
+    The Coq proofs assume exact real arithmetic. The extracted code uses
+    IEEE 754 floats which have finite precision, rounding, and special
+    values (NaN, ±infinity). For clamp_R specifically:
+    - Comparisons and min/max are exact for normal floats
+    - NaN behavior is unspecified (follows OCaml float semantics)
+    - No arithmetic is performed, so no rounding errors accumulate *)
+Extract Inlined Constant R => "float".
+Extract Inlined Constant R0 => "0.0".
+Extract Inlined Constant R1 => "1.0".
+Extract Inlined Constant Rplus => "( +. )".
+Extract Inlined Constant Rminus => "( -. )".
+Extract Inlined Constant Rmult => "( *. )".
+Extract Inlined Constant Ropp => "(fun x -> -. x)".
+Extract Inlined Constant Rinv => "(fun x -> 1.0 /. x)".
+Extract Inlined Constant Rmin => "Float.min".
+Extract Inlined Constant Rmax => "Float.max".
+Extract Inlined Constant Rle_lt_dec => "(fun x y -> x <= y)".
+
+Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified clamp_R.

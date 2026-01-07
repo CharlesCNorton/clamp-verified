@@ -1,1653 +1,1653 @@
-DIGEST 098e99a66a3e34fe248b128acf3ecca4
+DIGEST 6c9a2cb5bc85c642139702ac08ac5a50
 FClamp
-R1461:1466 Coq.ZArith.ZArith <> <> lib
-R1484:1486 Coq.micromega.Lia <> <> lib
-R1504:1512 Coq.Classes.Morphisms <> <> lib
-R1530:1534 Coq.Reals.Reals <> <> lib
-R1552:1554 Coq.micromega.Lra <> <> lib
-def 1804:1808 <> clamp
-R1821:1821 Coq.Numbers.BinNums <> Z ind
-binder 1811:1811 <> x:1
-binder 1813:1814 <> lo:2
-binder 1816:1817 <> hi:3
-R1826:1826 Coq.Numbers.BinNums <> Z ind
-R1833:1837 Coq.ZArith.BinInt Z max def
-R1840:1844 Coq.ZArith.BinInt Z min def
-R1846:1847 Clamp <> lo:2 var
-R1849:1850 Clamp <> hi:3 var
-R1854:1858 Coq.ZArith.BinInt Z min def
-R1860:1860 Clamp <> x:1 var
-R1863:1867 Coq.ZArith.BinInt Z max def
-R1869:1870 Clamp <> lo:2 var
-R1872:1873 Clamp <> hi:3 var
-prf 1964:1980 <> clamp_conditional
-binder 1991:1991 <> x:4
-binder 1993:1994 <> lo:5
-binder 1996:1997 <> hi:6
-R2015:2019 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2002:2006 Clamp <> clamp def
-R2008:2008 Clamp <> x:4 var
-R2010:2011 Clamp <> lo:5 var
-R2013:2014 Clamp <> hi:6 var
-R2031:2035 Coq.ZArith.BinInt Z min def
-R2037:2038 Clamp <> lo:5 var
-R2040:2041 Clamp <> hi:6 var
-binder 2024:2026 <> lo':7
-R2059:2063 Coq.ZArith.BinInt Z max def
-R2065:2066 Clamp <> lo:5 var
-R2068:2069 Clamp <> hi:6 var
-binder 2052:2054 <> hi':8
-R2080:2083 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R2079:2079 Clamp <> x:4 var
-R2084:2086 Clamp <> lo':7 var
-R2108:2111 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R2107:2107 Clamp <> x:4 var
-R2112:2114 Clamp <> hi':8 var
-R2132:2132 Clamp <> x:4 var
-R2121:2123 Clamp <> hi':8 var
-R2093:2095 Clamp <> lo':7 var
-R2169:2173 Clamp <> clamp def
-R2206:2209 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R2195:2199 Coq.ZArith.BinInt Z min def
-R2210:2214 Coq.ZArith.BinInt Z max def
-R2237:2246 Coq.ZArith.BinInt Z le_trans thm
-R2264:2273 Coq.ZArith.BinInt Z le_min_l thm
-R2283:2292 Coq.ZArith.BinInt Z le_max_l thm
-R2206:2209 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R2195:2199 Coq.ZArith.BinInt Z min def
-R2210:2214 Coq.ZArith.BinInt Z max def
-R2237:2246 Coq.ZArith.BinInt Z le_trans thm
-R2264:2273 Coq.ZArith.BinInt Z le_min_l thm
-R2283:2292 Coq.ZArith.BinInt Z le_max_l thm
-R2310:2313 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R2314:2318 Coq.ZArith.BinInt Z min def
-R2310:2313 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R2314:2318 Coq.ZArith.BinInt Z min def
-R2345:2352 Coq.ZArith.BinInt Z ltb_lt thm
-R2345:2352 Coq.ZArith.BinInt Z ltb_lt thm
-R2374:2380 Coq.ZArith.BinInt Z min_l thm
-R2385:2389 Coq.ZArith.BinInt Z max def
-R2374:2380 Coq.ZArith.BinInt Z min_l thm
-R2385:2389 Coq.ZArith.BinInt Z max def
-R2374:2380 Coq.ZArith.BinInt Z min_l thm
-R2385:2389 Coq.ZArith.BinInt Z max def
-R2419:2425 Coq.ZArith.BinInt Z max_l thm
-R2419:2425 Coq.ZArith.BinInt Z max_l thm
-R2419:2425 Coq.ZArith.BinInt Z max_l thm
-R2462:2469 Coq.ZArith.BinInt Z ltb_ge thm
-R2462:2469 Coq.ZArith.BinInt Z ltb_ge thm
-R2493:2496 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R2497:2501 Coq.ZArith.BinInt Z max def
-R2493:2496 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R2497:2501 Coq.ZArith.BinInt Z max def
-R2530:2537 Coq.ZArith.BinInt Z gtb_lt thm
-R2530:2537 Coq.ZArith.BinInt Z gtb_lt thm
-R2561:2567 Coq.ZArith.BinInt Z min_r thm
-R2572:2576 Coq.ZArith.BinInt Z max def
-R2561:2567 Coq.ZArith.BinInt Z min_r thm
-R2572:2576 Coq.ZArith.BinInt Z max def
-R2561:2567 Coq.ZArith.BinInt Z min_r thm
-R2572:2576 Coq.ZArith.BinInt Z max def
-R2608:2614 Coq.ZArith.BinInt Z max_r thm
-R2608:2614 Coq.ZArith.BinInt Z max_r thm
-R2608:2614 Coq.ZArith.BinInt Z max_r thm
-R2667:2675 Coq.ZArith.BinInt Z gtb_ltb thm
-R2667:2675 Coq.ZArith.BinInt Z gtb_ltb thm
-R2667:2675 Coq.ZArith.BinInt Z gtb_ltb thm
-R2690:2697 Coq.ZArith.BinInt Z ltb_ge thm
-R2690:2697 Coq.ZArith.BinInt Z ltb_ge thm
-R2721:2727 Coq.ZArith.BinInt Z min_l thm
-R2732:2736 Coq.ZArith.BinInt Z max def
-R2721:2727 Coq.ZArith.BinInt Z min_l thm
-R2732:2736 Coq.ZArith.BinInt Z max def
-R2721:2727 Coq.ZArith.BinInt Z min_l thm
-R2732:2736 Coq.ZArith.BinInt Z max def
-R2773:2779 Coq.ZArith.BinInt Z max_r thm
-R2773:2779 Coq.ZArith.BinInt Z max_r thm
-R2773:2779 Coq.ZArith.BinInt Z max_r thm
-prf 2900:2910 <> ltb_reflect
-binder 2921:2921 <> x:9
-binder 2923:2923 <> y:10
-R2939:2943 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2932:2934 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2927:2930 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R2926:2926 Clamp <> x:9 var
-R2931:2931 Clamp <> y:10 var
-R2935:2938 Coq.Init.Datatypes <> true constr
-R2945:2947 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R2944:2944 Clamp <> x:9 var
-R2948:2948 Clamp <> y:10 var
-R2972:2979 Coq.ZArith.BinInt Z ltb_lt thm
-R2972:2979 Coq.ZArith.BinInt Z ltb_lt thm
-prf 2994:3010 <> ltb_reflect_false
-binder 3021:3021 <> x:11
-binder 3023:3023 <> y:12
-R3040:3044 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3032:3034 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3027:3030 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R3026:3026 Clamp <> x:11 var
-R3031:3031 Clamp <> y:12 var
-R3035:3039 Coq.Init.Datatypes <> false constr
-R3046:3049 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3045:3045 Clamp <> y:12 var
-R3050:3050 Clamp <> x:11 var
-R3074:3081 Coq.ZArith.BinInt Z ltb_ge thm
-R3074:3081 Coq.ZArith.BinInt Z ltb_ge thm
-prf 3096:3106 <> gtb_reflect
-binder 3117:3117 <> x:13
-binder 3119:3119 <> y:14
-R3135:3139 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3128:3130 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3123:3126 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R3122:3122 Clamp <> x:13 var
-R3127:3127 Clamp <> y:14 var
-R3131:3134 Coq.Init.Datatypes <> true constr
-R3141:3143 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
-R3140:3140 Clamp <> x:13 var
-R3144:3144 Clamp <> y:14 var
+R1339:1344 Coq.ZArith.ZArith <> <> lib
+R1362:1364 Coq.micromega.Lia <> <> lib
+R1382:1390 Coq.Classes.Morphisms <> <> lib
+R1408:1412 Coq.Reals.Reals <> <> lib
+R1430:1432 Coq.micromega.Lra <> <> lib
+def 1682:1686 <> clamp
+R1699:1699 Coq.Numbers.BinNums <> Z ind
+binder 1689:1689 <> x:1
+binder 1691:1692 <> lo:2
+binder 1694:1695 <> hi:3
+R1704:1704 Coq.Numbers.BinNums <> Z ind
+R1711:1715 Coq.ZArith.BinInt Z max def
+R1718:1722 Coq.ZArith.BinInt Z min def
+R1724:1725 Clamp <> lo:2 var
+R1727:1728 Clamp <> hi:3 var
+R1732:1736 Coq.ZArith.BinInt Z min def
+R1738:1738 Clamp <> x:1 var
+R1741:1745 Coq.ZArith.BinInt Z max def
+R1747:1748 Clamp <> lo:2 var
+R1750:1751 Clamp <> hi:3 var
+prf 1842:1858 <> clamp_conditional
+binder 1869:1869 <> x:4
+binder 1871:1872 <> lo:5
+binder 1874:1875 <> hi:6
+R1893:1897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1880:1884 Clamp <> clamp def
+R1886:1886 Clamp <> x:4 var
+R1888:1889 Clamp <> lo:5 var
+R1891:1892 Clamp <> hi:6 var
+R1909:1913 Coq.ZArith.BinInt Z min def
+R1915:1916 Clamp <> lo:5 var
+R1918:1919 Clamp <> hi:6 var
+binder 1902:1904 <> lo':7
+R1937:1941 Coq.ZArith.BinInt Z max def
+R1943:1944 Clamp <> lo:5 var
+R1946:1947 Clamp <> hi:6 var
+binder 1930:1932 <> hi':8
+R1958:1961 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R1957:1957 Clamp <> x:4 var
+R1962:1964 Clamp <> lo':7 var
+R1986:1989 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R1985:1985 Clamp <> x:4 var
+R1990:1992 Clamp <> hi':8 var
+R2010:2010 Clamp <> x:4 var
+R1999:2001 Clamp <> hi':8 var
+R1971:1973 Clamp <> lo':7 var
+R2047:2051 Clamp <> clamp def
+R2084:2087 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R2073:2077 Coq.ZArith.BinInt Z min def
+R2088:2092 Coq.ZArith.BinInt Z max def
+R2115:2124 Coq.ZArith.BinInt Z le_trans thm
+R2142:2151 Coq.ZArith.BinInt Z le_min_l thm
+R2161:2170 Coq.ZArith.BinInt Z le_max_l thm
+R2084:2087 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R2073:2077 Coq.ZArith.BinInt Z min def
+R2088:2092 Coq.ZArith.BinInt Z max def
+R2115:2124 Coq.ZArith.BinInt Z le_trans thm
+R2142:2151 Coq.ZArith.BinInt Z le_min_l thm
+R2161:2170 Coq.ZArith.BinInt Z le_max_l thm
+R2188:2191 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R2192:2196 Coq.ZArith.BinInt Z min def
+R2188:2191 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R2192:2196 Coq.ZArith.BinInt Z min def
+R2223:2230 Coq.ZArith.BinInt Z ltb_lt thm
+R2223:2230 Coq.ZArith.BinInt Z ltb_lt thm
+R2252:2258 Coq.ZArith.BinInt Z min_l thm
+R2263:2267 Coq.ZArith.BinInt Z max def
+R2252:2258 Coq.ZArith.BinInt Z min_l thm
+R2263:2267 Coq.ZArith.BinInt Z max def
+R2252:2258 Coq.ZArith.BinInt Z min_l thm
+R2263:2267 Coq.ZArith.BinInt Z max def
+R2297:2303 Coq.ZArith.BinInt Z max_l thm
+R2297:2303 Coq.ZArith.BinInt Z max_l thm
+R2297:2303 Coq.ZArith.BinInt Z max_l thm
+R2340:2347 Coq.ZArith.BinInt Z ltb_ge thm
+R2340:2347 Coq.ZArith.BinInt Z ltb_ge thm
+R2371:2374 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R2375:2379 Coq.ZArith.BinInt Z max def
+R2371:2374 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R2375:2379 Coq.ZArith.BinInt Z max def
+R2408:2415 Coq.ZArith.BinInt Z gtb_lt thm
+R2408:2415 Coq.ZArith.BinInt Z gtb_lt thm
+R2439:2445 Coq.ZArith.BinInt Z min_r thm
+R2450:2454 Coq.ZArith.BinInt Z max def
+R2439:2445 Coq.ZArith.BinInt Z min_r thm
+R2450:2454 Coq.ZArith.BinInt Z max def
+R2439:2445 Coq.ZArith.BinInt Z min_r thm
+R2450:2454 Coq.ZArith.BinInt Z max def
+R2486:2492 Coq.ZArith.BinInt Z max_r thm
+R2486:2492 Coq.ZArith.BinInt Z max_r thm
+R2486:2492 Coq.ZArith.BinInt Z max_r thm
+R2545:2553 Coq.ZArith.BinInt Z gtb_ltb thm
+R2545:2553 Coq.ZArith.BinInt Z gtb_ltb thm
+R2545:2553 Coq.ZArith.BinInt Z gtb_ltb thm
+R2568:2575 Coq.ZArith.BinInt Z ltb_ge thm
+R2568:2575 Coq.ZArith.BinInt Z ltb_ge thm
+R2599:2605 Coq.ZArith.BinInt Z min_l thm
+R2610:2614 Coq.ZArith.BinInt Z max def
+R2599:2605 Coq.ZArith.BinInt Z min_l thm
+R2610:2614 Coq.ZArith.BinInt Z max def
+R2599:2605 Coq.ZArith.BinInt Z min_l thm
+R2610:2614 Coq.ZArith.BinInt Z max def
+R2651:2657 Coq.ZArith.BinInt Z max_r thm
+R2651:2657 Coq.ZArith.BinInt Z max_r thm
+R2651:2657 Coq.ZArith.BinInt Z max_r thm
+prf 2778:2788 <> ltb_reflect
+binder 2799:2799 <> x:9
+binder 2801:2801 <> y:10
+R2817:2821 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2810:2812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2805:2808 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R2804:2804 Clamp <> x:9 var
+R2809:2809 Clamp <> y:10 var
+R2813:2816 Coq.Init.Datatypes <> true constr
+R2823:2825 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R2822:2822 Clamp <> x:9 var
+R2826:2826 Clamp <> y:10 var
+R2850:2857 Coq.ZArith.BinInt Z ltb_lt thm
+R2850:2857 Coq.ZArith.BinInt Z ltb_lt thm
+prf 2872:2888 <> ltb_reflect_false
+binder 2899:2899 <> x:11
+binder 2901:2901 <> y:12
+R2918:2922 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2910:2912 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2905:2908 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R2904:2904 Clamp <> x:11 var
+R2909:2909 Clamp <> y:12 var
+R2913:2917 Coq.Init.Datatypes <> false constr
+R2924:2927 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R2923:2923 Clamp <> y:12 var
+R2928:2928 Clamp <> x:11 var
+R2952:2959 Coq.ZArith.BinInt Z ltb_ge thm
+R2952:2959 Coq.ZArith.BinInt Z ltb_ge thm
+prf 2974:2984 <> gtb_reflect
+binder 2995:2995 <> x:13
+binder 2997:2997 <> y:14
+R3013:3017 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3006:3008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3001:3004 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R3000:3000 Clamp <> x:13 var
+R3005:3005 Clamp <> y:14 var
+R3009:3012 Coq.Init.Datatypes <> true constr
+R3019:3021 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R3018:3018 Clamp <> x:13 var
+R3022:3022 Clamp <> y:14 var
+R3050:3058 Coq.ZArith.BinInt Z gtb_ltb thm
+R3061:3068 Coq.ZArith.BinInt Z ltb_lt thm
+R3050:3058 Coq.ZArith.BinInt Z gtb_ltb thm
+R3050:3058 Coq.ZArith.BinInt Z gtb_ltb thm
+R3061:3068 Coq.ZArith.BinInt Z ltb_lt thm
+R3061:3068 Coq.ZArith.BinInt Z ltb_lt thm
+prf 3088:3104 <> gtb_reflect_false
+binder 3115:3115 <> x:15
+binder 3117:3117 <> y:16
+R3134:3138 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3126:3128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3121:3124 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R3120:3120 Clamp <> x:15 var
+R3125:3125 Clamp <> y:16 var
+R3129:3133 Coq.Init.Datatypes <> false constr
+R3140:3143 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3139:3139 Clamp <> x:15 var
+R3144:3144 Clamp <> y:16 var
 R3172:3180 Coq.ZArith.BinInt Z gtb_ltb thm
-R3183:3190 Coq.ZArith.BinInt Z ltb_lt thm
+R3183:3190 Coq.ZArith.BinInt Z ltb_ge thm
 R3172:3180 Coq.ZArith.BinInt Z gtb_ltb thm
 R3172:3180 Coq.ZArith.BinInt Z gtb_ltb thm
-R3183:3190 Coq.ZArith.BinInt Z ltb_lt thm
-R3183:3190 Coq.ZArith.BinInt Z ltb_lt thm
-prf 3210:3226 <> gtb_reflect_false
-binder 3237:3237 <> x:15
-binder 3239:3239 <> y:16
-R3256:3260 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3248:3250 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3243:3246 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R3242:3242 Clamp <> x:15 var
-R3247:3247 Clamp <> y:16 var
-R3251:3255 Coq.Init.Datatypes <> false constr
-R3262:3265 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3261:3261 Clamp <> x:15 var
-R3266:3266 Clamp <> y:16 var
-R3294:3302 Coq.ZArith.BinInt Z gtb_ltb thm
-R3305:3312 Coq.ZArith.BinInt Z ltb_ge thm
-R3294:3302 Coq.ZArith.BinInt Z gtb_ltb thm
-R3294:3302 Coq.ZArith.BinInt Z gtb_ltb thm
-R3305:3312 Coq.ZArith.BinInt Z ltb_ge thm
-R3305:3312 Coq.ZArith.BinInt Z ltb_ge thm
-prf 3393:3402 <> min_le_max
-binder 3413:3413 <> a:17
-binder 3415:3415 <> b:18
-R3427:3430 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3418:3422 Coq.ZArith.BinInt Z min def
-R3424:3424 Clamp <> a:17 var
-R3426:3426 Clamp <> b:18 var
-R3431:3435 Coq.ZArith.BinInt Z max def
-R3437:3437 Clamp <> a:17 var
-R3439:3439 Clamp <> b:18 var
-R3467:3476 Coq.ZArith.BinInt Z le_trans thm
-R3467:3476 Coq.ZArith.BinInt Z le_trans thm
-R3496:3505 Coq.ZArith.BinInt Z le_min_l thm
-R3496:3505 Coq.ZArith.BinInt Z le_min_l thm
-R3518:3527 Coq.ZArith.BinInt Z le_max_l thm
-R3518:3527 Coq.ZArith.BinInt Z le_max_l thm
-prf 3695:3711 <> clamp_lower_bound
-binder 3722:3722 <> x:19
-binder 3724:3725 <> lo:20
-binder 3727:3728 <> hi:21
-R3744:3747 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3733:3737 Coq.ZArith.BinInt Z min def
-R3739:3740 Clamp <> lo:20 var
-R3742:3743 Clamp <> hi:21 var
-R3748:3752 Clamp <> clamp def
-R3754:3754 Clamp <> x:19 var
-R3756:3757 Clamp <> lo:20 var
-R3759:3760 Clamp <> hi:21 var
-R3795:3799 Clamp <> clamp def
-R3808:3817 Coq.ZArith.BinInt Z le_max_l thm
-R3808:3817 Coq.ZArith.BinInt Z le_max_l thm
-prf 3834:3850 <> clamp_upper_bound
-binder 3861:3861 <> x:22
-binder 3863:3864 <> lo:23
-binder 3866:3867 <> hi:24
-R3885:3888 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R3872:3876 Clamp <> clamp def
-R3878:3878 Clamp <> x:22 var
-R3880:3881 Clamp <> lo:23 var
-R3883:3884 Clamp <> hi:24 var
-R3889:3893 Coq.ZArith.BinInt Z max def
-R3895:3896 Clamp <> lo:23 var
-R3898:3899 Clamp <> hi:24 var
-R3934:3938 Clamp <> clamp def
-R3949:3957 Coq.ZArith.BinInt Z max_lub thm
-R3949:3957 Coq.ZArith.BinInt Z max_lub thm
-R3970:3979 Clamp <> min_le_max thm
-R3970:3979 Clamp <> min_le_max thm
-R3992:4001 Coq.ZArith.BinInt Z le_min_r thm
-R3992:4001 Coq.ZArith.BinInt Z le_min_r thm
-prf 4018:4032 <> clamp_in_bounds
-binder 4043:4043 <> x:25
-binder 4045:4046 <> lo:26
-binder 4048:4049 <> hi:27
-R4065:4068 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R4082:4085 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R4054:4058 Coq.ZArith.BinInt Z min def
-R4060:4061 Clamp <> lo:26 var
-R4063:4064 Clamp <> hi:27 var
-R4069:4073 Clamp <> clamp def
-R4075:4075 Clamp <> x:25 var
-R4077:4078 Clamp <> lo:26 var
-R4080:4081 Clamp <> hi:27 var
-R4069:4073 Clamp <> clamp def
-R4075:4075 Clamp <> x:25 var
-R4077:4078 Clamp <> lo:26 var
-R4080:4081 Clamp <> hi:27 var
-R4086:4090 Coq.ZArith.BinInt Z max def
-R4092:4093 Clamp <> lo:26 var
-R4095:4096 Clamp <> hi:27 var
-R4133:4149 Clamp <> clamp_lower_bound thm
-R4133:4149 Clamp <> clamp_lower_bound thm
-R4162:4178 Clamp <> clamp_upper_bound thm
-R4162:4178 Clamp <> clamp_upper_bound thm
-def 4284:4294 <> clamp_below
-R4311:4313 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4298:4302 Clamp <> clamp def
-def 4352:4362 <> clamp_above
-R4380:4382 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4366:4370 Clamp <> clamp def
-def 4421:4432 <> clamp_inside
-R4450:4452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4436:4440 Clamp <> clamp def
-def 4491:4501 <> clamp_at_lo
-R4519:4521 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4505:4509 Clamp <> clamp def
-def 4560:4570 <> clamp_at_hi
-R4588:4590 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4574:4578 Clamp <> clamp def
-def 4629:4648 <> clamp_swapped_bounds
-R4666:4668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4652:4656 Clamp <> clamp def
-def 4707:4724 <> clamp_equal_bounds
-R4739:4741 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4728:4732 Clamp <> clamp def
-def 4779:4792 <> clamp_negative
-R4814:4817 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4820:4820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4796:4800 Clamp <> clamp def
-R4913:4917 Clamp <> clamp def
-R4951:4955 Clamp <> clamp def
-R4991:4995 Clamp <> clamp def
-def 5104:5127 <> clamp_not_identity_below
-R5144:5147 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5131:5135 Clamp <> clamp def
-def 5186:5209 <> clamp_not_identity_above
-R5227:5230 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5213:5217 Clamp <> clamp def
-def 5270:5293 <> clamp_not_outside_bounds
-R5297:5299 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5319:5319 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5314:5316 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R5300:5304 Clamp <> clamp def
-R5336:5340 Clamp <> clamp def
-ind 5518:5529 <> clamp_result
-constr 5564:5575 <> clamp_at_min
-constr 5637:5648 <> clamp_at_max
-constr 5710:5723 <> clamp_identity
-R5542:5542 Coq.Numbers.BinNums <> Z ind
-binder 5532:5532 <> x:28
-binder 5534:5535 <> lo:29
-binder 5537:5538 <> hi:30
-R5548:5551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5547:5547 Coq.Numbers.BinNums <> Z ind
-R5594:5597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5580:5582 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R5579:5579 Clamp <> x:28 var
-R5583:5587 Coq.ZArith.BinInt Z min def
-R5589:5590 Clamp <> lo:29 var
-R5592:5593 Clamp <> hi:30 var
-R5598:5609 Clamp <> clamp_result:31 ind
-R5620:5624 Coq.ZArith.BinInt Z min def
-R5626:5627 Clamp <> lo:29 var
-R5629:5630 Clamp <> hi:30 var
-R5616:5617 Clamp <> hi:30 var
-R5613:5614 Clamp <> lo:29 var
-R5611:5611 Clamp <> x:28 var
-R5667:5670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5653:5655 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
-R5652:5652 Clamp <> x:28 var
-R5656:5660 Coq.ZArith.BinInt Z max def
-R5662:5663 Clamp <> lo:29 var
-R5665:5666 Clamp <> hi:30 var
-R5671:5682 Clamp <> clamp_result:31 ind
-R5693:5697 Coq.ZArith.BinInt Z max def
-R5699:5700 Clamp <> lo:29 var
-R5702:5703 Clamp <> hi:30 var
-R5689:5690 Clamp <> hi:30 var
-R5686:5687 Clamp <> lo:29 var
-R5684:5684 Clamp <> x:28 var
-R5758:5761 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5738:5741 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R5743:5746 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R5727:5731 Coq.ZArith.BinInt Z min def
-R5733:5734 Clamp <> lo:29 var
-R5736:5737 Clamp <> hi:30 var
-R5742:5742 Clamp <> x:28 var
-R5742:5742 Clamp <> x:28 var
-R5747:5751 Coq.ZArith.BinInt Z max def
-R5753:5754 Clamp <> lo:29 var
-R5756:5757 Clamp <> hi:30 var
-R5762:5773 Clamp <> clamp_result:31 ind
-R5783:5783 Clamp <> x:28 var
-R5780:5781 Clamp <> hi:30 var
-R5777:5778 Clamp <> lo:29 var
-R5775:5775 Clamp <> x:28 var
-scheme 5518:5529 <> clamp_result_ind
-scheme 5518:5529 <> clamp_result_sind
-prf 5795:5810 <> clamp_trichotomy
-binder 5821:5821 <> x:33
-binder 5823:5824 <> lo:34
-binder 5826:5827 <> hi:35
-R5832:5843 Clamp <> clamp_result ind
-R5845:5845 Clamp <> x:33 var
-R5847:5848 Clamp <> lo:34 var
-R5850:5851 Clamp <> hi:35 var
-R5854:5858 Clamp <> clamp def
-R5860:5860 Clamp <> x:33 var
-R5862:5863 Clamp <> lo:34 var
-R5865:5866 Clamp <> hi:35 var
-R5905:5921 Clamp <> clamp_conditional thm
-R5905:5921 Clamp <> clamp_conditional thm
-R5905:5921 Clamp <> clamp_conditional thm
-R5944:5947 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R5948:5952 Coq.ZArith.BinInt Z min def
-R5944:5947 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
-R5948:5952 Coq.ZArith.BinInt Z min def
-R5979:5989 Clamp <> ltb_reflect thm
-R5979:5989 Clamp <> ltb_reflect thm
-R6004:6015 Clamp <> clamp_at_min constr
-R6004:6015 Clamp <> clamp_at_min constr
-R6043:6046 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R6047:6051 Coq.ZArith.BinInt Z max def
-R6043:6046 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
-R6047:6051 Coq.ZArith.BinInt Z max def
-R6080:6090 Clamp <> gtb_reflect thm
-R6080:6090 Clamp <> gtb_reflect thm
-R6105:6116 Clamp <> clamp_at_max constr
-R6105:6116 Clamp <> clamp_at_max constr
-R6141:6157 Clamp <> ltb_reflect_false thm
-R6141:6157 Clamp <> ltb_reflect_false thm
-R6172:6188 Clamp <> gtb_reflect_false thm
-R6172:6188 Clamp <> gtb_reflect_false thm
-R6209:6222 Clamp <> clamp_identity constr
-R6209:6222 Clamp <> clamp_identity constr
-prf 6333:6348 <> clamp_change_iff
-binder 6359:6359 <> x:36
-binder 6361:6362 <> lo:37
-binder 6364:6365 <> hi:38
-R6388:6393 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6428:6428 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6383:6386 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6370:6374 Clamp <> clamp def
-R6376:6376 Clamp <> x:36 var
-R6378:6379 Clamp <> lo:37 var
-R6381:6382 Clamp <> hi:38 var
-R6387:6387 Clamp <> x:36 var
-R6409:6412 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R6395:6397 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R6394:6394 Clamp <> x:36 var
-R6398:6402 Coq.ZArith.BinInt Z min def
-R6404:6405 Clamp <> lo:37 var
-R6407:6408 Clamp <> hi:38 var
-R6414:6416 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
-R6413:6413 Clamp <> x:36 var
-R6417:6421 Coq.ZArith.BinInt Z max def
-R6423:6424 Clamp <> lo:37 var
-R6426:6427 Clamp <> hi:38 var
-R6495:6510 Clamp <> clamp_trichotomy thm
-R6495:6510 Clamp <> clamp_trichotomy thm
-R6699:6703 Clamp <> clamp def
-R6773:6777 Coq.ZArith.BinInt Z min def
-R6756:6765 Coq.ZArith.BinInt Z le_trans thm
-R6800:6809 Clamp <> min_le_max thm
-R6721:6727 Coq.ZArith.BinInt Z min_l thm
-R6732:6736 Coq.ZArith.BinInt Z max def
-R6721:6727 Coq.ZArith.BinInt Z min_l thm
-R6732:6736 Coq.ZArith.BinInt Z max def
-R6773:6777 Coq.ZArith.BinInt Z min def
-R6756:6765 Coq.ZArith.BinInt Z le_trans thm
-R6800:6809 Clamp <> min_le_max thm
-R6721:6727 Coq.ZArith.BinInt Z min_l thm
-R6732:6736 Coq.ZArith.BinInt Z max def
-R6828:6834 Coq.ZArith.BinInt Z max_l thm
-R6828:6834 Coq.ZArith.BinInt Z max_l thm
-R6828:6834 Coq.ZArith.BinInt Z max_l thm
-R6862:6866 Clamp <> clamp def
-R6884:6890 Coq.ZArith.BinInt Z min_r thm
-R6895:6899 Coq.ZArith.BinInt Z max def
-R6884:6890 Coq.ZArith.BinInt Z min_r thm
-R6895:6899 Coq.ZArith.BinInt Z max def
-R6884:6890 Coq.ZArith.BinInt Z min_r thm
-R6895:6899 Coq.ZArith.BinInt Z max def
-R6948:6957 Clamp <> min_le_max thm
-R6931:6937 Coq.ZArith.BinInt Z max_r thm
-R6931:6937 Coq.ZArith.BinInt Z max_r thm
-R6948:6957 Clamp <> min_le_max thm
-R6931:6937 Coq.ZArith.BinInt Z max_r thm
-prf 7110:7124 <> clamp_algebraic
-binder 7135:7135 <> x:39
-binder 7137:7138 <> lo:40
-binder 7140:7141 <> hi:41
-R7159:7161 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7146:7150 Clamp <> clamp def
-R7152:7152 Clamp <> x:39 var
-R7154:7155 Clamp <> lo:40 var
-R7157:7158 Clamp <> hi:41 var
-R7162:7166 Coq.ZArith.BinInt Z max def
-R7169:7173 Coq.ZArith.BinInt Z min def
-R7175:7176 Clamp <> lo:40 var
-R7178:7179 Clamp <> hi:41 var
-R7183:7187 Coq.ZArith.BinInt Z min def
-R7189:7189 Clamp <> x:39 var
-R7192:7196 Coq.ZArith.BinInt Z max def
-R7198:7199 Clamp <> lo:40 var
-R7201:7202 Clamp <> hi:41 var
-prf 7342:7359 <> clamp_fixpoint_min
-binder 7370:7371 <> lo:42
-binder 7373:7374 <> hi:43
-R7404:7406 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7379:7383 Clamp <> clamp def
-R7386:7390 Coq.ZArith.BinInt Z min def
-R7392:7393 Clamp <> lo:42 var
-R7395:7396 Clamp <> hi:43 var
-R7399:7400 Clamp <> lo:42 var
-R7402:7403 Clamp <> hi:43 var
-R7407:7411 Coq.ZArith.BinInt Z min def
-R7413:7414 Clamp <> lo:42 var
-R7416:7417 Clamp <> hi:43 var
-R7450:7454 Clamp <> clamp def
-R7468:7472 Coq.ZArith.BinInt Z min def
-R7475:7479 Coq.ZArith.BinInt Z min def
-R7489:7493 Coq.ZArith.BinInt Z max def
-R7509:7513 Coq.ZArith.BinInt Z min def
-R7546:7552 Coq.ZArith.BinInt Z min_l thm
-R7561:7570 Clamp <> min_le_max thm
-R7468:7472 Coq.ZArith.BinInt Z min def
-R7475:7479 Coq.ZArith.BinInt Z min def
-R7489:7493 Coq.ZArith.BinInt Z max def
-R7509:7513 Coq.ZArith.BinInt Z min def
-R7546:7552 Coq.ZArith.BinInt Z min_l thm
-R7561:7570 Clamp <> min_le_max thm
-R7582:7589 Coq.ZArith.BinInt Z max_id thm
-R7582:7589 Coq.ZArith.BinInt Z max_id thm
-prf 7606:7623 <> clamp_fixpoint_max
-binder 7634:7635 <> lo:44
-binder 7637:7638 <> hi:45
-R7668:7670 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7643:7647 Clamp <> clamp def
-R7650:7654 Coq.ZArith.BinInt Z max def
-R7656:7657 Clamp <> lo:44 var
-R7659:7660 Clamp <> hi:45 var
-R7663:7664 Clamp <> lo:44 var
-R7666:7667 Clamp <> hi:45 var
-R7671:7675 Coq.ZArith.BinInt Z max def
-R7677:7678 Clamp <> lo:44 var
-R7680:7681 Clamp <> hi:45 var
-R7714:7718 Clamp <> clamp def
-R7731:7738 Coq.ZArith.BinInt Z min_id thm
-R7731:7738 Coq.ZArith.BinInt Z min_id thm
-R7731:7738 Coq.ZArith.BinInt Z min_id thm
-R7749:7755 Coq.ZArith.BinInt Z max_r thm
-R7749:7755 Coq.ZArith.BinInt Z max_r thm
-R7764:7773 Clamp <> min_le_max thm
-R7764:7773 Clamp <> min_le_max thm
-prf 7790:7812 <> clamp_fixpoint_interior
-binder 7823:7823 <> x:46
-binder 7825:7826 <> lo:47
-binder 7828:7829 <> hi:48
-R7865:7870 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7845:7848 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R7850:7853 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R7834:7838 Coq.ZArith.BinInt Z min def
-R7840:7841 Clamp <> lo:47 var
-R7843:7844 Clamp <> hi:48 var
-R7849:7849 Clamp <> x:46 var
-R7849:7849 Clamp <> x:46 var
-R7854:7858 Coq.ZArith.BinInt Z max def
-R7860:7861 Clamp <> lo:47 var
-R7863:7864 Clamp <> hi:48 var
-R7884:7886 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7871:7875 Clamp <> clamp def
-R7877:7877 Clamp <> x:46 var
-R7879:7880 Clamp <> lo:47 var
-R7882:7883 Clamp <> hi:48 var
-R7887:7887 Clamp <> x:46 var
-R7932:7936 Clamp <> clamp def
-R7950:7956 Coq.ZArith.BinInt Z min_l thm
-R7961:7965 Coq.ZArith.BinInt Z max def
-R7950:7956 Coq.ZArith.BinInt Z min_l thm
-R7961:7965 Coq.ZArith.BinInt Z max def
-R7950:7956 Coq.ZArith.BinInt Z min_l thm
-R7961:7965 Coq.ZArith.BinInt Z max def
-R7997:8003 Coq.ZArith.BinInt Z max_r thm
-R7997:8003 Coq.ZArith.BinInt Z max_r thm
-prf 8158:8173 <> clamp_idempotent
-binder 8184:8184 <> x:49
-binder 8186:8187 <> lo:50
-binder 8189:8190 <> hi:51
-R8222:8224 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8195:8199 Clamp <> clamp def
-R8202:8206 Clamp <> clamp def
-R8208:8208 Clamp <> x:49 var
-R8210:8211 Clamp <> lo:50 var
-R8213:8214 Clamp <> hi:51 var
-R8217:8218 Clamp <> lo:50 var
-R8220:8221 Clamp <> hi:51 var
-R8225:8229 Clamp <> clamp def
-R8231:8231 Clamp <> x:49 var
-R8233:8234 Clamp <> lo:50 var
-R8236:8237 Clamp <> hi:51 var
-R8263:8285 Clamp <> clamp_fixpoint_interior thm
-R8263:8285 Clamp <> clamp_fixpoint_interior thm
-R8294:8308 Clamp <> clamp_in_bounds thm
-R8294:8308 Clamp <> clamp_in_bounds thm
-prf 8413:8427 <> clamp_symmetric
-binder 8438:8438 <> x:52
-binder 8440:8441 <> lo:53
-binder 8443:8444 <> hi:54
-R8462:8464 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8449:8453 Clamp <> clamp def
-R8455:8455 Clamp <> x:52 var
-R8457:8458 Clamp <> lo:53 var
-R8460:8461 Clamp <> hi:54 var
-R8465:8469 Clamp <> clamp def
-R8471:8471 Clamp <> x:52 var
-R8473:8474 Clamp <> hi:54 var
-R8476:8477 Clamp <> lo:53 var
-R8512:8516 Clamp <> clamp def
-R8530:8539 Coq.ZArith.BinInt Z min_comm thm
-R8530:8539 Coq.ZArith.BinInt Z min_comm thm
-R8530:8539 Coq.ZArith.BinInt Z min_comm thm
-R8560:8569 Coq.ZArith.BinInt Z max_comm thm
-R8560:8569 Coq.ZArith.BinInt Z max_comm thm
-R8560:8569 Coq.ZArith.BinInt Z max_comm thm
-def 8762:8771 <> clamp_safe
-R8784:8784 Coq.Numbers.BinNums <> Z ind
-binder 8774:8774 <> x:55
-binder 8776:8777 <> lo:56
-binder 8779:8780 <> hi:57
-R8789:8794 Coq.Init.Datatypes <> option ind
-R8796:8796 Coq.Numbers.BinNums <> Z ind
-R8808:8812 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R8806:8807 Clamp <> lo:56 var
-R8813:8814 Clamp <> hi:57 var
-R8847:8850 Coq.Init.Datatypes <> None constr
-R8821:8824 Coq.Init.Datatypes <> Some constr
-R8827:8831 Clamp <> clamp def
-R8833:8833 Clamp <> x:55 var
-R8835:8836 Clamp <> lo:56 var
-R8838:8839 Clamp <> hi:57 var
-prf 8862:8880 <> clamp_safe_some_iff
-binder 8891:8891 <> x:58
-binder 8893:8894 <> lo:59
-binder 8896:8897 <> hi:60
-binder 8899:8899 <> v:61
-R8931:8936 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8966:8966 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8922:8924 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8904:8913 Clamp <> clamp_safe def
-R8915:8915 Clamp <> x:58 var
-R8917:8918 Clamp <> lo:59 var
-R8920:8921 Clamp <> hi:60 var
-R8925:8928 Coq.Init.Datatypes <> Some constr
-R8930:8930 Clamp <> v:61 var
-R8945:8948 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8939:8942 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R8937:8938 Clamp <> lo:59 var
-R8943:8944 Clamp <> hi:60 var
-R8950:8952 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8949:8949 Clamp <> v:61 var
-R8953:8957 Clamp <> clamp def
-R8959:8959 Clamp <> x:58 var
-R8961:8962 Clamp <> lo:59 var
-R8964:8965 Clamp <> hi:60 var
-R9003:9012 Clamp <> clamp_safe def
-R9029:9033 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R9029:9033 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R9055:9062 Coq.ZArith.BinInt Z leb_le thm
-R9055:9062 Coq.ZArith.BinInt Z leb_le thm
-R9163:9170 Coq.ZArith.BinInt Z leb_gt thm
-R9163:9170 Coq.ZArith.BinInt Z leb_gt thm
-prf 9256:9274 <> clamp_safe_none_iff
-binder 9285:9285 <> x:62
-binder 9287:9288 <> lo:63
-binder 9290:9291 <> hi:64
-R9321:9325 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R9314:9316 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9296:9305 Clamp <> clamp_safe def
-R9307:9307 Clamp <> x:62 var
-R9309:9310 Clamp <> lo:63 var
-R9312:9313 Clamp <> hi:64 var
-R9317:9320 Coq.Init.Datatypes <> None constr
-R9328:9330 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R9326:9327 Clamp <> hi:64 var
-R9331:9332 Clamp <> lo:63 var
-R9367:9376 Clamp <> clamp_safe def
-R9393:9397 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R9393:9397 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R9419:9426 Coq.ZArith.BinInt Z leb_le thm
-R9419:9426 Coq.ZArith.BinInt Z leb_le thm
-R9473:9480 Coq.ZArith.BinInt Z leb_gt thm
-R9473:9480 Coq.ZArith.BinInt Z leb_gt thm
-prf 9539:9558 <> clamp_safe_in_bounds
-binder 9569:9569 <> x:65
-binder 9571:9572 <> lo:66
-binder 9574:9575 <> hi:67
-binder 9577:9577 <> v:68
-R9609:9612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9600:9602 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9582:9591 Clamp <> clamp_safe def
-R9593:9593 Clamp <> x:65 var
-R9595:9596 Clamp <> lo:66 var
-R9598:9599 Clamp <> hi:67 var
-R9603:9606 Coq.Init.Datatypes <> Some constr
-R9608:9608 Clamp <> v:68 var
-R9615:9618 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R9620:9623 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R9613:9614 Clamp <> lo:66 var
-R9619:9619 Clamp <> v:68 var
-R9619:9619 Clamp <> v:68 var
-R9624:9625 Clamp <> hi:67 var
-R9665:9683 Clamp <> clamp_safe_some_iff thm
-R9665:9683 Clamp <> clamp_safe_some_iff thm
-R9736:9750 Clamp <> clamp_in_bounds thm
-R9736:9750 Clamp <> clamp_in_bounds thm
-R9787:9793 Coq.ZArith.BinInt Z min_l thm
-R9787:9793 Coq.ZArith.BinInt Z min_l thm
-R9787:9793 Coq.ZArith.BinInt Z min_l thm
-R9821:9827 Coq.ZArith.BinInt Z max_r thm
-R9821:9827 Coq.ZArith.BinInt Z max_r thm
-R9821:9827 Coq.ZArith.BinInt Z max_r thm
-prf 10039:10052 <> clamp_monotone
-binder 10063:10063 <> x:69
-binder 10065:10065 <> y:70
-binder 10067:10068 <> lo:71
-binder 10070:10071 <> hi:72
-R10082:10085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10077:10080 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R10076:10076 Clamp <> x:69 var
-R10081:10081 Clamp <> y:70 var
-R10099:10102 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R10086:10090 Clamp <> clamp def
-R10092:10092 Clamp <> x:69 var
-R10094:10095 Clamp <> lo:71 var
-R10097:10098 Clamp <> hi:72 var
-R10103:10107 Clamp <> clamp def
-R10109:10109 Clamp <> y:70 var
-R10111:10112 Clamp <> lo:71 var
-R10114:10115 Clamp <> hi:72 var
-R10160:10174 Clamp <> clamp_algebraic thm
-R10160:10174 Clamp <> clamp_algebraic thm
-R10160:10174 Clamp <> clamp_algebraic thm
-R10160:10174 Clamp <> clamp_algebraic thm
-R10160:10174 Clamp <> clamp_algebraic thm
-R10185:10201 Coq.ZArith.BinInt Z max_le_compat_l thm
-R10185:10201 Coq.ZArith.BinInt Z max_le_compat_l thm
-R10212:10228 Coq.ZArith.BinInt Z min_le_compat_r thm
-R10212:10228 Coq.ZArith.BinInt Z min_le_compat_r thm
-inst 11080:11091 <> clamp_proper
-R11095:11100 Coq.Classes.Morphisms <> Proper class
-R11128:11132 Clamp <> clamp def
-R11105:11109 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
-R11103:11104 Coq.Init.Logic <> eq ind
-R11112:11116 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
-R11110:11111 Coq.Init.Logic <> eq ind
-R11119:11123 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
-R11117:11118 Coq.Init.Logic <> eq ind
-R11124:11125 Coq.Init.Logic <> eq ind
-prf 11348:11367 <> clamp_nested_tighter
-binder 11378:11378 <> x:73
-binder 11380:11382 <> lo1:74
-binder 11384:11386 <> hi1:75
-binder 11388:11390 <> lo2:76
-binder 11392:11394 <> hi2:77
-R11429:11434 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11412:11415 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R11399:11403 Coq.ZArith.BinInt Z min def
-R11405:11407 Clamp <> lo2:76 var
-R11409:11411 Clamp <> hi2:77 var
-R11416:11420 Coq.ZArith.BinInt Z min def
-R11422:11424 Clamp <> lo1:74 var
-R11426:11428 Clamp <> hi1:75 var
-R11465:11470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11448:11451 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R11435:11439 Coq.ZArith.BinInt Z max def
-R11441:11443 Clamp <> lo1:74 var
-R11445:11447 Clamp <> hi1:75 var
-R11452:11456 Coq.ZArith.BinInt Z max def
-R11458:11460 Clamp <> lo2:76 var
-R11462:11464 Clamp <> hi2:77 var
-R11502:11504 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11471:11475 Clamp <> clamp def
-R11478:11482 Clamp <> clamp def
-R11484:11484 Clamp <> x:73 var
-R11486:11488 Clamp <> lo1:74 var
-R11490:11492 Clamp <> hi1:75 var
-R11495:11497 Clamp <> lo2:76 var
-R11499:11501 Clamp <> hi2:77 var
-R11505:11509 Clamp <> clamp def
-R11511:11511 Clamp <> x:73 var
-R11513:11515 Clamp <> lo1:74 var
-R11517:11519 Clamp <> hi1:75 var
-R11583:11605 Clamp <> clamp_fixpoint_interior thm
-R11583:11605 Clamp <> clamp_fixpoint_interior thm
-R11622:11636 Clamp <> clamp_in_bounds thm
-R11622:11636 Clamp <> clamp_in_bounds thm
-R11699:11703 Coq.ZArith.BinInt Z min def
-R11682:11691 Coq.ZArith.BinInt Z le_trans thm
-R11699:11703 Coq.ZArith.BinInt Z min def
-R11682:11691 Coq.ZArith.BinInt Z le_trans thm
-R11754:11758 Coq.ZArith.BinInt Z max def
-R11737:11746 Coq.ZArith.BinInt Z le_trans thm
-R11754:11758 Coq.ZArith.BinInt Z max def
-R11737:11746 Coq.ZArith.BinInt Z le_trans thm
-prf 11871:11889 <> clamp_disjoint_left
-binder 11900:11900 <> x:78
-binder 11902:11904 <> lo1:79
-binder 11906:11908 <> hi1:80
-binder 11910:11912 <> lo2:81
-binder 11914:11916 <> hi2:82
-R11931:11934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11924:11927 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R11921:11923 Clamp <> lo1:79 var
-R11928:11930 Clamp <> hi1:80 var
-R11945:11948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11938:11941 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R11935:11937 Clamp <> lo2:81 var
-R11942:11944 Clamp <> hi2:82 var
-R11958:11963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11952:11954 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R11949:11951 Clamp <> hi1:80 var
-R11955:11957 Clamp <> lo2:81 var
-R11995:11997 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11964:11968 Clamp <> clamp def
-R11971:11975 Clamp <> clamp def
-R11977:11977 Clamp <> x:78 var
-R11979:11981 Clamp <> lo1:79 var
-R11983:11985 Clamp <> hi1:80 var
-R11988:11990 Clamp <> lo2:81 var
-R11992:11994 Clamp <> hi2:82 var
-R11998:12000 Clamp <> lo2:81 var
-R12063:12077 Clamp <> clamp_in_bounds thm
-R12063:12077 Clamp <> clamp_in_bounds thm
-R12116:12122 Coq.ZArith.BinInt Z min_l thm
-R12116:12122 Coq.ZArith.BinInt Z min_l thm
-R12116:12122 Coq.ZArith.BinInt Z min_l thm
-R12150:12156 Coq.ZArith.BinInt Z max_r thm
-R12150:12156 Coq.ZArith.BinInt Z max_r thm
-R12150:12156 Coq.ZArith.BinInt Z max_r thm
-R12183:12187 Clamp <> clamp def
-R12206:12210 Coq.ZArith.BinInt Z min def
-R12250:12256 Coq.ZArith.BinInt Z min_l thm
-R12206:12210 Coq.ZArith.BinInt Z min def
-R12250:12256 Coq.ZArith.BinInt Z min_l thm
-R12276:12280 Coq.ZArith.BinInt Z max def
-R12320:12326 Coq.ZArith.BinInt Z max_r thm
-R12276:12280 Coq.ZArith.BinInt Z max def
-R12320:12326 Coq.ZArith.BinInt Z max_r thm
-R12346:12352 Coq.ZArith.BinInt Z min_l thm
-R12355:12359 Clamp <> clamp def
-R12346:12352 Coq.ZArith.BinInt Z min_l thm
-R12355:12359 Clamp <> clamp def
-R12346:12352 Coq.ZArith.BinInt Z min_l thm
-R12355:12359 Clamp <> clamp def
-R12393:12399 Coq.ZArith.BinInt Z max_l thm
-R12393:12399 Coq.ZArith.BinInt Z max_l thm
-prf 12421:12440 <> clamp_disjoint_right
-binder 12451:12451 <> x:83
-binder 12453:12455 <> lo1:84
-binder 12457:12459 <> hi1:85
-binder 12461:12463 <> lo2:86
-binder 12465:12467 <> hi2:87
-R12482:12485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12475:12478 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R12472:12474 Clamp <> lo1:84 var
-R12479:12481 Clamp <> hi1:85 var
-R12496:12499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12489:12492 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R12486:12488 Clamp <> lo2:86 var
-R12493:12495 Clamp <> hi2:87 var
-R12509:12514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12503:12505 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R12500:12502 Clamp <> hi2:87 var
-R12506:12508 Clamp <> lo1:84 var
-R12546:12548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12515:12519 Clamp <> clamp def
-R12522:12526 Clamp <> clamp def
-R12528:12528 Clamp <> x:83 var
-R12530:12532 Clamp <> lo1:84 var
-R12534:12536 Clamp <> hi1:85 var
-R12539:12541 Clamp <> lo2:86 var
-R12543:12545 Clamp <> hi2:87 var
-R12549:12551 Clamp <> hi2:87 var
-R12614:12628 Clamp <> clamp_in_bounds thm
-R12614:12628 Clamp <> clamp_in_bounds thm
-R12667:12673 Coq.ZArith.BinInt Z min_l thm
-R12667:12673 Coq.ZArith.BinInt Z min_l thm
-R12667:12673 Coq.ZArith.BinInt Z min_l thm
-R12701:12707 Coq.ZArith.BinInt Z max_r thm
-R12701:12707 Coq.ZArith.BinInt Z max_r thm
-R12701:12707 Coq.ZArith.BinInt Z max_r thm
-R12734:12738 Clamp <> clamp def
-R12757:12761 Coq.ZArith.BinInt Z min def
-R12801:12807 Coq.ZArith.BinInt Z min_l thm
-R12757:12761 Coq.ZArith.BinInt Z min def
-R12801:12807 Coq.ZArith.BinInt Z min_l thm
-R12827:12831 Coq.ZArith.BinInt Z max def
-R12871:12877 Coq.ZArith.BinInt Z max_r thm
-R12827:12831 Coq.ZArith.BinInt Z max def
-R12871:12877 Coq.ZArith.BinInt Z max_r thm
-R12897:12903 Coq.ZArith.BinInt Z min_r thm
-R12906:12910 Clamp <> clamp def
-R12897:12903 Coq.ZArith.BinInt Z min_r thm
-R12906:12910 Clamp <> clamp def
-R12897:12903 Coq.ZArith.BinInt Z min_r thm
-R12906:12910 Clamp <> clamp def
-R12944:12950 Coq.ZArith.BinInt Z max_r thm
-R12944:12950 Coq.ZArith.BinInt Z max_r thm
-sec 13201:13215 <> BoundedIntegers
-var 13309:13316 BoundedIntegers BOUND_LO
-R13320:13320 Coq.Numbers.BinNums <> Z ind
-var 13334:13341 BoundedIntegers BOUND_HI
-R13345:13345 Coq.Numbers.BinNums <> Z ind
-def 13362:13370 <> in_bounds
-R13377:13377 Coq.Numbers.BinNums <> Z ind
-binder 13373:13373 <> z:90
-R13398:13401 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R13403:13406 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R13390:13397 Clamp <> BoundedIntegers.BOUND_LO var
-R13402:13402 Clamp <> z:90 var
-R13402:13402 Clamp <> z:90 var
-R13407:13414 Clamp <> BoundedIntegers.BOUND_HI var
-def 13431:13437 <> bounded
-R13442:13443 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R13445:13447 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R13449:13451 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R13463:13464 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R13448:13448 Coq.Numbers.BinNums <> Z ind
-binder 13444:13444 <> z:91
-R13452:13460 Clamp <> in_bounds def
-R13462:13462 Clamp <> z:91 var
-def 13481:13491 <> bounded_val
-R13498:13504 Clamp <> bounded def
-binder 13494:13494 <> b:92
-R13509:13509 Coq.Numbers.BinNums <> Z ind
-R13514:13522 Coq.Init.Specif <> proj1_sig def
-R13524:13524 Clamp <> b:92 var
-def 13599:13608 <> mk_bounded
-R13615:13615 Coq.Numbers.BinNums <> Z ind
-binder 13611:13611 <> z:93
-R13623:13631 Clamp <> in_bounds def
-R13633:13633 Clamp <> z:93 var
-binder 13619:13619 <> H:94
-R13638:13644 Clamp <> bounded def
-R13653:13657 Coq.Init.Specif <> exist constr
-R13663:13663 Clamp <> H:94 var
-R13661:13661 Clamp <> z:93 var
-prf 13749:13760 <> clamp_closed
-binder 13771:13771 <> x:95
-binder 13773:13774 <> lo:96
-binder 13776:13777 <> hi:97
-R13796:13799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13784:13792 Clamp <> in_bounds def
-R13794:13795 Clamp <> lo:96 var
-R13812:13819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13800:13808 Clamp <> in_bounds def
-R13810:13811 Clamp <> hi:97 var
-R13820:13828 Clamp <> in_bounds def
-R13831:13835 Clamp <> clamp def
-R13837:13837 Clamp <> x:95 var
-R13839:13840 Clamp <> lo:96 var
-R13842:13843 Clamp <> hi:97 var
-R13911:13919 Clamp <> in_bounds def
-R13938:13952 Clamp <> clamp_in_bounds thm
-R13938:13952 Clamp <> clamp_in_bounds thm
-R14019:14023 Coq.ZArith.BinInt Z min def
-R14002:14011 Coq.ZArith.BinInt Z le_trans thm
-R14019:14023 Coq.ZArith.BinInt Z min def
-R14002:14011 Coq.ZArith.BinInt Z le_trans thm
-R14047:14055 Coq.ZArith.BinInt Z min_glb thm
-R14047:14055 Coq.ZArith.BinInt Z min_glb thm
-R14119:14123 Coq.ZArith.BinInt Z max def
-R14102:14111 Coq.ZArith.BinInt Z le_trans thm
-R14119:14123 Coq.ZArith.BinInt Z max def
-R14102:14111 Coq.ZArith.BinInt Z le_trans thm
-R14167:14175 Coq.ZArith.BinInt Z max_lub thm
-R14167:14175 Coq.ZArith.BinInt Z max_lub thm
-def 14281:14293 <> clamp_bounded
-R14300:14300 Coq.Numbers.BinNums <> Z ind
-binder 14296:14296 <> x:98
-R14312:14318 Clamp <> bounded def
-binder 14304:14305 <> lo:99
-binder 14307:14308 <> hi:100
-R14323:14329 Clamp <> bounded def
-R14350:14360 Clamp <> bounded_val def
-R14362:14363 Clamp <> lo:99 var
-binder 14342:14345 <> lo_z:101
-R14384:14394 Clamp <> bounded_val def
-R14396:14397 Clamp <> hi:100 var
-binder 14376:14379 <> hi_z:102
-R14406:14415 Clamp <> mk_bounded def
-R14418:14422 Clamp <> clamp def
-R14424:14424 Clamp <> x:98 var
-R14426:14429 Clamp <> lo_z:101 var
-R14431:14434 Clamp <> hi_z:102 var
-R14444:14455 Clamp <> clamp_closed thm
-R14457:14457 Clamp <> x:98 var
-R14459:14462 Clamp <> lo_z:101 var
-R14464:14467 Clamp <> hi_z:102 var
-R14470:14478 Coq.Init.Specif <> proj2_sig def
-R14480:14481 Clamp <> lo:99 var
-R14485:14493 Coq.Init.Specif <> proj2_sig def
-R14495:14496 Clamp <> hi:100 var
-prf 14579:14599 <> clamp_bounded_correct
-binder 14610:14610 <> x:103
-binder 14612:14613 <> lo:104
-binder 14615:14616 <> hi:105
-R14658:14660 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14623:14633 Clamp <> bounded_val def
-R14636:14648 Clamp <> clamp_bounded def
-R14650:14650 Clamp <> x:103 var
-R14652:14653 Clamp <> lo:104 var
-R14655:14656 Clamp <> hi:105 var
-R14661:14665 Clamp <> clamp def
-R14667:14667 Clamp <> x:103 var
-R14670:14680 Clamp <> bounded_val def
-R14682:14683 Clamp <> lo:104 var
-R14687:14697 Clamp <> bounded_val def
-R14699:14700 Clamp <> hi:105 var
-R14732:14744 Clamp <> clamp_bounded def
-R14747:14757 Clamp <> bounded_val def
-R14760:14769 Clamp <> mk_bounded def
-prf 14885:14908 <> clamp_bounded_idempotent
-binder 14919:14919 <> x:106
-binder 14921:14922 <> lo:107
-binder 14924:14925 <> hi:108
-R14973:14979 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14932:14936 Clamp <> clamp def
-R14938:14938 Clamp <> x:106 var
-R14941:14951 Clamp <> bounded_val def
-R14953:14954 Clamp <> lo:107 var
-R14958:14968 Clamp <> bounded_val def
-R14970:14971 Clamp <> hi:108 var
-R14980:14984 Clamp <> clamp def
-R14987:14991 Clamp <> clamp def
-R14993:14993 Clamp <> x:106 var
-R14996:15006 Clamp <> bounded_val def
-R15008:15009 Clamp <> lo:107 var
-R15013:15023 Clamp <> bounded_val def
-R15025:15026 Clamp <> hi:108 var
-R15031:15041 Clamp <> bounded_val def
-R15043:15044 Clamp <> lo:107 var
-R15048:15058 Clamp <> bounded_val def
-R15060:15061 Clamp <> hi:108 var
-R15102:15117 Clamp <> clamp_idempotent thm
-R15102:15117 Clamp <> clamp_idempotent thm
-prf 15138:15159 <> clamp_bounded_monotone
-binder 15170:15170 <> x:109
-binder 15172:15172 <> y:110
-binder 15174:15175 <> lo:111
-binder 15177:15178 <> hi:112
-R15191:15198 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15186:15189 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R15185:15185 Clamp <> x:109 var
-R15190:15190 Clamp <> y:110 var
-R15240:15247 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R15199:15203 Clamp <> clamp def
-R15205:15205 Clamp <> x:109 var
-R15208:15218 Clamp <> bounded_val def
-R15220:15221 Clamp <> lo:111 var
-R15225:15235 Clamp <> bounded_val def
-R15237:15238 Clamp <> hi:112 var
-R15248:15252 Clamp <> clamp def
-R15254:15254 Clamp <> y:110 var
-R15257:15267 Clamp <> bounded_val def
-R15269:15270 Clamp <> lo:111 var
-R15274:15284 Clamp <> bounded_val def
-R15286:15287 Clamp <> hi:112 var
-R15318:15331 Clamp <> clamp_monotone thm
-R15318:15331 Clamp <> clamp_monotone thm
-R15358:15372 Clamp BoundedIntegers <> sec
-def 15681:15689 <> INT63_MIN
-R15693:15693 Coq.Numbers.BinNums <> Z ind
-R15698:15699 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R15704:15704 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
-R15701:15701 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
-def 15718:15726 <> INT63_MAX
-R15730:15730 Coq.Numbers.BinNums <> Z ind
-R15739:15741 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R15736:15736 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
-def 15757:15771 <> int63_in_bounds
-R15776:15784 Clamp <> in_bounds def
-R15796:15804 Clamp <> INT63_MAX def
-R15786:15794 Clamp <> INT63_MIN def
-prf 15882:15897 <> clamp_int63_safe
-binder 15908:15908 <> x:113
-binder 15910:15911 <> lo:114
-binder 15913:15914 <> hi:115
-R15937:15940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15919:15933 Clamp <> int63_in_bounds def
-R15935:15936 Clamp <> lo:114 var
-R15959:15964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15941:15955 Clamp <> int63_in_bounds def
-R15957:15958 Clamp <> hi:115 var
-R15965:15979 Clamp <> int63_in_bounds def
-R15982:15986 Clamp <> clamp def
-R15988:15988 Clamp <> x:113 var
-R15990:15991 Clamp <> lo:114 var
-R15993:15994 Clamp <> hi:115 var
-R16021:16032 Clamp <> clamp_closed thm
-R16021:16032 Clamp <> clamp_closed thm
-prf 16248:16261 <> zmin_in_bounds
-binder 16272:16273 <> lo:116
-binder 16275:16276 <> hi:117
-R16299:16302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16281:16295 Clamp <> int63_in_bounds def
-R16297:16298 Clamp <> lo:116 var
-R16321:16326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16303:16317 Clamp <> int63_in_bounds def
-R16319:16320 Clamp <> hi:117 var
-R16327:16341 Clamp <> int63_in_bounds def
-R16344:16348 Coq.ZArith.BinInt Z min def
-R16350:16351 Clamp <> lo:116 var
-R16353:16354 Clamp <> hi:117 var
-R16422:16436 Clamp <> int63_in_bounds def
-R16439:16447 Clamp <> in_bounds def
-R16467:16475 Coq.ZArith.BinInt Z min_glb thm
-R16467:16475 Coq.ZArith.BinInt Z min_glb thm
-R16500:16509 Coq.ZArith.BinInt Z le_trans thm
-R16500:16509 Coq.ZArith.BinInt Z le_trans thm
-R16532:16541 Coq.ZArith.BinInt Z le_min_l thm
-R16532:16541 Coq.ZArith.BinInt Z le_min_l thm
-prf 16578:16591 <> zmax_in_bounds
-binder 16602:16603 <> lo:118
-binder 16605:16606 <> hi:119
-R16629:16632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16611:16625 Clamp <> int63_in_bounds def
-R16627:16628 Clamp <> lo:118 var
-R16651:16656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16633:16647 Clamp <> int63_in_bounds def
-R16649:16650 Clamp <> hi:119 var
-R16657:16671 Clamp <> int63_in_bounds def
-R16674:16678 Coq.ZArith.BinInt Z max def
-R16680:16681 Clamp <> lo:118 var
-R16683:16684 Clamp <> hi:119 var
-R16752:16766 Clamp <> int63_in_bounds def
-R16769:16777 Clamp <> in_bounds def
-R16797:16806 Coq.ZArith.BinInt Z le_trans thm
-R16797:16806 Coq.ZArith.BinInt Z le_trans thm
-R16849:16858 Coq.ZArith.BinInt Z le_max_l thm
-R16849:16858 Coq.ZArith.BinInt Z le_max_l thm
-R16871:16879 Coq.ZArith.BinInt Z max_lub thm
-R16871:16879 Coq.ZArith.BinInt Z max_lub thm
-prf 16908:16931 <> clamp_intermediates_safe
-binder 16942:16942 <> x:120
-binder 16944:16945 <> lo:121
-binder 16947:16948 <> hi:122
-R16971:16974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16953:16967 Clamp <> int63_in_bounds def
-R16969:16970 Clamp <> lo:121 var
-R16993:16998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16975:16989 Clamp <> int63_in_bounds def
-R16991:16992 Clamp <> hi:122 var
-R17028:17033 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16999:17013 Clamp <> int63_in_bounds def
-R17016:17020 Coq.ZArith.BinInt Z min def
-R17022:17023 Clamp <> lo:121 var
-R17025:17026 Clamp <> hi:122 var
-R17063:17068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R17034:17048 Clamp <> int63_in_bounds def
-R17051:17055 Coq.ZArith.BinInt Z max def
-R17057:17058 Clamp <> lo:121 var
-R17060:17061 Clamp <> hi:122 var
-R17069:17083 Clamp <> int63_in_bounds def
-R17086:17090 Clamp <> clamp def
-R17092:17092 Clamp <> x:120 var
-R17094:17095 Clamp <> lo:121 var
-R17097:17098 Clamp <> hi:122 var
-R17154:17167 Clamp <> zmin_in_bounds thm
-R17154:17167 Clamp <> zmin_in_bounds thm
-R17205:17218 Clamp <> zmax_in_bounds thm
-R17205:17218 Clamp <> zmax_in_bounds thm
-R17245:17260 Clamp <> clamp_int63_safe thm
-R17245:17260 Clamp <> clamp_int63_safe thm
-def 17533:17539 <> clamp_R
-R17552:17552 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 17542:17542 <> x:123
-binder 17544:17545 <> lo:124
-binder 17547:17548 <> hi:125
-R17557:17557 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R17575:17578 Coq.Reals.Rbasic_fun <> Rmin def
-R17580:17581 Clamp <> lo:124 var
-R17583:17584 Clamp <> hi:125 var
-binder 17568:17570 <> lo':126
-R17602:17605 Coq.Reals.Rbasic_fun <> Rmax def
-R17607:17608 Clamp <> lo:124 var
-R17610:17611 Clamp <> hi:125 var
-binder 17595:17597 <> hi':127
-R17621:17630 Coq.Reals.RIneq <> Rle_lt_dec thm
-R17632:17632 Clamp <> x:123 var
-R17634:17636 Clamp <> lo':126 var
-R17657:17666 Coq.Reals.RIneq <> Rle_lt_dec thm
-R17668:17670 Clamp <> hi':127 var
-R17672:17672 Clamp <> x:123 var
-R17690:17690 Clamp <> x:123 var
-R17679:17681 Clamp <> hi':127 var
-R17643:17645 Clamp <> lo':126 var
-prf 17700:17711 <> Rmin_le_Rmax
-binder 17722:17722 <> a:128
-binder 17724:17724 <> b:129
-R17735:17738 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17727:17730 Coq.Reals.Rbasic_fun <> Rmin def
-R17732:17732 Clamp <> a:128 var
-R17734:17734 Clamp <> b:129 var
-R17739:17742 Coq.Reals.Rbasic_fun <> Rmax def
-R17744:17744 Clamp <> a:128 var
-R17746:17746 Clamp <> b:129 var
-R17774:17782 Coq.Reals.RIneq <> Rle_trans thm
-R17774:17782 Coq.Reals.RIneq <> Rle_trans thm
-R17802:17807 Coq.Reals.Rbasic_fun <> Rmin_l thm
-R17802:17807 Coq.Reals.Rbasic_fun <> Rmin_l thm
-R17820:17828 Coq.Reals.Rbasic_fun <> RmaxLess1 abbrev
-R17820:17828 Coq.Reals.Rbasic_fun <> RmaxLess1 abbrev
-prf 17845:17863 <> clamp_R_lower_bound
-binder 17874:17874 <> x:130
-binder 17876:17877 <> lo:131
-binder 17879:17880 <> hi:132
-R17895:17898 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17885:17888 Coq.Reals.Rbasic_fun <> Rmin def
-R17890:17891 Clamp <> lo:131 var
-R17893:17894 Clamp <> hi:132 var
-R17899:17905 Clamp <> clamp_R def
-R17907:17907 Clamp <> x:130 var
-R17909:17910 Clamp <> lo:131 var
-R17912:17913 Clamp <> hi:132 var
-R17950:17956 Clamp <> clamp_R def
-R17971:17980 Coq.Reals.RIneq <> Rle_lt_dec thm
-R17985:17988 Coq.Reals.Rbasic_fun <> Rmin def
-R17971:17980 Coq.Reals.RIneq <> Rle_lt_dec thm
-R17985:17988 Coq.Reals.Rbasic_fun <> Rmin def
-R18022:18029 Coq.Reals.RIneq <> Rle_refl thm
-R18022:18029 Coq.Reals.RIneq <> Rle_refl thm
-R18046:18055 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18058:18061 Coq.Reals.Rbasic_fun <> Rmax def
-R18046:18055 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18058:18061 Coq.Reals.Rbasic_fun <> Rmax def
-R18099:18110 Clamp <> Rmin_le_Rmax thm
-R18099:18110 Clamp <> Rmin_le_Rmax thm
-prf 18138:18156 <> clamp_R_upper_bound
-binder 18167:18167 <> x:133
-binder 18169:18170 <> lo:134
-binder 18172:18173 <> hi:135
-R18193:18196 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R18178:18184 Clamp <> clamp_R def
-R18186:18186 Clamp <> x:133 var
-R18188:18189 Clamp <> lo:134 var
-R18191:18192 Clamp <> hi:135 var
-R18197:18200 Coq.Reals.Rbasic_fun <> Rmax def
-R18202:18203 Clamp <> lo:134 var
-R18205:18206 Clamp <> hi:135 var
-R18243:18249 Clamp <> clamp_R def
-R18264:18273 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18278:18281 Coq.Reals.Rbasic_fun <> Rmin def
-R18264:18273 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18278:18281 Coq.Reals.Rbasic_fun <> Rmin def
-R18315:18326 Clamp <> Rmin_le_Rmax thm
-R18315:18326 Clamp <> Rmin_le_Rmax thm
-R18343:18352 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18355:18358 Coq.Reals.Rbasic_fun <> Rmax def
-R18343:18352 Coq.Reals.RIneq <> Rle_lt_dec thm
-R18355:18358 Coq.Reals.Rbasic_fun <> Rmax def
-R18396:18403 Coq.Reals.RIneq <> Rle_refl thm
-R18396:18403 Coq.Reals.RIneq <> Rle_refl thm
-prf 18431:18447 <> clamp_R_in_bounds
-binder 18458:18458 <> x:136
-binder 18460:18461 <> lo:137
-binder 18463:18464 <> hi:138
-R18479:18482 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R18498:18501 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R18469:18472 Coq.Reals.Rbasic_fun <> Rmin def
-R18474:18475 Clamp <> lo:137 var
-R18477:18478 Clamp <> hi:138 var
-R18483:18489 Clamp <> clamp_R def
-R18491:18491 Clamp <> x:136 var
-R18493:18494 Clamp <> lo:137 var
-R18496:18497 Clamp <> hi:138 var
-R18483:18489 Clamp <> clamp_R def
-R18491:18491 Clamp <> x:136 var
-R18493:18494 Clamp <> lo:137 var
-R18496:18497 Clamp <> hi:138 var
-R18502:18505 Coq.Reals.Rbasic_fun <> Rmax def
-R18507:18508 Clamp <> lo:137 var
-R18510:18511 Clamp <> hi:138 var
-R18548:18566 Clamp <> clamp_R_lower_bound thm
-R18548:18566 Clamp <> clamp_R_lower_bound thm
-R18579:18597 Clamp <> clamp_R_upper_bound thm
-R18579:18597 Clamp <> clamp_R_upper_bound thm
-prf 18614:18630 <> clamp_R_symmetric
-binder 18641:18641 <> x:139
-binder 18643:18644 <> lo:140
-binder 18646:18647 <> hi:141
-R18667:18669 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18652:18658 Clamp <> clamp_R def
-R18660:18660 Clamp <> x:139 var
-R18662:18663 Clamp <> lo:140 var
-R18665:18666 Clamp <> hi:141 var
-R18670:18676 Clamp <> clamp_R def
-R18678:18678 Clamp <> x:139 var
-R18680:18681 Clamp <> hi:141 var
-R18683:18684 Clamp <> lo:140 var
-R18721:18727 Clamp <> clamp_R def
-R18740:18748 Coq.Reals.Rbasic_fun <> Rmin_comm thm
-R18740:18748 Coq.Reals.Rbasic_fun <> Rmin_comm thm
-R18740:18748 Coq.Reals.Rbasic_fun <> Rmin_comm thm
-R18761:18769 Coq.Reals.Rbasic_fun <> Rmax_comm thm
-R18761:18769 Coq.Reals.Rbasic_fun <> Rmax_comm thm
-R18761:18769 Coq.Reals.Rbasic_fun <> Rmax_comm thm
-R18923:18926 Coq.Lists.List <> <> lib
-R18936:18948 Coq.Lists.List ListNotations <> mod
-def 18963:18972 <> clamp_list
-R18980:18983 Coq.Init.Datatypes <> list ind
-R18985:18985 Coq.Numbers.BinNums <> Z ind
-binder 18975:18976 <> xs:142
-R18997:18997 Coq.Numbers.BinNums <> Z ind
-binder 18989:18990 <> lo:143
-binder 18992:18993 <> hi:144
-R19002:19005 Coq.Init.Datatypes <> list ind
-R19007:19007 Coq.Numbers.BinNums <> Z ind
-R19014:19016 Coq.Lists.List <> map def
-R19043:19044 Clamp <> xs:142 var
-binder 19023:19023 <> x:145
-R19028:19032 Clamp <> clamp def
-R19034:19034 Clamp <> x:145 var
-R19036:19037 Clamp <> lo:143 var
-R19039:19040 Clamp <> hi:144 var
-prf 19056:19072 <> clamp_list_length
-binder 19083:19084 <> xs:146
-binder 19086:19087 <> lo:147
-binder 19089:19090 <> hi:148
-R19123:19125 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19095:19100 Coq.Init.Datatypes <> length def
-R19103:19112 Clamp <> clamp_list def
-R19114:19115 Clamp <> xs:146 var
-R19117:19118 Clamp <> lo:147 var
-R19120:19121 Clamp <> hi:148 var
-R19126:19131 Coq.Init.Datatypes <> length def
-R19133:19134 Clamp <> xs:146 var
-R19161:19170 Clamp <> clamp_list def
-R19179:19188 Coq.Lists.List <> map_length thm
-R19179:19188 Coq.Lists.List <> map_length thm
-prf 19205:19224 <> clamp_list_in_bounds
-binder 19235:19236 <> xs:149
-binder 19238:19239 <> lo:150
-binder 19241:19242 <> hi:151
-R19247:19252 Coq.Lists.List <> Forall ind
-R19298:19307 Clamp <> clamp_list def
-R19309:19310 Clamp <> xs:149 var
-R19312:19313 Clamp <> lo:150 var
-R19315:19316 Clamp <> hi:151 var
-binder 19259:19259 <> x:152
-R19275:19278 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R19280:19283 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R19264:19268 Coq.ZArith.BinInt Z min def
-R19270:19271 Clamp <> lo:150 var
-R19273:19274 Clamp <> hi:151 var
-R19279:19279 Clamp <> x:152 var
-R19279:19279 Clamp <> x:152 var
-R19284:19288 Coq.ZArith.BinInt Z max def
-R19290:19291 Clamp <> lo:150 var
-R19293:19294 Clamp <> hi:151 var
-R19355:19364 Clamp <> clamp_list def
-R19375:19384 Coq.Lists.List <> Forall_map thm
-R19375:19384 Coq.Lists.List <> Forall_map thm
-R19395:19407 Coq.Lists.List <> Forall_forall thm
-R19395:19407 Coq.Lists.List <> Forall_forall thm
-R19430:19444 Clamp <> clamp_in_bounds thm
-R19430:19444 Clamp <> clamp_in_bounds thm
-prf 19461:19481 <> clamp_list_idempotent
-binder 19492:19493 <> xs:153
-binder 19495:19496 <> lo:154
-binder 19498:19499 <> hi:155
-R19542:19544 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19504:19513 Clamp <> clamp_list def
-R19516:19525 Clamp <> clamp_list def
-R19527:19528 Clamp <> xs:153 var
-R19530:19531 Clamp <> lo:154 var
-R19533:19534 Clamp <> hi:155 var
-R19537:19538 Clamp <> lo:154 var
-R19540:19541 Clamp <> hi:155 var
-R19545:19554 Clamp <> clamp_list def
-R19556:19557 Clamp <> xs:153 var
-R19559:19560 Clamp <> lo:154 var
-R19562:19563 Clamp <> hi:155 var
-R19601:19610 Clamp <> clamp_list def
-R19623:19629 Coq.Lists.List <> map_map thm
-R19623:19629 Coq.Lists.List <> map_map thm
-R19623:19629 Coq.Lists.List <> map_map thm
-R19640:19646 Coq.Lists.List <> map_ext thm
-R19640:19646 Coq.Lists.List <> map_ext thm
-R19667:19682 Clamp <> clamp_idempotent thm
-R19667:19682 Clamp <> clamp_idempotent thm
-prf 19699:19712 <> clamp_list_app
-binder 19723:19724 <> xs:156
-binder 19726:19727 <> ys:157
-binder 19729:19730 <> lo:158
-binder 19732:19733 <> hi:159
-R19765:19767 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19738:19747 Clamp <> clamp_list def
-R19752:19755 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R19750:19751 Clamp <> xs:156 var
-R19756:19757 Clamp <> ys:157 var
-R19760:19761 Clamp <> lo:158 var
-R19763:19764 Clamp <> hi:159 var
-R19787:19790 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R19768:19777 Clamp <> clamp_list def
-R19779:19780 Clamp <> xs:156 var
-R19782:19783 Clamp <> lo:158 var
-R19785:19786 Clamp <> hi:159 var
-R19791:19800 Clamp <> clamp_list def
-R19802:19803 Clamp <> ys:157 var
-R19805:19806 Clamp <> lo:158 var
-R19808:19809 Clamp <> hi:159 var
-R19836:19845 Clamp <> clamp_list def
-R19854:19860 Coq.Lists.List <> map_app thm
-R19854:19860 Coq.Lists.List <> map_app thm
-prf 20096:20112 <> clamp_no_overflow
-binder 20123:20123 <> x:160
-binder 20125:20126 <> lo:161
-binder 20128:20129 <> hi:162
-binder 20131:20133 <> MIN:163
-binder 20135:20137 <> MAX:164
-R20151:20154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20145:20148 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R20142:20144 Clamp <> MIN:163 var
-R20149:20150 Clamp <> lo:161 var
-R20164:20169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20157:20160 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R20155:20156 Clamp <> lo:161 var
-R20161:20163 Clamp <> MAX:164 var
-R20179:20182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20173:20176 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R20170:20172 Clamp <> MIN:163 var
-R20177:20178 Clamp <> hi:162 var
-R20192:20197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20185:20188 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R20183:20184 Clamp <> hi:162 var
-R20189:20191 Clamp <> MAX:164 var
-R20201:20204 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R20218:20221 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R20198:20200 Clamp <> MIN:163 var
-R20205:20209 Clamp <> clamp def
-R20211:20211 Clamp <> x:160 var
-R20213:20214 Clamp <> lo:161 var
-R20216:20217 Clamp <> hi:162 var
-R20205:20209 Clamp <> clamp def
-R20211:20211 Clamp <> x:160 var
-R20213:20214 Clamp <> lo:161 var
-R20216:20217 Clamp <> hi:162 var
-R20222:20224 Clamp <> MAX:164 var
-R20302:20316 Clamp <> clamp_in_bounds thm
-R20302:20316 Clamp <> clamp_in_bounds thm
-R20379:20383 Coq.ZArith.BinInt Z min def
-R20362:20371 Coq.ZArith.BinInt Z le_trans thm
-R20379:20383 Coq.ZArith.BinInt Z min def
-R20362:20371 Coq.ZArith.BinInt Z le_trans thm
-R20405:20413 Coq.ZArith.BinInt Z min_glb thm
-R20405:20413 Coq.ZArith.BinInt Z min_glb thm
-R20473:20477 Coq.ZArith.BinInt Z max def
-R20456:20465 Coq.ZArith.BinInt Z le_trans thm
-R20473:20477 Coq.ZArith.BinInt Z max def
-R20456:20465 Coq.ZArith.BinInt Z le_trans thm
-R20517:20525 Coq.ZArith.BinInt Z max_lub thm
-R20517:20525 Coq.ZArith.BinInt Z max_lub thm
-sec 21043:21055 <> VerifiedClamp
-var 21070:21072 VerifiedClamp MIN
-var 21074:21076 VerifiedClamp MAX
-R21080:21080 Coq.Numbers.BinNums <> Z ind
-def 21163:21174 <> check_bounds
-R21181:21181 Coq.Numbers.BinNums <> Z ind
-binder 21177:21177 <> z:167
-R21186:21189 Coq.Init.Datatypes <> bool ind
-R21198:21198 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R21208:21213 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R21223:21223 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R21202:21206 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R21199:21201 Clamp <> VerifiedClamp.MIN var
-R21207:21207 Clamp <> z:167 var
-R21215:21219 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
-R21214:21214 Clamp <> z:167 var
-R21220:21222 Clamp <> VerifiedClamp.MAX var
-prf 21270:21289 <> check_bounds_correct
-binder 21300:21300 <> z:168
-R21328:21332 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R21321:21323 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21307:21318 Clamp <> check_bounds def
-R21320:21320 Clamp <> z:168 var
-R21324:21327 Coq.Init.Datatypes <> true constr
-R21336:21339 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R21341:21344 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R21333:21335 Clamp <> VerifiedClamp.MIN var
-R21340:21340 Clamp <> z:168 var
-R21340:21340 Clamp <> z:168 var
-R21345:21347 Clamp <> VerifiedClamp.MAX var
-R21380:21391 Clamp <> check_bounds def
-R21406:21423 Coq.Bool.Bool <> andb_true_iff thm
-R21406:21423 Coq.Bool.Bool <> andb_true_iff thm
-R21406:21423 Coq.Bool.Bool <> andb_true_iff thm
-R21438:21445 Coq.ZArith.BinInt Z leb_le thm
-R21438:21445 Coq.ZArith.BinInt Z leb_le thm
-R21438:21445 Coq.ZArith.BinInt Z leb_le thm
-R21456:21463 Coq.ZArith.BinInt Z leb_le thm
-R21456:21463 Coq.ZArith.BinInt Z leb_le thm
-R21456:21463 Coq.ZArith.BinInt Z leb_le thm
-rec 21628:21635 <> safe_int
-proj 21658:21665 <> safe_val
-proj 21676:21688 <> safe_evidence
-R21669:21669 Coq.Numbers.BinNums <> Z ind
-R21713:21715 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21692:21703 Clamp <> check_bounds def
-R21705:21712 Clamp <> safe_val:170 meth
-R21716:21719 Coq.Init.Datatypes <> true constr
-prf 21777:21794 <> safe_int_in_bounds
-binder 21805:21805 <> s:172
-R21811:21814 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R21825:21828 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R21808:21810 Clamp <> VerifiedClamp.MIN var
-R21815:21822 Clamp <> safe_val proj
-R21824:21824 Clamp <> s:172 var
-R21815:21822 Clamp <> safe_val proj
-R21824:21824 Clamp <> s:172 var
-R21829:21831 Clamp <> VerifiedClamp.MAX var
-R21874:21893 Clamp <> check_bounds_correct thm
-R21874:21893 Clamp <> check_bounds_correct thm
-def 21996:22004 <> make_safe
-R22011:22011 Coq.Numbers.BinNums <> Z ind
-binder 22007:22007 <> z:173
-R22022:22025 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R22027:22030 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
-R22019:22021 Clamp <> VerifiedClamp.MIN var
-R22026:22026 Clamp <> z:173 var
-R22026:22026 Clamp <> z:173 var
-R22031:22033 Clamp <> VerifiedClamp.MAX var
-binder 22015:22015 <> H:174
-R22038:22045 Clamp <> safe_int rec
-R22054:22064 Clamp <> mk_safe_int constr
-R22066:22066 Clamp <> z:173 var
-R22100:22119 Clamp <> check_bounds_correct thm
-R22100:22119 Clamp <> check_bounds_correct thm
-def 22230:22243 <> clamp_verified
-R22250:22250 Coq.Numbers.BinNums <> Z ind
-binder 22246:22246 <> x:175
-R22262:22269 Clamp <> safe_int rec
-binder 22254:22255 <> lo:176
-binder 22257:22258 <> hi:177
-R22274:22281 Clamp <> safe_int rec
-R22290:22300 Clamp <> mk_safe_int constr
-R22303:22307 Clamp <> clamp def
-R22309:22309 Clamp <> x:175 var
-R22312:22319 Clamp <> safe_val proj
-R22321:22322 Clamp <> lo:176 var
-R22326:22333 Clamp <> safe_val proj
-R22335:22336 Clamp <> hi:177 var
-R22378:22395 Clamp <> safe_int_in_bounds thm
-R22378:22395 Clamp <> safe_int_in_bounds thm
-R22437:22454 Clamp <> safe_int_in_bounds thm
-R22437:22454 Clamp <> safe_int_in_bounds thm
-R22490:22509 Clamp <> check_bounds_correct thm
-R22490:22509 Clamp <> check_bounds_correct thm
-R22522:22538 Clamp <> clamp_no_overflow thm
-R22522:22538 Clamp <> clamp_no_overflow thm
-prf 22630:22651 <> clamp_verified_correct
-binder 22662:22662 <> x:178
-binder 22664:22665 <> lo:179
-binder 22667:22668 <> hi:180
-R22708:22710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22675:22682 Clamp <> safe_val proj
-R22685:22698 Clamp <> clamp_verified def
-R22700:22700 Clamp <> x:178 var
-R22702:22703 Clamp <> lo:179 var
-R22705:22706 Clamp <> hi:180 var
-R22711:22715 Clamp <> clamp def
-R22717:22717 Clamp <> x:178 var
-R22720:22727 Clamp <> safe_val proj
-R22729:22730 Clamp <> lo:179 var
-R22734:22741 Clamp <> safe_val proj
-R22743:22744 Clamp <> hi:180 var
-R22776:22789 Clamp <> clamp_verified def
-def 22973:22985 <> clamp_checked
-R22998:22998 Coq.Numbers.BinNums <> Z ind
-binder 22988:22988 <> x:181
-binder 22990:22991 <> lo:182
-binder 22993:22994 <> hi:183
-R23004:23006 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R23003:23003 Coq.Numbers.BinNums <> Z ind
-R23007:23010 Coq.Init.Datatypes <> bool ind
-R23033:23037 Clamp <> clamp def
-R23039:23039 Clamp <> x:181 var
-R23041:23042 Clamp <> lo:182 var
-R23044:23045 Clamp <> hi:183 var
-binder 23023:23028 <> result:184
-R23054:23054 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23061:23062 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23132:23132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23055:23060 Clamp <> result:184 var
-R23063:23066 Coq.Init.Datatypes <> andb def
-R23112:23123 Clamp <> check_bounds def
-R23125:23130 Clamp <> result:184 var
-R23069:23072 Coq.Init.Datatypes <> andb def
-R23093:23104 Clamp <> check_bounds def
-R23106:23107 Clamp <> hi:183 var
-R23075:23086 Clamp <> check_bounds def
-R23088:23089 Clamp <> lo:182 var
-prf 23218:23239 <> clamp_checked_true_iff
-binder 23250:23250 <> x:185
-binder 23252:23253 <> lo:186
-binder 23255:23256 <> hi:187
-R23297:23306 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R23394:23394 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R23290:23292 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23263:23265 Coq.Init.Datatypes <> snd def
-R23268:23280 Clamp <> clamp_checked def
-R23282:23282 Clamp <> x:185 var
-R23284:23285 Clamp <> lo:186 var
-R23287:23288 Clamp <> hi:187 var
-R23293:23296 Coq.Init.Datatypes <> true constr
-R23329:23332 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23322:23324 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23307:23318 Clamp <> check_bounds def
-R23320:23321 Clamp <> lo:186 var
-R23325:23328 Coq.Init.Datatypes <> true constr
-R23355:23358 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23348:23350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23333:23344 Clamp <> check_bounds def
-R23346:23347 Clamp <> hi:187 var
-R23351:23354 Coq.Init.Datatypes <> true constr
-R23387:23389 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23359:23370 Clamp <> check_bounds def
-R23373:23377 Clamp <> clamp def
-R23379:23379 Clamp <> x:185 var
-R23381:23382 Clamp <> lo:186 var
-R23384:23385 Clamp <> hi:187 var
-R23390:23393 Coq.Init.Datatypes <> true constr
-R23433:23445 Clamp <> clamp_checked def
-R23468:23485 Coq.Bool.Bool <> andb_true_iff thm
-R23468:23485 Coq.Bool.Bool <> andb_true_iff thm
-R23468:23485 Coq.Bool.Bool <> andb_true_iff thm
-R23468:23485 Coq.Bool.Bool <> andb_true_iff thm
-R23468:23485 Coq.Bool.Bool <> andb_true_iff thm
-prf 23577:23597 <> clamp_checked_correct
-binder 23608:23608 <> x:188
-binder 23610:23611 <> lo:189
-binder 23613:23614 <> hi:190
-R23643:23650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23636:23638 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23621:23632 Clamp <> check_bounds def
-R23634:23635 Clamp <> lo:189 var
-R23639:23642 Coq.Init.Datatypes <> true constr
-R23673:23680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23666:23668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23651:23662 Clamp <> check_bounds def
-R23664:23665 Clamp <> hi:190 var
-R23669:23672 Coq.Init.Datatypes <> true constr
-R23708:23710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23681:23683 Coq.Init.Datatypes <> snd def
-R23686:23698 Clamp <> clamp_checked def
-R23700:23700 Clamp <> x:188 var
-R23702:23703 Clamp <> lo:189 var
-R23705:23706 Clamp <> hi:190 var
-R23711:23714 Coq.Init.Datatypes <> true constr
-R23764:23785 Clamp <> clamp_checked_true_iff thm
-R23764:23785 Clamp <> clamp_checked_true_iff thm
-R23818:23837 Clamp <> check_bounds_correct thm
-R23818:23837 Clamp <> check_bounds_correct thm
-R23850:23869 Clamp <> check_bounds_correct thm
-R23850:23869 Clamp <> check_bounds_correct thm
-R23889:23908 Clamp <> check_bounds_correct thm
-R23889:23908 Clamp <> check_bounds_correct thm
-R23928:23944 Clamp <> clamp_no_overflow thm
-R23928:23944 Clamp <> clamp_no_overflow thm
-R23966:23978 Clamp VerifiedClamp <> sec
-def 24109:24128 <> clamp_int63_verified
-R24135:24135 Coq.Numbers.BinNums <> Z ind
-binder 24131:24131 <> x:191
-R24147:24154 Clamp <> safe_int rec
-R24166:24174 Clamp <> INT63_MAX def
-R24156:24164 Clamp <> INT63_MIN def
-binder 24139:24140 <> lo:192
-binder 24142:24143 <> hi:193
-R24181:24188 Clamp <> safe_int rec
-R24200:24208 Clamp <> INT63_MAX def
-R24190:24198 Clamp <> INT63_MIN def
-R24215:24228 Clamp <> clamp_verified def
-R24250:24250 Clamp <> x:191 var
-R24252:24253 Clamp <> lo:192 var
-R24255:24256 Clamp <> hi:193 var
-R24240:24248 Clamp <> INT63_MAX def
-R24230:24238 Clamp <> INT63_MIN def
-def 24271:24288 <> check_int63_bounds
-R24293:24296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24292:24292 Coq.Numbers.BinNums <> Z ind
-R24297:24300 Coq.Init.Datatypes <> bool ind
-R24305:24316 Clamp <> check_bounds def
-R24328:24336 Clamp <> INT63_MAX def
-R24318:24326 Clamp <> INT63_MIN def
-def 24351:24369 <> clamp_int63_checked
-R24382:24382 Coq.Numbers.BinNums <> Z ind
-binder 24372:24372 <> x:194
-binder 24374:24375 <> lo:195
-binder 24377:24378 <> hi:196
-R24388:24390 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R24387:24387 Coq.Numbers.BinNums <> Z ind
-R24391:24394 Coq.Init.Datatypes <> bool ind
-R24401:24413 Clamp <> clamp_checked def
-R24435:24435 Clamp <> x:194 var
-R24437:24438 Clamp <> lo:195 var
-R24440:24441 Clamp <> hi:196 var
-R24425:24433 Clamp <> INT63_MAX def
-R24415:24423 Clamp <> INT63_MIN def
-R25594:25603 Coq.extraction.Extraction <> <> lib
-R25614:25627 Coq.extraction.ExtrOcamlBasic <> <> lib
-R25638:25650 Coq.extraction.ExtrOcamlZInt <> <> lib
+R3183:3190 Coq.ZArith.BinInt Z ltb_ge thm
+R3183:3190 Coq.ZArith.BinInt Z ltb_ge thm
+prf 3271:3280 <> min_le_max
+binder 3291:3291 <> a:17
+binder 3293:3293 <> b:18
+R3305:3308 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3296:3300 Coq.ZArith.BinInt Z min def
+R3302:3302 Clamp <> a:17 var
+R3304:3304 Clamp <> b:18 var
+R3309:3313 Coq.ZArith.BinInt Z max def
+R3315:3315 Clamp <> a:17 var
+R3317:3317 Clamp <> b:18 var
+R3345:3354 Coq.ZArith.BinInt Z le_trans thm
+R3345:3354 Coq.ZArith.BinInt Z le_trans thm
+R3374:3383 Coq.ZArith.BinInt Z le_min_l thm
+R3374:3383 Coq.ZArith.BinInt Z le_min_l thm
+R3396:3405 Coq.ZArith.BinInt Z le_max_l thm
+R3396:3405 Coq.ZArith.BinInt Z le_max_l thm
+prf 3573:3589 <> clamp_lower_bound
+binder 3600:3600 <> x:19
+binder 3602:3603 <> lo:20
+binder 3605:3606 <> hi:21
+R3622:3625 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3611:3615 Coq.ZArith.BinInt Z min def
+R3617:3618 Clamp <> lo:20 var
+R3620:3621 Clamp <> hi:21 var
+R3626:3630 Clamp <> clamp def
+R3632:3632 Clamp <> x:19 var
+R3634:3635 Clamp <> lo:20 var
+R3637:3638 Clamp <> hi:21 var
+R3673:3677 Clamp <> clamp def
+R3686:3695 Coq.ZArith.BinInt Z le_max_l thm
+R3686:3695 Coq.ZArith.BinInt Z le_max_l thm
+prf 3712:3728 <> clamp_upper_bound
+binder 3739:3739 <> x:22
+binder 3741:3742 <> lo:23
+binder 3744:3745 <> hi:24
+R3763:3766 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3750:3754 Clamp <> clamp def
+R3756:3756 Clamp <> x:22 var
+R3758:3759 Clamp <> lo:23 var
+R3761:3762 Clamp <> hi:24 var
+R3767:3771 Coq.ZArith.BinInt Z max def
+R3773:3774 Clamp <> lo:23 var
+R3776:3777 Clamp <> hi:24 var
+R3812:3816 Clamp <> clamp def
+R3827:3835 Coq.ZArith.BinInt Z max_lub thm
+R3827:3835 Coq.ZArith.BinInt Z max_lub thm
+R3848:3857 Clamp <> min_le_max thm
+R3848:3857 Clamp <> min_le_max thm
+R3870:3879 Coq.ZArith.BinInt Z le_min_r thm
+R3870:3879 Coq.ZArith.BinInt Z le_min_r thm
+prf 3896:3910 <> clamp_in_bounds
+binder 3921:3921 <> x:25
+binder 3923:3924 <> lo:26
+binder 3926:3927 <> hi:27
+R3943:3946 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R3960:3963 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R3932:3936 Coq.ZArith.BinInt Z min def
+R3938:3939 Clamp <> lo:26 var
+R3941:3942 Clamp <> hi:27 var
+R3947:3951 Clamp <> clamp def
+R3953:3953 Clamp <> x:25 var
+R3955:3956 Clamp <> lo:26 var
+R3958:3959 Clamp <> hi:27 var
+R3947:3951 Clamp <> clamp def
+R3953:3953 Clamp <> x:25 var
+R3955:3956 Clamp <> lo:26 var
+R3958:3959 Clamp <> hi:27 var
+R3964:3968 Coq.ZArith.BinInt Z max def
+R3970:3971 Clamp <> lo:26 var
+R3973:3974 Clamp <> hi:27 var
+R4011:4027 Clamp <> clamp_lower_bound thm
+R4011:4027 Clamp <> clamp_lower_bound thm
+R4040:4056 Clamp <> clamp_upper_bound thm
+R4040:4056 Clamp <> clamp_upper_bound thm
+def 4162:4172 <> clamp_below
+R4189:4191 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4176:4180 Clamp <> clamp def
+def 4230:4240 <> clamp_above
+R4258:4260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4244:4248 Clamp <> clamp def
+def 4299:4310 <> clamp_inside
+R4328:4330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4314:4318 Clamp <> clamp def
+def 4369:4379 <> clamp_at_lo
+R4397:4399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4383:4387 Clamp <> clamp def
+def 4438:4448 <> clamp_at_hi
+R4466:4468 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4452:4456 Clamp <> clamp def
+def 4507:4526 <> clamp_swapped_bounds
+R4544:4546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4530:4534 Clamp <> clamp def
+def 4585:4602 <> clamp_equal_bounds
+R4617:4619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4606:4610 Clamp <> clamp def
+def 4657:4670 <> clamp_negative
+R4692:4695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4698:4698 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4674:4678 Clamp <> clamp def
+R4791:4795 Clamp <> clamp def
+R4829:4833 Clamp <> clamp def
+R4869:4873 Clamp <> clamp def
+def 4982:5005 <> clamp_not_identity_below
+R5022:5025 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5009:5013 Clamp <> clamp def
+def 5064:5087 <> clamp_not_identity_above
+R5105:5108 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5091:5095 Clamp <> clamp def
+def 5148:5171 <> clamp_not_outside_bounds
+R5175:5177 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5197:5197 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5192:5194 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R5178:5182 Clamp <> clamp def
+R5214:5218 Clamp <> clamp def
+ind 5396:5407 <> clamp_result
+constr 5442:5453 <> clamp_at_min
+constr 5515:5526 <> clamp_at_max
+constr 5588:5601 <> clamp_identity
+R5420:5420 Coq.Numbers.BinNums <> Z ind
+binder 5410:5410 <> x:28
+binder 5412:5413 <> lo:29
+binder 5415:5416 <> hi:30
+R5426:5429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5425:5425 Coq.Numbers.BinNums <> Z ind
+R5472:5475 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5458:5460 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R5457:5457 Clamp <> x:28 var
+R5461:5465 Coq.ZArith.BinInt Z min def
+R5467:5468 Clamp <> lo:29 var
+R5470:5471 Clamp <> hi:30 var
+R5476:5487 Clamp <> clamp_result:31 ind
+R5498:5502 Coq.ZArith.BinInt Z min def
+R5504:5505 Clamp <> lo:29 var
+R5507:5508 Clamp <> hi:30 var
+R5494:5495 Clamp <> hi:30 var
+R5491:5492 Clamp <> lo:29 var
+R5489:5489 Clamp <> x:28 var
+R5545:5548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5531:5533 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R5530:5530 Clamp <> x:28 var
+R5534:5538 Coq.ZArith.BinInt Z max def
+R5540:5541 Clamp <> lo:29 var
+R5543:5544 Clamp <> hi:30 var
+R5549:5560 Clamp <> clamp_result:31 ind
+R5571:5575 Coq.ZArith.BinInt Z max def
+R5577:5578 Clamp <> lo:29 var
+R5580:5581 Clamp <> hi:30 var
+R5567:5568 Clamp <> hi:30 var
+R5564:5565 Clamp <> lo:29 var
+R5562:5562 Clamp <> x:28 var
+R5636:5639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5616:5619 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R5621:5624 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R5605:5609 Coq.ZArith.BinInt Z min def
+R5611:5612 Clamp <> lo:29 var
+R5614:5615 Clamp <> hi:30 var
+R5620:5620 Clamp <> x:28 var
+R5620:5620 Clamp <> x:28 var
+R5625:5629 Coq.ZArith.BinInt Z max def
+R5631:5632 Clamp <> lo:29 var
+R5634:5635 Clamp <> hi:30 var
+R5640:5651 Clamp <> clamp_result:31 ind
+R5661:5661 Clamp <> x:28 var
+R5658:5659 Clamp <> hi:30 var
+R5655:5656 Clamp <> lo:29 var
+R5653:5653 Clamp <> x:28 var
+scheme 5396:5407 <> clamp_result_ind
+scheme 5396:5407 <> clamp_result_sind
+prf 5673:5688 <> clamp_trichotomy
+binder 5699:5699 <> x:33
+binder 5701:5702 <> lo:34
+binder 5704:5705 <> hi:35
+R5710:5721 Clamp <> clamp_result ind
+R5723:5723 Clamp <> x:33 var
+R5725:5726 Clamp <> lo:34 var
+R5728:5729 Clamp <> hi:35 var
+R5732:5736 Clamp <> clamp def
+R5738:5738 Clamp <> x:33 var
+R5740:5741 Clamp <> lo:34 var
+R5743:5744 Clamp <> hi:35 var
+R5783:5799 Clamp <> clamp_conditional thm
+R5783:5799 Clamp <> clamp_conditional thm
+R5783:5799 Clamp <> clamp_conditional thm
+R5822:5825 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R5826:5830 Coq.ZArith.BinInt Z min def
+R5822:5825 Coq.ZArith.BinInt <> ::Z_scope:x_'<?'_x not
+R5826:5830 Coq.ZArith.BinInt Z min def
+R5857:5867 Clamp <> ltb_reflect thm
+R5857:5867 Clamp <> ltb_reflect thm
+R5882:5893 Clamp <> clamp_at_min constr
+R5882:5893 Clamp <> clamp_at_min constr
+R5921:5924 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R5925:5929 Coq.ZArith.BinInt Z max def
+R5921:5924 Coq.ZArith.BinInt <> ::Z_scope:x_'>?'_x not
+R5925:5929 Coq.ZArith.BinInt Z max def
+R5958:5968 Clamp <> gtb_reflect thm
+R5958:5968 Clamp <> gtb_reflect thm
+R5983:5994 Clamp <> clamp_at_max constr
+R5983:5994 Clamp <> clamp_at_max constr
+R6019:6035 Clamp <> ltb_reflect_false thm
+R6019:6035 Clamp <> ltb_reflect_false thm
+R6050:6066 Clamp <> gtb_reflect_false thm
+R6050:6066 Clamp <> gtb_reflect_false thm
+R6087:6100 Clamp <> clamp_identity constr
+R6087:6100 Clamp <> clamp_identity constr
+prf 6211:6226 <> clamp_change_iff
+binder 6237:6237 <> x:36
+binder 6239:6240 <> lo:37
+binder 6242:6243 <> hi:38
+R6266:6271 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6306:6306 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6261:6264 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6248:6252 Clamp <> clamp def
+R6254:6254 Clamp <> x:36 var
+R6256:6257 Clamp <> lo:37 var
+R6259:6260 Clamp <> hi:38 var
+R6265:6265 Clamp <> x:36 var
+R6287:6290 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6273:6275 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R6272:6272 Clamp <> x:36 var
+R6276:6280 Coq.ZArith.BinInt Z min def
+R6282:6283 Clamp <> lo:37 var
+R6285:6286 Clamp <> hi:38 var
+R6292:6294 Coq.ZArith.BinInt <> ::Z_scope:x_'>'_x not
+R6291:6291 Clamp <> x:36 var
+R6295:6299 Coq.ZArith.BinInt Z max def
+R6301:6302 Clamp <> lo:37 var
+R6304:6305 Clamp <> hi:38 var
+R6373:6388 Clamp <> clamp_trichotomy thm
+R6373:6388 Clamp <> clamp_trichotomy thm
+R6577:6581 Clamp <> clamp def
+R6651:6655 Coq.ZArith.BinInt Z min def
+R6634:6643 Coq.ZArith.BinInt Z le_trans thm
+R6678:6687 Clamp <> min_le_max thm
+R6599:6605 Coq.ZArith.BinInt Z min_l thm
+R6610:6614 Coq.ZArith.BinInt Z max def
+R6599:6605 Coq.ZArith.BinInt Z min_l thm
+R6610:6614 Coq.ZArith.BinInt Z max def
+R6651:6655 Coq.ZArith.BinInt Z min def
+R6634:6643 Coq.ZArith.BinInt Z le_trans thm
+R6678:6687 Clamp <> min_le_max thm
+R6599:6605 Coq.ZArith.BinInt Z min_l thm
+R6610:6614 Coq.ZArith.BinInt Z max def
+R6706:6712 Coq.ZArith.BinInt Z max_l thm
+R6706:6712 Coq.ZArith.BinInt Z max_l thm
+R6706:6712 Coq.ZArith.BinInt Z max_l thm
+R6740:6744 Clamp <> clamp def
+R6762:6768 Coq.ZArith.BinInt Z min_r thm
+R6773:6777 Coq.ZArith.BinInt Z max def
+R6762:6768 Coq.ZArith.BinInt Z min_r thm
+R6773:6777 Coq.ZArith.BinInt Z max def
+R6762:6768 Coq.ZArith.BinInt Z min_r thm
+R6773:6777 Coq.ZArith.BinInt Z max def
+R6826:6835 Clamp <> min_le_max thm
+R6809:6815 Coq.ZArith.BinInt Z max_r thm
+R6809:6815 Coq.ZArith.BinInt Z max_r thm
+R6826:6835 Clamp <> min_le_max thm
+R6809:6815 Coq.ZArith.BinInt Z max_r thm
+prf 6988:7002 <> clamp_algebraic
+binder 7013:7013 <> x:39
+binder 7015:7016 <> lo:40
+binder 7018:7019 <> hi:41
+R7037:7039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7024:7028 Clamp <> clamp def
+R7030:7030 Clamp <> x:39 var
+R7032:7033 Clamp <> lo:40 var
+R7035:7036 Clamp <> hi:41 var
+R7040:7044 Coq.ZArith.BinInt Z max def
+R7047:7051 Coq.ZArith.BinInt Z min def
+R7053:7054 Clamp <> lo:40 var
+R7056:7057 Clamp <> hi:41 var
+R7061:7065 Coq.ZArith.BinInt Z min def
+R7067:7067 Clamp <> x:39 var
+R7070:7074 Coq.ZArith.BinInt Z max def
+R7076:7077 Clamp <> lo:40 var
+R7079:7080 Clamp <> hi:41 var
+prf 7220:7237 <> clamp_fixpoint_min
+binder 7248:7249 <> lo:42
+binder 7251:7252 <> hi:43
+R7282:7284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7257:7261 Clamp <> clamp def
+R7264:7268 Coq.ZArith.BinInt Z min def
+R7270:7271 Clamp <> lo:42 var
+R7273:7274 Clamp <> hi:43 var
+R7277:7278 Clamp <> lo:42 var
+R7280:7281 Clamp <> hi:43 var
+R7285:7289 Coq.ZArith.BinInt Z min def
+R7291:7292 Clamp <> lo:42 var
+R7294:7295 Clamp <> hi:43 var
+R7328:7332 Clamp <> clamp def
+R7346:7350 Coq.ZArith.BinInt Z min def
+R7353:7357 Coq.ZArith.BinInt Z min def
+R7367:7371 Coq.ZArith.BinInt Z max def
+R7387:7391 Coq.ZArith.BinInt Z min def
+R7424:7430 Coq.ZArith.BinInt Z min_l thm
+R7439:7448 Clamp <> min_le_max thm
+R7346:7350 Coq.ZArith.BinInt Z min def
+R7353:7357 Coq.ZArith.BinInt Z min def
+R7367:7371 Coq.ZArith.BinInt Z max def
+R7387:7391 Coq.ZArith.BinInt Z min def
+R7424:7430 Coq.ZArith.BinInt Z min_l thm
+R7439:7448 Clamp <> min_le_max thm
+R7460:7467 Coq.ZArith.BinInt Z max_id thm
+R7460:7467 Coq.ZArith.BinInt Z max_id thm
+prf 7484:7501 <> clamp_fixpoint_max
+binder 7512:7513 <> lo:44
+binder 7515:7516 <> hi:45
+R7546:7548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7521:7525 Clamp <> clamp def
+R7528:7532 Coq.ZArith.BinInt Z max def
+R7534:7535 Clamp <> lo:44 var
+R7537:7538 Clamp <> hi:45 var
+R7541:7542 Clamp <> lo:44 var
+R7544:7545 Clamp <> hi:45 var
+R7549:7553 Coq.ZArith.BinInt Z max def
+R7555:7556 Clamp <> lo:44 var
+R7558:7559 Clamp <> hi:45 var
+R7592:7596 Clamp <> clamp def
+R7609:7616 Coq.ZArith.BinInt Z min_id thm
+R7609:7616 Coq.ZArith.BinInt Z min_id thm
+R7609:7616 Coq.ZArith.BinInt Z min_id thm
+R7627:7633 Coq.ZArith.BinInt Z max_r thm
+R7627:7633 Coq.ZArith.BinInt Z max_r thm
+R7642:7651 Clamp <> min_le_max thm
+R7642:7651 Clamp <> min_le_max thm
+prf 7668:7690 <> clamp_fixpoint_interior
+binder 7701:7701 <> x:46
+binder 7703:7704 <> lo:47
+binder 7706:7707 <> hi:48
+R7743:7748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7723:7726 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R7728:7731 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R7712:7716 Coq.ZArith.BinInt Z min def
+R7718:7719 Clamp <> lo:47 var
+R7721:7722 Clamp <> hi:48 var
+R7727:7727 Clamp <> x:46 var
+R7727:7727 Clamp <> x:46 var
+R7732:7736 Coq.ZArith.BinInt Z max def
+R7738:7739 Clamp <> lo:47 var
+R7741:7742 Clamp <> hi:48 var
+R7762:7764 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7749:7753 Clamp <> clamp def
+R7755:7755 Clamp <> x:46 var
+R7757:7758 Clamp <> lo:47 var
+R7760:7761 Clamp <> hi:48 var
+R7765:7765 Clamp <> x:46 var
+R7810:7814 Clamp <> clamp def
+R7828:7834 Coq.ZArith.BinInt Z min_l thm
+R7839:7843 Coq.ZArith.BinInt Z max def
+R7828:7834 Coq.ZArith.BinInt Z min_l thm
+R7839:7843 Coq.ZArith.BinInt Z max def
+R7828:7834 Coq.ZArith.BinInt Z min_l thm
+R7839:7843 Coq.ZArith.BinInt Z max def
+R7875:7881 Coq.ZArith.BinInt Z max_r thm
+R7875:7881 Coq.ZArith.BinInt Z max_r thm
+prf 8036:8051 <> clamp_idempotent
+binder 8062:8062 <> x:49
+binder 8064:8065 <> lo:50
+binder 8067:8068 <> hi:51
+R8100:8102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8073:8077 Clamp <> clamp def
+R8080:8084 Clamp <> clamp def
+R8086:8086 Clamp <> x:49 var
+R8088:8089 Clamp <> lo:50 var
+R8091:8092 Clamp <> hi:51 var
+R8095:8096 Clamp <> lo:50 var
+R8098:8099 Clamp <> hi:51 var
+R8103:8107 Clamp <> clamp def
+R8109:8109 Clamp <> x:49 var
+R8111:8112 Clamp <> lo:50 var
+R8114:8115 Clamp <> hi:51 var
+R8141:8163 Clamp <> clamp_fixpoint_interior thm
+R8141:8163 Clamp <> clamp_fixpoint_interior thm
+R8172:8186 Clamp <> clamp_in_bounds thm
+R8172:8186 Clamp <> clamp_in_bounds thm
+prf 8291:8305 <> clamp_symmetric
+binder 8316:8316 <> x:52
+binder 8318:8319 <> lo:53
+binder 8321:8322 <> hi:54
+R8340:8342 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8327:8331 Clamp <> clamp def
+R8333:8333 Clamp <> x:52 var
+R8335:8336 Clamp <> lo:53 var
+R8338:8339 Clamp <> hi:54 var
+R8343:8347 Clamp <> clamp def
+R8349:8349 Clamp <> x:52 var
+R8351:8352 Clamp <> hi:54 var
+R8354:8355 Clamp <> lo:53 var
+R8390:8394 Clamp <> clamp def
+R8408:8417 Coq.ZArith.BinInt Z min_comm thm
+R8408:8417 Coq.ZArith.BinInt Z min_comm thm
+R8408:8417 Coq.ZArith.BinInt Z min_comm thm
+R8438:8447 Coq.ZArith.BinInt Z max_comm thm
+R8438:8447 Coq.ZArith.BinInt Z max_comm thm
+R8438:8447 Coq.ZArith.BinInt Z max_comm thm
+def 8640:8649 <> clamp_safe
+R8662:8662 Coq.Numbers.BinNums <> Z ind
+binder 8652:8652 <> x:55
+binder 8654:8655 <> lo:56
+binder 8657:8658 <> hi:57
+R8667:8672 Coq.Init.Datatypes <> option ind
+R8674:8674 Coq.Numbers.BinNums <> Z ind
+R8686:8690 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R8684:8685 Clamp <> lo:56 var
+R8691:8692 Clamp <> hi:57 var
+R8725:8728 Coq.Init.Datatypes <> None constr
+R8699:8702 Coq.Init.Datatypes <> Some constr
+R8705:8709 Clamp <> clamp def
+R8711:8711 Clamp <> x:55 var
+R8713:8714 Clamp <> lo:56 var
+R8716:8717 Clamp <> hi:57 var
+prf 8740:8758 <> clamp_safe_some_iff
+binder 8769:8769 <> x:58
+binder 8771:8772 <> lo:59
+binder 8774:8775 <> hi:60
+binder 8777:8777 <> v:61
+R8809:8814 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8844:8844 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8800:8802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8782:8791 Clamp <> clamp_safe def
+R8793:8793 Clamp <> x:58 var
+R8795:8796 Clamp <> lo:59 var
+R8798:8799 Clamp <> hi:60 var
+R8803:8806 Coq.Init.Datatypes <> Some constr
+R8808:8808 Clamp <> v:61 var
+R8823:8826 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8817:8820 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R8815:8816 Clamp <> lo:59 var
+R8821:8822 Clamp <> hi:60 var
+R8828:8830 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8827:8827 Clamp <> v:61 var
+R8831:8835 Clamp <> clamp def
+R8837:8837 Clamp <> x:58 var
+R8839:8840 Clamp <> lo:59 var
+R8842:8843 Clamp <> hi:60 var
+R8881:8890 Clamp <> clamp_safe def
+R8907:8911 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R8907:8911 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R8933:8940 Coq.ZArith.BinInt Z leb_le thm
+R8933:8940 Coq.ZArith.BinInt Z leb_le thm
+R9041:9048 Coq.ZArith.BinInt Z leb_gt thm
+R9041:9048 Coq.ZArith.BinInt Z leb_gt thm
+prf 9134:9152 <> clamp_safe_none_iff
+binder 9163:9163 <> x:62
+binder 9165:9166 <> lo:63
+binder 9168:9169 <> hi:64
+R9199:9203 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9192:9194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9174:9183 Clamp <> clamp_safe def
+R9185:9185 Clamp <> x:62 var
+R9187:9188 Clamp <> lo:63 var
+R9190:9191 Clamp <> hi:64 var
+R9195:9198 Coq.Init.Datatypes <> None constr
+R9206:9208 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R9204:9205 Clamp <> hi:64 var
+R9209:9210 Clamp <> lo:63 var
+R9245:9254 Clamp <> clamp_safe def
+R9271:9275 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R9271:9275 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R9297:9304 Coq.ZArith.BinInt Z leb_le thm
+R9297:9304 Coq.ZArith.BinInt Z leb_le thm
+R9351:9358 Coq.ZArith.BinInt Z leb_gt thm
+R9351:9358 Coq.ZArith.BinInt Z leb_gt thm
+prf 9417:9436 <> clamp_safe_in_bounds
+binder 9447:9447 <> x:65
+binder 9449:9450 <> lo:66
+binder 9452:9453 <> hi:67
+binder 9455:9455 <> v:68
+R9487:9490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9478:9480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9460:9469 Clamp <> clamp_safe def
+R9471:9471 Clamp <> x:65 var
+R9473:9474 Clamp <> lo:66 var
+R9476:9477 Clamp <> hi:67 var
+R9481:9484 Coq.Init.Datatypes <> Some constr
+R9486:9486 Clamp <> v:68 var
+R9493:9496 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R9498:9501 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R9491:9492 Clamp <> lo:66 var
+R9497:9497 Clamp <> v:68 var
+R9497:9497 Clamp <> v:68 var
+R9502:9503 Clamp <> hi:67 var
+R9543:9561 Clamp <> clamp_safe_some_iff thm
+R9543:9561 Clamp <> clamp_safe_some_iff thm
+R9614:9628 Clamp <> clamp_in_bounds thm
+R9614:9628 Clamp <> clamp_in_bounds thm
+R9665:9671 Coq.ZArith.BinInt Z min_l thm
+R9665:9671 Coq.ZArith.BinInt Z min_l thm
+R9665:9671 Coq.ZArith.BinInt Z min_l thm
+R9699:9705 Coq.ZArith.BinInt Z max_r thm
+R9699:9705 Coq.ZArith.BinInt Z max_r thm
+R9699:9705 Coq.ZArith.BinInt Z max_r thm
+prf 9917:9930 <> clamp_monotone
+binder 9941:9941 <> x:69
+binder 9943:9943 <> y:70
+binder 9945:9946 <> lo:71
+binder 9948:9949 <> hi:72
+R9960:9963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9955:9958 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9954:9954 Clamp <> x:69 var
+R9959:9959 Clamp <> y:70 var
+R9977:9980 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R9964:9968 Clamp <> clamp def
+R9970:9970 Clamp <> x:69 var
+R9972:9973 Clamp <> lo:71 var
+R9975:9976 Clamp <> hi:72 var
+R9981:9985 Clamp <> clamp def
+R9987:9987 Clamp <> y:70 var
+R9989:9990 Clamp <> lo:71 var
+R9992:9993 Clamp <> hi:72 var
+R10038:10052 Clamp <> clamp_algebraic thm
+R10038:10052 Clamp <> clamp_algebraic thm
+R10038:10052 Clamp <> clamp_algebraic thm
+R10038:10052 Clamp <> clamp_algebraic thm
+R10038:10052 Clamp <> clamp_algebraic thm
+R10063:10079 Coq.ZArith.BinInt Z max_le_compat_l thm
+R10063:10079 Coq.ZArith.BinInt Z max_le_compat_l thm
+R10090:10106 Coq.ZArith.BinInt Z min_le_compat_r thm
+R10090:10106 Coq.ZArith.BinInt Z min_le_compat_r thm
+inst 10958:10969 <> clamp_proper
+R10973:10978 Coq.Classes.Morphisms <> Proper class
+R11006:11010 Clamp <> clamp def
+R10983:10987 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R10981:10982 Coq.Init.Logic <> eq ind
+R10990:10994 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R10988:10989 Coq.Init.Logic <> eq ind
+R10997:11001 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R10995:10996 Coq.Init.Logic <> eq ind
+R11002:11003 Coq.Init.Logic <> eq ind
+prf 11226:11245 <> clamp_nested_tighter
+binder 11256:11256 <> x:73
+binder 11258:11260 <> lo1:74
+binder 11262:11264 <> hi1:75
+binder 11266:11268 <> lo2:76
+binder 11270:11272 <> hi2:77
+R11307:11312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11290:11293 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R11277:11281 Coq.ZArith.BinInt Z min def
+R11283:11285 Clamp <> lo2:76 var
+R11287:11289 Clamp <> hi2:77 var
+R11294:11298 Coq.ZArith.BinInt Z min def
+R11300:11302 Clamp <> lo1:74 var
+R11304:11306 Clamp <> hi1:75 var
+R11343:11348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11326:11329 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R11313:11317 Coq.ZArith.BinInt Z max def
+R11319:11321 Clamp <> lo1:74 var
+R11323:11325 Clamp <> hi1:75 var
+R11330:11334 Coq.ZArith.BinInt Z max def
+R11336:11338 Clamp <> lo2:76 var
+R11340:11342 Clamp <> hi2:77 var
+R11380:11382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11349:11353 Clamp <> clamp def
+R11356:11360 Clamp <> clamp def
+R11362:11362 Clamp <> x:73 var
+R11364:11366 Clamp <> lo1:74 var
+R11368:11370 Clamp <> hi1:75 var
+R11373:11375 Clamp <> lo2:76 var
+R11377:11379 Clamp <> hi2:77 var
+R11383:11387 Clamp <> clamp def
+R11389:11389 Clamp <> x:73 var
+R11391:11393 Clamp <> lo1:74 var
+R11395:11397 Clamp <> hi1:75 var
+R11461:11483 Clamp <> clamp_fixpoint_interior thm
+R11461:11483 Clamp <> clamp_fixpoint_interior thm
+R11500:11514 Clamp <> clamp_in_bounds thm
+R11500:11514 Clamp <> clamp_in_bounds thm
+R11577:11581 Coq.ZArith.BinInt Z min def
+R11560:11569 Coq.ZArith.BinInt Z le_trans thm
+R11577:11581 Coq.ZArith.BinInt Z min def
+R11560:11569 Coq.ZArith.BinInt Z le_trans thm
+R11632:11636 Coq.ZArith.BinInt Z max def
+R11615:11624 Coq.ZArith.BinInt Z le_trans thm
+R11632:11636 Coq.ZArith.BinInt Z max def
+R11615:11624 Coq.ZArith.BinInt Z le_trans thm
+prf 11749:11767 <> clamp_disjoint_left
+binder 11778:11778 <> x:78
+binder 11780:11782 <> lo1:79
+binder 11784:11786 <> hi1:80
+binder 11788:11790 <> lo2:81
+binder 11792:11794 <> hi2:82
+R11809:11812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11802:11805 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R11799:11801 Clamp <> lo1:79 var
+R11806:11808 Clamp <> hi1:80 var
+R11823:11826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11816:11819 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R11813:11815 Clamp <> lo2:81 var
+R11820:11822 Clamp <> hi2:82 var
+R11836:11841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11830:11832 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R11827:11829 Clamp <> hi1:80 var
+R11833:11835 Clamp <> lo2:81 var
+R11873:11875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11842:11846 Clamp <> clamp def
+R11849:11853 Clamp <> clamp def
+R11855:11855 Clamp <> x:78 var
+R11857:11859 Clamp <> lo1:79 var
+R11861:11863 Clamp <> hi1:80 var
+R11866:11868 Clamp <> lo2:81 var
+R11870:11872 Clamp <> hi2:82 var
+R11876:11878 Clamp <> lo2:81 var
+R11941:11955 Clamp <> clamp_in_bounds thm
+R11941:11955 Clamp <> clamp_in_bounds thm
+R11994:12000 Coq.ZArith.BinInt Z min_l thm
+R11994:12000 Coq.ZArith.BinInt Z min_l thm
+R11994:12000 Coq.ZArith.BinInt Z min_l thm
+R12028:12034 Coq.ZArith.BinInt Z max_r thm
+R12028:12034 Coq.ZArith.BinInt Z max_r thm
+R12028:12034 Coq.ZArith.BinInt Z max_r thm
+R12061:12065 Clamp <> clamp def
+R12084:12088 Coq.ZArith.BinInt Z min def
+R12128:12134 Coq.ZArith.BinInt Z min_l thm
+R12084:12088 Coq.ZArith.BinInt Z min def
+R12128:12134 Coq.ZArith.BinInt Z min_l thm
+R12154:12158 Coq.ZArith.BinInt Z max def
+R12198:12204 Coq.ZArith.BinInt Z max_r thm
+R12154:12158 Coq.ZArith.BinInt Z max def
+R12198:12204 Coq.ZArith.BinInt Z max_r thm
+R12224:12230 Coq.ZArith.BinInt Z min_l thm
+R12233:12237 Clamp <> clamp def
+R12224:12230 Coq.ZArith.BinInt Z min_l thm
+R12233:12237 Clamp <> clamp def
+R12224:12230 Coq.ZArith.BinInt Z min_l thm
+R12233:12237 Clamp <> clamp def
+R12271:12277 Coq.ZArith.BinInt Z max_l thm
+R12271:12277 Coq.ZArith.BinInt Z max_l thm
+prf 12299:12318 <> clamp_disjoint_right
+binder 12329:12329 <> x:83
+binder 12331:12333 <> lo1:84
+binder 12335:12337 <> hi1:85
+binder 12339:12341 <> lo2:86
+binder 12343:12345 <> hi2:87
+R12360:12363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12353:12356 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R12350:12352 Clamp <> lo1:84 var
+R12357:12359 Clamp <> hi1:85 var
+R12374:12377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12367:12370 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R12364:12366 Clamp <> lo2:86 var
+R12371:12373 Clamp <> hi2:87 var
+R12387:12392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12381:12383 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R12378:12380 Clamp <> hi2:87 var
+R12384:12386 Clamp <> lo1:84 var
+R12424:12426 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12393:12397 Clamp <> clamp def
+R12400:12404 Clamp <> clamp def
+R12406:12406 Clamp <> x:83 var
+R12408:12410 Clamp <> lo1:84 var
+R12412:12414 Clamp <> hi1:85 var
+R12417:12419 Clamp <> lo2:86 var
+R12421:12423 Clamp <> hi2:87 var
+R12427:12429 Clamp <> hi2:87 var
+R12492:12506 Clamp <> clamp_in_bounds thm
+R12492:12506 Clamp <> clamp_in_bounds thm
+R12545:12551 Coq.ZArith.BinInt Z min_l thm
+R12545:12551 Coq.ZArith.BinInt Z min_l thm
+R12545:12551 Coq.ZArith.BinInt Z min_l thm
+R12579:12585 Coq.ZArith.BinInt Z max_r thm
+R12579:12585 Coq.ZArith.BinInt Z max_r thm
+R12579:12585 Coq.ZArith.BinInt Z max_r thm
+R12612:12616 Clamp <> clamp def
+R12635:12639 Coq.ZArith.BinInt Z min def
+R12679:12685 Coq.ZArith.BinInt Z min_l thm
+R12635:12639 Coq.ZArith.BinInt Z min def
+R12679:12685 Coq.ZArith.BinInt Z min_l thm
+R12705:12709 Coq.ZArith.BinInt Z max def
+R12749:12755 Coq.ZArith.BinInt Z max_r thm
+R12705:12709 Coq.ZArith.BinInt Z max def
+R12749:12755 Coq.ZArith.BinInt Z max_r thm
+R12775:12781 Coq.ZArith.BinInt Z min_r thm
+R12784:12788 Clamp <> clamp def
+R12775:12781 Coq.ZArith.BinInt Z min_r thm
+R12784:12788 Clamp <> clamp def
+R12775:12781 Coq.ZArith.BinInt Z min_r thm
+R12784:12788 Clamp <> clamp def
+R12822:12828 Coq.ZArith.BinInt Z max_r thm
+R12822:12828 Coq.ZArith.BinInt Z max_r thm
+sec 13079:13093 <> BoundedIntegers
+var 13187:13194 BoundedIntegers BOUND_LO
+R13198:13198 Coq.Numbers.BinNums <> Z ind
+var 13212:13219 BoundedIntegers BOUND_HI
+R13223:13223 Coq.Numbers.BinNums <> Z ind
+def 13240:13248 <> in_bounds
+R13255:13255 Coq.Numbers.BinNums <> Z ind
+binder 13251:13251 <> z:90
+R13276:13279 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R13281:13284 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R13268:13275 Clamp <> BoundedIntegers.BOUND_LO var
+R13280:13280 Clamp <> z:90 var
+R13280:13280 Clamp <> z:90 var
+R13285:13292 Clamp <> BoundedIntegers.BOUND_HI var
+def 13309:13315 <> bounded
+R13320:13321 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R13323:13325 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R13327:13329 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R13341:13342 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R13326:13326 Coq.Numbers.BinNums <> Z ind
+binder 13322:13322 <> z:91
+R13330:13338 Clamp <> in_bounds def
+R13340:13340 Clamp <> z:91 var
+def 13359:13369 <> bounded_val
+R13376:13382 Clamp <> bounded def
+binder 13372:13372 <> b:92
+R13387:13387 Coq.Numbers.BinNums <> Z ind
+R13392:13400 Coq.Init.Specif <> proj1_sig def
+R13402:13402 Clamp <> b:92 var
+def 13477:13486 <> mk_bounded
+R13493:13493 Coq.Numbers.BinNums <> Z ind
+binder 13489:13489 <> z:93
+R13501:13509 Clamp <> in_bounds def
+R13511:13511 Clamp <> z:93 var
+binder 13497:13497 <> H:94
+R13516:13522 Clamp <> bounded def
+R13531:13535 Coq.Init.Specif <> exist constr
+R13541:13541 Clamp <> H:94 var
+R13539:13539 Clamp <> z:93 var
+prf 13627:13638 <> clamp_closed
+binder 13649:13649 <> x:95
+binder 13651:13652 <> lo:96
+binder 13654:13655 <> hi:97
+R13674:13677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13662:13670 Clamp <> in_bounds def
+R13672:13673 Clamp <> lo:96 var
+R13690:13697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13678:13686 Clamp <> in_bounds def
+R13688:13689 Clamp <> hi:97 var
+R13698:13706 Clamp <> in_bounds def
+R13709:13713 Clamp <> clamp def
+R13715:13715 Clamp <> x:95 var
+R13717:13718 Clamp <> lo:96 var
+R13720:13721 Clamp <> hi:97 var
+R13789:13797 Clamp <> in_bounds def
+R13816:13830 Clamp <> clamp_in_bounds thm
+R13816:13830 Clamp <> clamp_in_bounds thm
+R13897:13901 Coq.ZArith.BinInt Z min def
+R13880:13889 Coq.ZArith.BinInt Z le_trans thm
+R13897:13901 Coq.ZArith.BinInt Z min def
+R13880:13889 Coq.ZArith.BinInt Z le_trans thm
+R13925:13933 Coq.ZArith.BinInt Z min_glb thm
+R13925:13933 Coq.ZArith.BinInt Z min_glb thm
+R13997:14001 Coq.ZArith.BinInt Z max def
+R13980:13989 Coq.ZArith.BinInt Z le_trans thm
+R13997:14001 Coq.ZArith.BinInt Z max def
+R13980:13989 Coq.ZArith.BinInt Z le_trans thm
+R14045:14053 Coq.ZArith.BinInt Z max_lub thm
+R14045:14053 Coq.ZArith.BinInt Z max_lub thm
+def 14159:14171 <> clamp_bounded
+R14178:14178 Coq.Numbers.BinNums <> Z ind
+binder 14174:14174 <> x:98
+R14190:14196 Clamp <> bounded def
+binder 14182:14183 <> lo:99
+binder 14185:14186 <> hi:100
+R14201:14207 Clamp <> bounded def
+R14228:14238 Clamp <> bounded_val def
+R14240:14241 Clamp <> lo:99 var
+binder 14220:14223 <> lo_z:101
+R14262:14272 Clamp <> bounded_val def
+R14274:14275 Clamp <> hi:100 var
+binder 14254:14257 <> hi_z:102
+R14284:14293 Clamp <> mk_bounded def
+R14296:14300 Clamp <> clamp def
+R14302:14302 Clamp <> x:98 var
+R14304:14307 Clamp <> lo_z:101 var
+R14309:14312 Clamp <> hi_z:102 var
+R14322:14333 Clamp <> clamp_closed thm
+R14335:14335 Clamp <> x:98 var
+R14337:14340 Clamp <> lo_z:101 var
+R14342:14345 Clamp <> hi_z:102 var
+R14348:14356 Coq.Init.Specif <> proj2_sig def
+R14358:14359 Clamp <> lo:99 var
+R14363:14371 Coq.Init.Specif <> proj2_sig def
+R14373:14374 Clamp <> hi:100 var
+prf 14457:14477 <> clamp_bounded_correct
+binder 14488:14488 <> x:103
+binder 14490:14491 <> lo:104
+binder 14493:14494 <> hi:105
+R14536:14538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14501:14511 Clamp <> bounded_val def
+R14514:14526 Clamp <> clamp_bounded def
+R14528:14528 Clamp <> x:103 var
+R14530:14531 Clamp <> lo:104 var
+R14533:14534 Clamp <> hi:105 var
+R14539:14543 Clamp <> clamp def
+R14545:14545 Clamp <> x:103 var
+R14548:14558 Clamp <> bounded_val def
+R14560:14561 Clamp <> lo:104 var
+R14565:14575 Clamp <> bounded_val def
+R14577:14578 Clamp <> hi:105 var
+R14610:14622 Clamp <> clamp_bounded def
+R14625:14635 Clamp <> bounded_val def
+R14638:14647 Clamp <> mk_bounded def
+prf 14763:14786 <> clamp_bounded_idempotent
+binder 14797:14797 <> x:106
+binder 14799:14800 <> lo:107
+binder 14802:14803 <> hi:108
+R14851:14857 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14810:14814 Clamp <> clamp def
+R14816:14816 Clamp <> x:106 var
+R14819:14829 Clamp <> bounded_val def
+R14831:14832 Clamp <> lo:107 var
+R14836:14846 Clamp <> bounded_val def
+R14848:14849 Clamp <> hi:108 var
+R14858:14862 Clamp <> clamp def
+R14865:14869 Clamp <> clamp def
+R14871:14871 Clamp <> x:106 var
+R14874:14884 Clamp <> bounded_val def
+R14886:14887 Clamp <> lo:107 var
+R14891:14901 Clamp <> bounded_val def
+R14903:14904 Clamp <> hi:108 var
+R14909:14919 Clamp <> bounded_val def
+R14921:14922 Clamp <> lo:107 var
+R14926:14936 Clamp <> bounded_val def
+R14938:14939 Clamp <> hi:108 var
+R14980:14995 Clamp <> clamp_idempotent thm
+R14980:14995 Clamp <> clamp_idempotent thm
+prf 15016:15037 <> clamp_bounded_monotone
+binder 15048:15048 <> x:109
+binder 15050:15050 <> y:110
+binder 15052:15053 <> lo:111
+binder 15055:15056 <> hi:112
+R15069:15076 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15064:15067 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R15063:15063 Clamp <> x:109 var
+R15068:15068 Clamp <> y:110 var
+R15118:15125 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R15077:15081 Clamp <> clamp def
+R15083:15083 Clamp <> x:109 var
+R15086:15096 Clamp <> bounded_val def
+R15098:15099 Clamp <> lo:111 var
+R15103:15113 Clamp <> bounded_val def
+R15115:15116 Clamp <> hi:112 var
+R15126:15130 Clamp <> clamp def
+R15132:15132 Clamp <> y:110 var
+R15135:15145 Clamp <> bounded_val def
+R15147:15148 Clamp <> lo:111 var
+R15152:15162 Clamp <> bounded_val def
+R15164:15165 Clamp <> hi:112 var
+R15196:15209 Clamp <> clamp_monotone thm
+R15196:15209 Clamp <> clamp_monotone thm
+R15236:15250 Clamp BoundedIntegers <> sec
+def 15559:15567 <> INT63_MIN
+R15571:15571 Coq.Numbers.BinNums <> Z ind
+R15576:15577 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R15582:15582 Coq.ZArith.BinInt <> ::Z_scope:'-'_x not
+R15579:15579 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+def 15596:15604 <> INT63_MAX
+R15608:15608 Coq.Numbers.BinNums <> Z ind
+R15617:15619 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R15614:15614 Coq.ZArith.BinInt <> ::Z_scope:x_'^'_x not
+def 15635:15649 <> int63_in_bounds
+R15654:15662 Clamp <> in_bounds def
+R15674:15682 Clamp <> INT63_MAX def
+R15664:15672 Clamp <> INT63_MIN def
+prf 15760:15775 <> clamp_int63_safe
+binder 15786:15786 <> x:113
+binder 15788:15789 <> lo:114
+binder 15791:15792 <> hi:115
+R15815:15818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15797:15811 Clamp <> int63_in_bounds def
+R15813:15814 Clamp <> lo:114 var
+R15837:15842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15819:15833 Clamp <> int63_in_bounds def
+R15835:15836 Clamp <> hi:115 var
+R15843:15857 Clamp <> int63_in_bounds def
+R15860:15864 Clamp <> clamp def
+R15866:15866 Clamp <> x:113 var
+R15868:15869 Clamp <> lo:114 var
+R15871:15872 Clamp <> hi:115 var
+R15899:15910 Clamp <> clamp_closed thm
+R15899:15910 Clamp <> clamp_closed thm
+prf 16126:16139 <> zmin_in_bounds
+binder 16150:16151 <> lo:116
+binder 16153:16154 <> hi:117
+R16177:16180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16159:16173 Clamp <> int63_in_bounds def
+R16175:16176 Clamp <> lo:116 var
+R16199:16204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16181:16195 Clamp <> int63_in_bounds def
+R16197:16198 Clamp <> hi:117 var
+R16205:16219 Clamp <> int63_in_bounds def
+R16222:16226 Coq.ZArith.BinInt Z min def
+R16228:16229 Clamp <> lo:116 var
+R16231:16232 Clamp <> hi:117 var
+R16300:16314 Clamp <> int63_in_bounds def
+R16317:16325 Clamp <> in_bounds def
+R16345:16353 Coq.ZArith.BinInt Z min_glb thm
+R16345:16353 Coq.ZArith.BinInt Z min_glb thm
+R16378:16387 Coq.ZArith.BinInt Z le_trans thm
+R16378:16387 Coq.ZArith.BinInt Z le_trans thm
+R16410:16419 Coq.ZArith.BinInt Z le_min_l thm
+R16410:16419 Coq.ZArith.BinInt Z le_min_l thm
+prf 16456:16469 <> zmax_in_bounds
+binder 16480:16481 <> lo:118
+binder 16483:16484 <> hi:119
+R16507:16510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16489:16503 Clamp <> int63_in_bounds def
+R16505:16506 Clamp <> lo:118 var
+R16529:16534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16511:16525 Clamp <> int63_in_bounds def
+R16527:16528 Clamp <> hi:119 var
+R16535:16549 Clamp <> int63_in_bounds def
+R16552:16556 Coq.ZArith.BinInt Z max def
+R16558:16559 Clamp <> lo:118 var
+R16561:16562 Clamp <> hi:119 var
+R16630:16644 Clamp <> int63_in_bounds def
+R16647:16655 Clamp <> in_bounds def
+R16675:16684 Coq.ZArith.BinInt Z le_trans thm
+R16675:16684 Coq.ZArith.BinInt Z le_trans thm
+R16727:16736 Coq.ZArith.BinInt Z le_max_l thm
+R16727:16736 Coq.ZArith.BinInt Z le_max_l thm
+R16749:16757 Coq.ZArith.BinInt Z max_lub thm
+R16749:16757 Coq.ZArith.BinInt Z max_lub thm
+prf 16786:16809 <> clamp_intermediates_safe
+binder 16820:16820 <> x:120
+binder 16822:16823 <> lo:121
+binder 16825:16826 <> hi:122
+R16849:16852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16831:16845 Clamp <> int63_in_bounds def
+R16847:16848 Clamp <> lo:121 var
+R16871:16876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16853:16867 Clamp <> int63_in_bounds def
+R16869:16870 Clamp <> hi:122 var
+R16906:16911 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16877:16891 Clamp <> int63_in_bounds def
+R16894:16898 Coq.ZArith.BinInt Z min def
+R16900:16901 Clamp <> lo:121 var
+R16903:16904 Clamp <> hi:122 var
+R16941:16946 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16912:16926 Clamp <> int63_in_bounds def
+R16929:16933 Coq.ZArith.BinInt Z max def
+R16935:16936 Clamp <> lo:121 var
+R16938:16939 Clamp <> hi:122 var
+R16947:16961 Clamp <> int63_in_bounds def
+R16964:16968 Clamp <> clamp def
+R16970:16970 Clamp <> x:120 var
+R16972:16973 Clamp <> lo:121 var
+R16975:16976 Clamp <> hi:122 var
+R17032:17045 Clamp <> zmin_in_bounds thm
+R17032:17045 Clamp <> zmin_in_bounds thm
+R17083:17096 Clamp <> zmax_in_bounds thm
+R17083:17096 Clamp <> zmax_in_bounds thm
+R17123:17138 Clamp <> clamp_int63_safe thm
+R17123:17138 Clamp <> clamp_int63_safe thm
+def 17411:17417 <> clamp_R
+R17430:17430 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 17420:17420 <> x:123
+binder 17422:17423 <> lo:124
+binder 17425:17426 <> hi:125
+R17435:17435 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R17453:17456 Coq.Reals.Rbasic_fun <> Rmin def
+R17458:17459 Clamp <> lo:124 var
+R17461:17462 Clamp <> hi:125 var
+binder 17446:17448 <> lo':126
+R17480:17483 Coq.Reals.Rbasic_fun <> Rmax def
+R17485:17486 Clamp <> lo:124 var
+R17488:17489 Clamp <> hi:125 var
+binder 17473:17475 <> hi':127
+R17499:17508 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17510:17510 Clamp <> x:123 var
+R17512:17514 Clamp <> lo':126 var
+R17535:17544 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17546:17548 Clamp <> hi':127 var
+R17550:17550 Clamp <> x:123 var
+R17568:17568 Clamp <> x:123 var
+R17557:17559 Clamp <> hi':127 var
+R17521:17523 Clamp <> lo':126 var
+prf 17578:17589 <> Rmin_le_Rmax
+binder 17600:17600 <> a:128
+binder 17602:17602 <> b:129
+R17613:17616 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17605:17608 Coq.Reals.Rbasic_fun <> Rmin def
+R17610:17610 Clamp <> a:128 var
+R17612:17612 Clamp <> b:129 var
+R17617:17620 Coq.Reals.Rbasic_fun <> Rmax def
+R17622:17622 Clamp <> a:128 var
+R17624:17624 Clamp <> b:129 var
+R17652:17660 Coq.Reals.RIneq <> Rle_trans thm
+R17652:17660 Coq.Reals.RIneq <> Rle_trans thm
+R17680:17685 Coq.Reals.Rbasic_fun <> Rmin_l thm
+R17680:17685 Coq.Reals.Rbasic_fun <> Rmin_l thm
+R17698:17706 Coq.Reals.Rbasic_fun <> RmaxLess1 abbrev
+R17698:17706 Coq.Reals.Rbasic_fun <> RmaxLess1 abbrev
+prf 17723:17741 <> clamp_R_lower_bound
+binder 17752:17752 <> x:130
+binder 17754:17755 <> lo:131
+binder 17757:17758 <> hi:132
+R17773:17776 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17763:17766 Coq.Reals.Rbasic_fun <> Rmin def
+R17768:17769 Clamp <> lo:131 var
+R17771:17772 Clamp <> hi:132 var
+R17777:17783 Clamp <> clamp_R def
+R17785:17785 Clamp <> x:130 var
+R17787:17788 Clamp <> lo:131 var
+R17790:17791 Clamp <> hi:132 var
+R17828:17834 Clamp <> clamp_R def
+R17849:17858 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17863:17866 Coq.Reals.Rbasic_fun <> Rmin def
+R17849:17858 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17863:17866 Coq.Reals.Rbasic_fun <> Rmin def
+R17900:17907 Coq.Reals.RIneq <> Rle_refl thm
+R17900:17907 Coq.Reals.RIneq <> Rle_refl thm
+R17924:17933 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17936:17939 Coq.Reals.Rbasic_fun <> Rmax def
+R17924:17933 Coq.Reals.RIneq <> Rle_lt_dec thm
+R17936:17939 Coq.Reals.Rbasic_fun <> Rmax def
+R17977:17988 Clamp <> Rmin_le_Rmax thm
+R17977:17988 Clamp <> Rmin_le_Rmax thm
+prf 18016:18034 <> clamp_R_upper_bound
+binder 18045:18045 <> x:133
+binder 18047:18048 <> lo:134
+binder 18050:18051 <> hi:135
+R18071:18074 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R18056:18062 Clamp <> clamp_R def
+R18064:18064 Clamp <> x:133 var
+R18066:18067 Clamp <> lo:134 var
+R18069:18070 Clamp <> hi:135 var
+R18075:18078 Coq.Reals.Rbasic_fun <> Rmax def
+R18080:18081 Clamp <> lo:134 var
+R18083:18084 Clamp <> hi:135 var
+R18121:18127 Clamp <> clamp_R def
+R18142:18151 Coq.Reals.RIneq <> Rle_lt_dec thm
+R18156:18159 Coq.Reals.Rbasic_fun <> Rmin def
+R18142:18151 Coq.Reals.RIneq <> Rle_lt_dec thm
+R18156:18159 Coq.Reals.Rbasic_fun <> Rmin def
+R18193:18204 Clamp <> Rmin_le_Rmax thm
+R18193:18204 Clamp <> Rmin_le_Rmax thm
+R18221:18230 Coq.Reals.RIneq <> Rle_lt_dec thm
+R18233:18236 Coq.Reals.Rbasic_fun <> Rmax def
+R18221:18230 Coq.Reals.RIneq <> Rle_lt_dec thm
+R18233:18236 Coq.Reals.Rbasic_fun <> Rmax def
+R18274:18281 Coq.Reals.RIneq <> Rle_refl thm
+R18274:18281 Coq.Reals.RIneq <> Rle_refl thm
+prf 18309:18325 <> clamp_R_in_bounds
+binder 18336:18336 <> x:136
+binder 18338:18339 <> lo:137
+binder 18341:18342 <> hi:138
+R18357:18360 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R18376:18379 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R18347:18350 Coq.Reals.Rbasic_fun <> Rmin def
+R18352:18353 Clamp <> lo:137 var
+R18355:18356 Clamp <> hi:138 var
+R18361:18367 Clamp <> clamp_R def
+R18369:18369 Clamp <> x:136 var
+R18371:18372 Clamp <> lo:137 var
+R18374:18375 Clamp <> hi:138 var
+R18361:18367 Clamp <> clamp_R def
+R18369:18369 Clamp <> x:136 var
+R18371:18372 Clamp <> lo:137 var
+R18374:18375 Clamp <> hi:138 var
+R18380:18383 Coq.Reals.Rbasic_fun <> Rmax def
+R18385:18386 Clamp <> lo:137 var
+R18388:18389 Clamp <> hi:138 var
+R18426:18444 Clamp <> clamp_R_lower_bound thm
+R18426:18444 Clamp <> clamp_R_lower_bound thm
+R18457:18475 Clamp <> clamp_R_upper_bound thm
+R18457:18475 Clamp <> clamp_R_upper_bound thm
+prf 18492:18508 <> clamp_R_symmetric
+binder 18519:18519 <> x:139
+binder 18521:18522 <> lo:140
+binder 18524:18525 <> hi:141
+R18545:18547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18530:18536 Clamp <> clamp_R def
+R18538:18538 Clamp <> x:139 var
+R18540:18541 Clamp <> lo:140 var
+R18543:18544 Clamp <> hi:141 var
+R18548:18554 Clamp <> clamp_R def
+R18556:18556 Clamp <> x:139 var
+R18558:18559 Clamp <> hi:141 var
+R18561:18562 Clamp <> lo:140 var
+R18599:18605 Clamp <> clamp_R def
+R18618:18626 Coq.Reals.Rbasic_fun <> Rmin_comm thm
+R18618:18626 Coq.Reals.Rbasic_fun <> Rmin_comm thm
+R18618:18626 Coq.Reals.Rbasic_fun <> Rmin_comm thm
+R18639:18647 Coq.Reals.Rbasic_fun <> Rmax_comm thm
+R18639:18647 Coq.Reals.Rbasic_fun <> Rmax_comm thm
+R18639:18647 Coq.Reals.Rbasic_fun <> Rmax_comm thm
+R18801:18804 Coq.Lists.List <> <> lib
+R18814:18826 Coq.Lists.List ListNotations <> mod
+def 18841:18850 <> clamp_list
+R18858:18861 Coq.Init.Datatypes <> list ind
+R18863:18863 Coq.Numbers.BinNums <> Z ind
+binder 18853:18854 <> xs:142
+R18875:18875 Coq.Numbers.BinNums <> Z ind
+binder 18867:18868 <> lo:143
+binder 18870:18871 <> hi:144
+R18880:18883 Coq.Init.Datatypes <> list ind
+R18885:18885 Coq.Numbers.BinNums <> Z ind
+R18892:18894 Coq.Lists.List <> map def
+R18921:18922 Clamp <> xs:142 var
+binder 18901:18901 <> x:145
+R18906:18910 Clamp <> clamp def
+R18912:18912 Clamp <> x:145 var
+R18914:18915 Clamp <> lo:143 var
+R18917:18918 Clamp <> hi:144 var
+prf 18934:18950 <> clamp_list_length
+binder 18961:18962 <> xs:146
+binder 18964:18965 <> lo:147
+binder 18967:18968 <> hi:148
+R19001:19003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18973:18978 Coq.Init.Datatypes <> length def
+R18981:18990 Clamp <> clamp_list def
+R18992:18993 Clamp <> xs:146 var
+R18995:18996 Clamp <> lo:147 var
+R18998:18999 Clamp <> hi:148 var
+R19004:19009 Coq.Init.Datatypes <> length def
+R19011:19012 Clamp <> xs:146 var
+R19039:19048 Clamp <> clamp_list def
+R19057:19066 Coq.Lists.List <> map_length thm
+R19057:19066 Coq.Lists.List <> map_length thm
+prf 19083:19102 <> clamp_list_in_bounds
+binder 19113:19114 <> xs:149
+binder 19116:19117 <> lo:150
+binder 19119:19120 <> hi:151
+R19125:19130 Coq.Lists.List <> Forall ind
+R19176:19185 Clamp <> clamp_list def
+R19187:19188 Clamp <> xs:149 var
+R19190:19191 Clamp <> lo:150 var
+R19193:19194 Clamp <> hi:151 var
+binder 19137:19137 <> x:152
+R19153:19156 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R19158:19161 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R19142:19146 Coq.ZArith.BinInt Z min def
+R19148:19149 Clamp <> lo:150 var
+R19151:19152 Clamp <> hi:151 var
+R19157:19157 Clamp <> x:152 var
+R19157:19157 Clamp <> x:152 var
+R19162:19166 Coq.ZArith.BinInt Z max def
+R19168:19169 Clamp <> lo:150 var
+R19171:19172 Clamp <> hi:151 var
+R19233:19242 Clamp <> clamp_list def
+R19253:19262 Coq.Lists.List <> Forall_map thm
+R19253:19262 Coq.Lists.List <> Forall_map thm
+R19273:19285 Coq.Lists.List <> Forall_forall thm
+R19273:19285 Coq.Lists.List <> Forall_forall thm
+R19308:19322 Clamp <> clamp_in_bounds thm
+R19308:19322 Clamp <> clamp_in_bounds thm
+prf 19339:19359 <> clamp_list_idempotent
+binder 19370:19371 <> xs:153
+binder 19373:19374 <> lo:154
+binder 19376:19377 <> hi:155
+R19420:19422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19382:19391 Clamp <> clamp_list def
+R19394:19403 Clamp <> clamp_list def
+R19405:19406 Clamp <> xs:153 var
+R19408:19409 Clamp <> lo:154 var
+R19411:19412 Clamp <> hi:155 var
+R19415:19416 Clamp <> lo:154 var
+R19418:19419 Clamp <> hi:155 var
+R19423:19432 Clamp <> clamp_list def
+R19434:19435 Clamp <> xs:153 var
+R19437:19438 Clamp <> lo:154 var
+R19440:19441 Clamp <> hi:155 var
+R19479:19488 Clamp <> clamp_list def
+R19501:19507 Coq.Lists.List <> map_map thm
+R19501:19507 Coq.Lists.List <> map_map thm
+R19501:19507 Coq.Lists.List <> map_map thm
+R19518:19524 Coq.Lists.List <> map_ext thm
+R19518:19524 Coq.Lists.List <> map_ext thm
+R19545:19560 Clamp <> clamp_idempotent thm
+R19545:19560 Clamp <> clamp_idempotent thm
+prf 19577:19590 <> clamp_list_app
+binder 19601:19602 <> xs:156
+binder 19604:19605 <> ys:157
+binder 19607:19608 <> lo:158
+binder 19610:19611 <> hi:159
+R19643:19645 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19616:19625 Clamp <> clamp_list def
+R19630:19633 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R19628:19629 Clamp <> xs:156 var
+R19634:19635 Clamp <> ys:157 var
+R19638:19639 Clamp <> lo:158 var
+R19641:19642 Clamp <> hi:159 var
+R19665:19668 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R19646:19655 Clamp <> clamp_list def
+R19657:19658 Clamp <> xs:156 var
+R19660:19661 Clamp <> lo:158 var
+R19663:19664 Clamp <> hi:159 var
+R19669:19678 Clamp <> clamp_list def
+R19680:19681 Clamp <> ys:157 var
+R19683:19684 Clamp <> lo:158 var
+R19686:19687 Clamp <> hi:159 var
+R19714:19723 Clamp <> clamp_list def
+R19732:19738 Coq.Lists.List <> map_app thm
+R19732:19738 Coq.Lists.List <> map_app thm
+prf 19974:19990 <> clamp_no_overflow
+binder 20001:20001 <> x:160
+binder 20003:20004 <> lo:161
+binder 20006:20007 <> hi:162
+binder 20009:20011 <> MIN:163
+binder 20013:20015 <> MAX:164
+R20029:20032 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20023:20026 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R20020:20022 Clamp <> MIN:163 var
+R20027:20028 Clamp <> lo:161 var
+R20042:20047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20035:20038 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R20033:20034 Clamp <> lo:161 var
+R20039:20041 Clamp <> MAX:164 var
+R20057:20060 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20051:20054 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R20048:20050 Clamp <> MIN:163 var
+R20055:20056 Clamp <> hi:162 var
+R20070:20075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20063:20066 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R20061:20062 Clamp <> hi:162 var
+R20067:20069 Clamp <> MAX:164 var
+R20079:20082 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R20096:20099 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R20076:20078 Clamp <> MIN:163 var
+R20083:20087 Clamp <> clamp def
+R20089:20089 Clamp <> x:160 var
+R20091:20092 Clamp <> lo:161 var
+R20094:20095 Clamp <> hi:162 var
+R20083:20087 Clamp <> clamp def
+R20089:20089 Clamp <> x:160 var
+R20091:20092 Clamp <> lo:161 var
+R20094:20095 Clamp <> hi:162 var
+R20100:20102 Clamp <> MAX:164 var
+R20180:20194 Clamp <> clamp_in_bounds thm
+R20180:20194 Clamp <> clamp_in_bounds thm
+R20257:20261 Coq.ZArith.BinInt Z min def
+R20240:20249 Coq.ZArith.BinInt Z le_trans thm
+R20257:20261 Coq.ZArith.BinInt Z min def
+R20240:20249 Coq.ZArith.BinInt Z le_trans thm
+R20283:20291 Coq.ZArith.BinInt Z min_glb thm
+R20283:20291 Coq.ZArith.BinInt Z min_glb thm
+R20351:20355 Coq.ZArith.BinInt Z max def
+R20334:20343 Coq.ZArith.BinInt Z le_trans thm
+R20351:20355 Coq.ZArith.BinInt Z max def
+R20334:20343 Coq.ZArith.BinInt Z le_trans thm
+R20395:20403 Coq.ZArith.BinInt Z max_lub thm
+R20395:20403 Coq.ZArith.BinInt Z max_lub thm
+sec 20921:20933 <> VerifiedClamp
+var 20948:20950 VerifiedClamp MIN
+var 20952:20954 VerifiedClamp MAX
+R20958:20958 Coq.Numbers.BinNums <> Z ind
+def 21041:21052 <> check_bounds
+R21059:21059 Coq.Numbers.BinNums <> Z ind
+binder 21055:21055 <> z:167
+R21064:21067 Coq.Init.Datatypes <> bool ind
+R21076:21076 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R21086:21091 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R21101:21101 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R21080:21084 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R21077:21079 Clamp <> VerifiedClamp.MIN var
+R21085:21085 Clamp <> z:167 var
+R21093:21097 Coq.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R21092:21092 Clamp <> z:167 var
+R21098:21100 Clamp <> VerifiedClamp.MAX var
+prf 21148:21167 <> check_bounds_correct
+binder 21178:21178 <> z:168
+R21206:21210 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R21199:21201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21185:21196 Clamp <> check_bounds def
+R21198:21198 Clamp <> z:168 var
+R21202:21205 Coq.Init.Datatypes <> true constr
+R21214:21217 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21219:21222 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21211:21213 Clamp <> VerifiedClamp.MIN var
+R21218:21218 Clamp <> z:168 var
+R21218:21218 Clamp <> z:168 var
+R21223:21225 Clamp <> VerifiedClamp.MAX var
+R21258:21269 Clamp <> check_bounds def
+R21284:21301 Coq.Bool.Bool <> andb_true_iff thm
+R21284:21301 Coq.Bool.Bool <> andb_true_iff thm
+R21284:21301 Coq.Bool.Bool <> andb_true_iff thm
+R21316:21323 Coq.ZArith.BinInt Z leb_le thm
+R21316:21323 Coq.ZArith.BinInt Z leb_le thm
+R21316:21323 Coq.ZArith.BinInt Z leb_le thm
+R21334:21341 Coq.ZArith.BinInt Z leb_le thm
+R21334:21341 Coq.ZArith.BinInt Z leb_le thm
+R21334:21341 Coq.ZArith.BinInt Z leb_le thm
+rec 21506:21513 <> safe_int
+proj 21536:21543 <> safe_val
+proj 21554:21566 <> safe_evidence
+R21547:21547 Coq.Numbers.BinNums <> Z ind
+R21591:21593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21570:21581 Clamp <> check_bounds def
+R21583:21590 Clamp <> safe_val:170 meth
+R21594:21597 Coq.Init.Datatypes <> true constr
+prf 21655:21672 <> safe_int_in_bounds
+binder 21683:21683 <> s:172
+R21689:21692 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21703:21706 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21686:21688 Clamp <> VerifiedClamp.MIN var
+R21693:21700 Clamp <> safe_val proj
+R21702:21702 Clamp <> s:172 var
+R21693:21700 Clamp <> safe_val proj
+R21702:21702 Clamp <> s:172 var
+R21707:21709 Clamp <> VerifiedClamp.MAX var
+R21752:21771 Clamp <> check_bounds_correct thm
+R21752:21771 Clamp <> check_bounds_correct thm
+def 21874:21882 <> make_safe
+R21889:21889 Coq.Numbers.BinNums <> Z ind
+binder 21885:21885 <> z:173
+R21900:21903 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21905:21908 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<='_x not
+R21897:21899 Clamp <> VerifiedClamp.MIN var
+R21904:21904 Clamp <> z:173 var
+R21904:21904 Clamp <> z:173 var
+R21909:21911 Clamp <> VerifiedClamp.MAX var
+binder 21893:21893 <> H:174
+R21916:21923 Clamp <> safe_int rec
+R21932:21942 Clamp <> mk_safe_int constr
+R21944:21944 Clamp <> z:173 var
+R21978:21997 Clamp <> check_bounds_correct thm
+R21978:21997 Clamp <> check_bounds_correct thm
+def 22108:22121 <> clamp_verified
+R22128:22128 Coq.Numbers.BinNums <> Z ind
+binder 22124:22124 <> x:175
+R22140:22147 Clamp <> safe_int rec
+binder 22132:22133 <> lo:176
+binder 22135:22136 <> hi:177
+R22152:22159 Clamp <> safe_int rec
+R22168:22178 Clamp <> mk_safe_int constr
+R22181:22185 Clamp <> clamp def
+R22187:22187 Clamp <> x:175 var
+R22190:22197 Clamp <> safe_val proj
+R22199:22200 Clamp <> lo:176 var
+R22204:22211 Clamp <> safe_val proj
+R22213:22214 Clamp <> hi:177 var
+R22256:22273 Clamp <> safe_int_in_bounds thm
+R22256:22273 Clamp <> safe_int_in_bounds thm
+R22315:22332 Clamp <> safe_int_in_bounds thm
+R22315:22332 Clamp <> safe_int_in_bounds thm
+R22368:22387 Clamp <> check_bounds_correct thm
+R22368:22387 Clamp <> check_bounds_correct thm
+R22400:22416 Clamp <> clamp_no_overflow thm
+R22400:22416 Clamp <> clamp_no_overflow thm
+prf 22508:22529 <> clamp_verified_correct
+binder 22540:22540 <> x:178
+binder 22542:22543 <> lo:179
+binder 22545:22546 <> hi:180
+R22586:22588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22553:22560 Clamp <> safe_val proj
+R22563:22576 Clamp <> clamp_verified def
+R22578:22578 Clamp <> x:178 var
+R22580:22581 Clamp <> lo:179 var
+R22583:22584 Clamp <> hi:180 var
+R22589:22593 Clamp <> clamp def
+R22595:22595 Clamp <> x:178 var
+R22598:22605 Clamp <> safe_val proj
+R22607:22608 Clamp <> lo:179 var
+R22612:22619 Clamp <> safe_val proj
+R22621:22622 Clamp <> hi:180 var
+R22654:22667 Clamp <> clamp_verified def
+def 22851:22863 <> clamp_checked
+R22876:22876 Coq.Numbers.BinNums <> Z ind
+binder 22866:22866 <> x:181
+binder 22868:22869 <> lo:182
+binder 22871:22872 <> hi:183
+R22882:22884 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R22881:22881 Coq.Numbers.BinNums <> Z ind
+R22885:22888 Coq.Init.Datatypes <> bool ind
+R22911:22915 Clamp <> clamp def
+R22917:22917 Clamp <> x:181 var
+R22919:22920 Clamp <> lo:182 var
+R22922:22923 Clamp <> hi:183 var
+binder 22901:22906 <> result:184
+R22932:22932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22939:22940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23010:23010 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22933:22938 Clamp <> result:184 var
+R22941:22944 Coq.Init.Datatypes <> andb def
+R22990:23001 Clamp <> check_bounds def
+R23003:23008 Clamp <> result:184 var
+R22947:22950 Coq.Init.Datatypes <> andb def
+R22971:22982 Clamp <> check_bounds def
+R22984:22985 Clamp <> hi:183 var
+R22953:22964 Clamp <> check_bounds def
+R22966:22967 Clamp <> lo:182 var
+prf 23096:23117 <> clamp_checked_true_iff
+binder 23128:23128 <> x:185
+binder 23130:23131 <> lo:186
+binder 23133:23134 <> hi:187
+R23175:23184 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23272:23272 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23168:23170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23141:23143 Coq.Init.Datatypes <> snd def
+R23146:23158 Clamp <> clamp_checked def
+R23160:23160 Clamp <> x:185 var
+R23162:23163 Clamp <> lo:186 var
+R23165:23166 Clamp <> hi:187 var
+R23171:23174 Coq.Init.Datatypes <> true constr
+R23207:23210 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23200:23202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23185:23196 Clamp <> check_bounds def
+R23198:23199 Clamp <> lo:186 var
+R23203:23206 Coq.Init.Datatypes <> true constr
+R23233:23236 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23226:23228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23211:23222 Clamp <> check_bounds def
+R23224:23225 Clamp <> hi:187 var
+R23229:23232 Coq.Init.Datatypes <> true constr
+R23265:23267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23237:23248 Clamp <> check_bounds def
+R23251:23255 Clamp <> clamp def
+R23257:23257 Clamp <> x:185 var
+R23259:23260 Clamp <> lo:186 var
+R23262:23263 Clamp <> hi:187 var
+R23268:23271 Coq.Init.Datatypes <> true constr
+R23311:23323 Clamp <> clamp_checked def
+R23346:23363 Coq.Bool.Bool <> andb_true_iff thm
+R23346:23363 Coq.Bool.Bool <> andb_true_iff thm
+R23346:23363 Coq.Bool.Bool <> andb_true_iff thm
+R23346:23363 Coq.Bool.Bool <> andb_true_iff thm
+R23346:23363 Coq.Bool.Bool <> andb_true_iff thm
+prf 23455:23475 <> clamp_checked_correct
+binder 23486:23486 <> x:188
+binder 23488:23489 <> lo:189
+binder 23491:23492 <> hi:190
+R23521:23528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23514:23516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23499:23510 Clamp <> check_bounds def
+R23512:23513 Clamp <> lo:189 var
+R23517:23520 Coq.Init.Datatypes <> true constr
+R23551:23558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23544:23546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23529:23540 Clamp <> check_bounds def
+R23542:23543 Clamp <> hi:190 var
+R23547:23550 Coq.Init.Datatypes <> true constr
+R23586:23588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23559:23561 Coq.Init.Datatypes <> snd def
+R23564:23576 Clamp <> clamp_checked def
+R23578:23578 Clamp <> x:188 var
+R23580:23581 Clamp <> lo:189 var
+R23583:23584 Clamp <> hi:190 var
+R23589:23592 Coq.Init.Datatypes <> true constr
+R23642:23663 Clamp <> clamp_checked_true_iff thm
+R23642:23663 Clamp <> clamp_checked_true_iff thm
+R23696:23715 Clamp <> check_bounds_correct thm
+R23696:23715 Clamp <> check_bounds_correct thm
+R23728:23747 Clamp <> check_bounds_correct thm
+R23728:23747 Clamp <> check_bounds_correct thm
+R23767:23786 Clamp <> check_bounds_correct thm
+R23767:23786 Clamp <> check_bounds_correct thm
+R23806:23822 Clamp <> clamp_no_overflow thm
+R23806:23822 Clamp <> clamp_no_overflow thm
+R23844:23856 Clamp VerifiedClamp <> sec
+def 23987:24006 <> clamp_int63_verified
+R24013:24013 Coq.Numbers.BinNums <> Z ind
+binder 24009:24009 <> x:191
+R24025:24032 Clamp <> safe_int rec
+R24044:24052 Clamp <> INT63_MAX def
+R24034:24042 Clamp <> INT63_MIN def
+binder 24017:24018 <> lo:192
+binder 24020:24021 <> hi:193
+R24059:24066 Clamp <> safe_int rec
+R24078:24086 Clamp <> INT63_MAX def
+R24068:24076 Clamp <> INT63_MIN def
+R24093:24106 Clamp <> clamp_verified def
+R24128:24128 Clamp <> x:191 var
+R24130:24131 Clamp <> lo:192 var
+R24133:24134 Clamp <> hi:193 var
+R24118:24126 Clamp <> INT63_MAX def
+R24108:24116 Clamp <> INT63_MIN def
+def 24149:24166 <> check_int63_bounds
+R24171:24174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24170:24170 Coq.Numbers.BinNums <> Z ind
+R24175:24178 Coq.Init.Datatypes <> bool ind
+R24183:24194 Clamp <> check_bounds def
+R24206:24214 Clamp <> INT63_MAX def
+R24196:24204 Clamp <> INT63_MIN def
+def 24229:24247 <> clamp_int63_checked
+R24260:24260 Coq.Numbers.BinNums <> Z ind
+binder 24250:24250 <> x:194
+binder 24252:24253 <> lo:195
+binder 24255:24256 <> hi:196
+R24266:24268 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R24265:24265 Coq.Numbers.BinNums <> Z ind
+R24269:24272 Coq.Init.Datatypes <> bool ind
+R24279:24291 Clamp <> clamp_checked def
+R24313:24313 Clamp <> x:194 var
+R24315:24316 Clamp <> lo:195 var
+R24318:24319 Clamp <> hi:196 var
+R24303:24311 Clamp <> INT63_MAX def
+R24293:24301 Clamp <> INT63_MIN def
+R25472:25481 Coq.extraction.Extraction <> <> lib
+R25492:25505 Coq.extraction.ExtrOcamlBasic <> <> lib
+R25516:25528 Coq.extraction.ExtrOcamlZInt <> <> lib
