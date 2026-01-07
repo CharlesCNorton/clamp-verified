@@ -18,9 +18,8 @@
 (* TODO:
    - Fix make_safe obligation: use exact H instead of split; assumption.
    - Fix clamp_verified obligation: destruct safe_int_in_bounds conjunction.
-   - Move Reals/Lra imports into separate module for integer-only users.
-   - Document clamp_R as specification-only in section header.
-   - Document ExtrOcamlZInt bounded semantics caveat in extraction section.
+   - Make clamp_R computable: replace Rle_dec with Rle_lt_dec.
+   - Add clamp_safe : Z -> Z -> Z -> option Z with runtime bounds check.
    - Add Hint database for downstream proof automation.
    - Add composition law for overlapping intervals.
    - Add concrete witnesses (Example and Compute on specific values).
