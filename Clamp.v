@@ -18,6 +18,8 @@
 Require Import ZArith.
 Require Import Lia.
 Require Import Morphisms.
+Require Import Reals.
+Require Import Lra.
 
 Open Scope Z_scope.
 
@@ -127,6 +129,34 @@ Proof.
     + apply gtb_reflect in E2. apply clamp_at_max. exact E2.
     + apply ltb_reflect_false in E1. apply gtb_reflect_false in E2.
       apply clamp_identity. split; assumption.
+Qed.
+
+(** Use trichotomy to prove clamp either changes value or preserves it. *)
+Theorem clamp_change_iff : forall x lo hi,
+  clamp x lo hi <> x <-> (x < Z.min lo hi \/ x > Z.max lo hi).
+Proof.
+  intros x lo hi. split.
+  - intros Hne.
+    pose proof (clamp_trichotomy x lo hi) as Htri.
+    destruct Htri as [Hlt | Hgt | [Hlo Hhi]].
+    + left. exact Hlt.
+    + right. exact Hgt.
+    + exfalso. apply Hne.
+      unfold clamp.
+      destruct (x <? Z.min lo hi) eqn:E1.
+      * apply ltb_reflect in E1. lia.
+      * destruct (x >? Z.max lo hi) eqn:E2.
+        -- apply gtb_reflect in E2. lia.
+        -- reflexivity.
+  - intros [Hlt | Hgt].
+    + unfold clamp.
+      apply Z.ltb_lt in Hlt. rewrite Hlt.
+      lia.
+    + unfold clamp.
+      destruct (x <? Z.min lo hi) eqn:E1.
+      * apply ltb_reflect in E1. lia.
+      * assert (Hgtb: (x >? Z.max lo hi) = true) by (apply Z.gtb_lt; lia).
+        rewrite Hgtb. lia.
 Qed.
 
 (** * Algebraic Equivalence
@@ -290,23 +320,6 @@ Proof.
   - apply Z.le_trans with (Z.max lo1 hi1); assumption.
 Qed.
 
-(** * Termination Certificate
-
-    clamp is structurally terminating (non-recursive).
-    We make this explicit via a fuel-based equivalent. *)
-
-Fixpoint clamp_fuel (fuel : nat) (x lo hi : Z) : option Z :=
-  match fuel with
-  | O => None
-  | S _ => Some (clamp x lo hi)
-  end.
-
-Theorem clamp_terminates : forall x lo hi,
-  exists result, clamp_fuel 1 x lo hi = Some result /\ result = clamp x lo hi.
-Proof.
-  intros. exists (clamp x lo hi). split; reflexivity.
-Qed.
-
 (** * Bounded Integer Variant
 
     For finite-precision targets, we define a bounded integer type
@@ -330,14 +343,15 @@ Section BoundedIntegers.
   Definition mk_bounded (z : Z) (H : in_bounds z) : bounded :=
     exist _ z H.
 
-  (** clamp is closed: if lo, hi are in bounds, result is in bounds.
-      This is the key theorem for overflow safety. *)
-  Theorem clamp_closed : forall x lo hi,
-    in_bounds lo -> in_bounds hi ->
-    in_bounds (clamp x lo hi).
+  (** Canonical overflow-safety theorem: clamp output is bounded by
+      the tightest enclosing interval of the bounds.
+      Parameterized for use both inside and outside sections. *)
+  Theorem clamp_bounded_by : forall x lo hi MIN MAX,
+    MIN <= lo -> lo <= MAX ->
+    MIN <= hi -> hi <= MAX ->
+    MIN <= clamp x lo hi <= MAX.
   Proof.
-    intros x lo hi [HloL HloH] [HhiL HhiH].
-    unfold in_bounds.
+    intros x lo hi MIN MAX HloMin HloMax HhiMin HhiMax.
     pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
     split.
     - apply Z.le_trans with (Z.min lo hi).
@@ -346,6 +360,17 @@ Section BoundedIntegers.
     - apply Z.le_trans with (Z.max lo hi).
       + exact Hmax.
       + apply Z.max_lub; assumption.
+  Qed.
+
+  (** clamp is closed: if lo, hi are in bounds, result is in bounds.
+      Corollary of [clamp_bounded_by] specialized to section variables. *)
+  Theorem clamp_closed : forall x lo hi,
+    in_bounds lo -> in_bounds hi ->
+    in_bounds (clamp x lo hi).
+  Proof.
+    intros x lo hi [HloL HloH] [HhiL HhiH].
+    unfold in_bounds.
+    apply clamp_bounded_by; assumption.
   Qed.
 
   (** Bounded clamp: takes bounded inputs, returns bounded output. *)
@@ -383,7 +408,8 @@ End BoundedIntegers.
 
 (** * Machine Integer Instantiation
 
-    Instantiate for 63-bit signed integers (OCaml int on 64-bit).
+    Instantiate for OCaml int on 64-bit systems: 63 bits total,
+    1 sign bit + 62 magnitude bits, giving range [-(2^62), 2^62 - 1].
     Note: These constants are for specification only; the clamp function
     itself operates on mathematical integers. *)
 
@@ -400,11 +426,119 @@ Proof.
   intros. apply clamp_closed; assumption.
 Qed.
 
+(** * Real Number Variant
+
+    Clamp for real numbers. Identical structure to the integer version. *)
+
+Open Scope R_scope.
+
+Definition clamp_R (x lo hi : R) : R :=
+  let lo' := Rmin lo hi in
+  let hi' := Rmax lo hi in
+  if Rle_dec x lo' then lo'
+  else if Rle_dec hi' x then hi'
+  else x.
+
+Lemma Rmin_le_Rmax : forall a b, Rmin a b <= Rmax a b.
+Proof.
+  intros.
+  apply Rle_trans with a.
+  - apply Rmin_l.
+  - apply RmaxLess1.
+Qed.
+
+Theorem clamp_R_lower_bound : forall x lo hi,
+  Rmin lo hi <= clamp_R x lo hi.
+Proof.
+  intros x lo hi.
+  unfold clamp_R.
+  destruct (Rle_dec x (Rmin lo hi)) as [Hlt|Hge].
+  - apply Rle_refl.
+  - destruct (Rle_dec (Rmax lo hi) x) as [Hgt|Hle].
+    + apply Rmin_le_Rmax.
+    + apply Rnot_le_gt in Hge. lra.
+Qed.
+
+Theorem clamp_R_upper_bound : forall x lo hi,
+  clamp_R x lo hi <= Rmax lo hi.
+Proof.
+  intros x lo hi.
+  unfold clamp_R.
+  destruct (Rle_dec x (Rmin lo hi)) as [Hlt|Hge].
+  - apply Rmin_le_Rmax.
+  - destruct (Rle_dec (Rmax lo hi) x) as [Hgt|Hle].
+    + apply Rle_refl.
+    + apply Rnot_le_gt in Hle. lra.
+Qed.
+
+Theorem clamp_R_in_bounds : forall x lo hi,
+  Rmin lo hi <= clamp_R x lo hi <= Rmax lo hi.
+Proof.
+  intros. split.
+  - apply clamp_R_lower_bound.
+  - apply clamp_R_upper_bound.
+Qed.
+
+Theorem clamp_R_symmetric : forall x lo hi,
+  clamp_R x lo hi = clamp_R x hi lo.
+Proof.
+  intros x lo hi.
+  unfold clamp_R.
+  rewrite Rmin_comm.
+  rewrite Rmax_comm.
+  reflexivity.
+Qed.
+
+Close Scope R_scope.
+Open Scope Z_scope.
+
+(** * Vectorized Variant
+
+    Apply clamp to each element of a list. *)
+
+Require Import List.
+Import ListNotations.
+
+Definition clamp_list (xs : list Z) (lo hi : Z) : list Z :=
+  map (fun x => clamp x lo hi) xs.
+
+Theorem clamp_list_length : forall xs lo hi,
+  length (clamp_list xs lo hi) = length xs.
+Proof.
+  intros. unfold clamp_list. apply map_length.
+Qed.
+
+Theorem clamp_list_in_bounds : forall xs lo hi,
+  Forall (fun x => Z.min lo hi <= x <= Z.max lo hi) (clamp_list xs lo hi).
+Proof.
+  intros xs lo hi.
+  unfold clamp_list.
+  apply Forall_map.
+  apply Forall_forall.
+  intros x _. apply clamp_in_bounds.
+Qed.
+
+Theorem clamp_list_idempotent : forall xs lo hi,
+  clamp_list (clamp_list xs lo hi) lo hi = clamp_list xs lo hi.
+Proof.
+  intros xs lo hi.
+  unfold clamp_list.
+  rewrite map_map.
+  apply map_ext.
+  intros a. apply clamp_idempotent.
+Qed.
+
+Theorem clamp_list_app : forall xs ys lo hi,
+  clamp_list (xs ++ ys) lo hi = clamp_list xs lo hi ++ clamp_list ys lo hi.
+Proof.
+  intros. unfold clamp_list. apply map_app.
+Qed.
+
 (** * No-Overflow Guarantee
 
-    The critical theorem: clamp never produces a value outside the
-    range of its bounds, so if bounds fit in machine integers, the
-    result fits in machine integers. *)
+    Same reasoning as [clamp_bounded_by] in BoundedIntegers section,
+    but as a standalone theorem without section variables.
+    If bounds fit in machine integers, the result fits. *)
 
 Theorem clamp_no_overflow : forall x lo hi MIN MAX,
   MIN <= lo -> lo <= MAX ->
@@ -414,25 +548,26 @@ Proof.
   intros x lo hi MIN MAX HloMin HloMax HhiMin HhiMax.
   pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
   split.
-  - apply Z.le_trans with (Z.min lo hi).
-    + apply Z.min_glb; assumption.
-    + exact Hmin.
-  - apply Z.le_trans with (Z.max lo hi).
-    + exact Hmax.
-    + apply Z.max_lub; assumption.
+  - apply Z.le_trans with (Z.min lo hi); [apply Z.min_glb | ]; assumption.
+  - apply Z.le_trans with (Z.max lo hi); [ | apply Z.max_lub]; assumption.
 Qed.
 
-(** * Verified Clamp with Runtime Evidence
+(** * Verified Clamp for Coq-Level Reasoning
 
-    The proofs above are in Prop and erase during extraction.
-    Here we provide a computational version that carries evidence
-    at runtime via Type-level witnesses. *)
+    This section provides a dependent type [safe_int] that bundles
+    a value with a proof of bounds. This is useful for Coq-level
+    reasoning and type-driven development.
+
+    NOTE: The proof field [safe_evidence] lives in Prop and erases
+    during extraction. The extracted [safe_int] becomes just [int].
+    For actual runtime bounds checking, use [check_bounds] directly
+    or [clamp_checked] which returns [(value, bool)] pairs. *)
 
 Section VerifiedClamp.
 
   Variable MIN MAX : Z.
 
-  (** Decidable bounds check - computes at runtime. *)
+  (** Decidable bounds check - computes and extracts to OCaml. *)
   Definition check_bounds (z : Z) : bool :=
     (MIN <=? z) && (z <=? MAX).
 
@@ -446,7 +581,8 @@ Section VerifiedClamp.
     reflexivity.
   Qed.
 
-  (** A safe integer: value plus computational evidence it's in bounds. *)
+  (** A safe integer: value plus proof it's in bounds.
+      The proof erases during extraction; use for Coq reasoning only. *)
   Record safe_int := mk_safe_int {
     safe_val : Z;
     safe_evidence : check_bounds safe_val = true
@@ -484,13 +620,35 @@ Section VerifiedClamp.
     intros. unfold clamp_verified. simpl. reflexivity.
   Qed.
 
+  (** Runtime bounds checking: returns (result, is_valid) pair.
+      This DOES survive extraction and provides actual runtime checking. *)
+  Definition clamp_checked (x lo hi : Z) : Z * bool :=
+    let result := clamp x lo hi in
+    (result, check_bounds result).
+
+  (** The bool is true iff bounds were valid and result is in range. *)
+  Theorem clamp_checked_correct : forall x lo hi,
+    check_bounds lo = true ->
+    check_bounds hi = true ->
+    snd (clamp_checked x lo hi) = true.
+  Proof.
+    intros x lo hi Hlo Hhi.
+    unfold clamp_checked. simpl.
+    apply check_bounds_correct.
+    apply check_bounds_correct in Hlo.
+    apply check_bounds_correct in Hhi.
+    apply clamp_no_overflow; tauto.
+  Qed.
+
 End VerifiedClamp.
 
 (** * Extraction
 
-    We extract both the raw clamp and the verified version.
-    - clamp: fast, no runtime checks
-    - clamp_verified: carries runtime evidence via check_bounds *)
+    - clamp: the core function, no runtime checks
+    - check_bounds: runtime bounds test, extracts to bool-returning function
+    - clamp_checked: returns (result, valid) pair for runtime validation
+    - safe_int: extracts to just [int] (proof field erases)
+    - clamp_verified: extracts to same as [clamp] (proofs erase) *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -498,4 +656,4 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-Extraction "clamp.ml" clamp check_bounds safe_int clamp_verified.
+Extraction "clamp.ml" clamp clamp_R clamp_list check_bounds clamp_checked safe_int clamp_verified.
