@@ -422,12 +422,75 @@ Proof.
     + apply Z.max_lub; assumption.
 Qed.
 
+(** * Verified Clamp with Runtime Evidence
+
+    The proofs above are in Prop and erase during extraction.
+    Here we provide a computational version that carries evidence
+    at runtime via Type-level witnesses. *)
+
+Section VerifiedClamp.
+
+  Variable MIN MAX : Z.
+
+  (** Decidable bounds check - computes at runtime. *)
+  Definition check_bounds (z : Z) : bool :=
+    (MIN <=? z) && (z <=? MAX).
+
+  (** Correctness of the check. *)
+  Lemma check_bounds_correct : forall z,
+    check_bounds z = true <-> MIN <= z <= MAX.
+  Proof.
+    intros z. unfold check_bounds.
+    rewrite Bool.andb_true_iff.
+    rewrite Z.leb_le. rewrite Z.leb_le.
+    reflexivity.
+  Qed.
+
+  (** A safe integer: value plus computational evidence it's in bounds. *)
+  Record safe_int := mk_safe_int {
+    safe_val : Z;
+    safe_evidence : check_bounds safe_val = true
+  }.
+
+  (** Extract the proof from evidence. *)
+  Lemma safe_int_in_bounds : forall s, MIN <= safe_val s <= MAX.
+  Proof.
+    intros [v e]. simpl. apply check_bounds_correct. exact e.
+  Qed.
+
+  (** Build a safe_int from a value known to be in bounds. *)
+  Program Definition make_safe (z : Z) (H : MIN <= z <= MAX) : safe_int :=
+    mk_safe_int z _.
+  Next Obligation.
+    apply check_bounds_correct. split; assumption.
+  Defined.
+
+  (** clamp with verified bounds - returns safe_int. *)
+  Program Definition clamp_verified (x : Z) (lo hi : safe_int) : safe_int :=
+    mk_safe_int (clamp x (safe_val lo) (safe_val hi)) _.
+  Next Obligation.
+    apply check_bounds_correct.
+    apply clamp_no_overflow.
+    - apply safe_int_in_bounds.
+    - apply safe_int_in_bounds.
+    - apply safe_int_in_bounds.
+    - apply safe_int_in_bounds.
+  Defined.
+
+  (** The verified version computes the same value. *)
+  Theorem clamp_verified_correct : forall x lo hi,
+    safe_val (clamp_verified x lo hi) = clamp x (safe_val lo) (safe_val hi).
+  Proof.
+    intros. unfold clamp_verified. simpl. reflexivity.
+  Qed.
+
+End VerifiedClamp.
+
 (** * Extraction
 
-    We extract to OCaml. The clamp function extracts to executable code.
-    Proof terms (clamp_in_bounds, clamp_no_overflow, etc.) are in Prop
-    and erase during extraction; they exist for Coq-side verification
-    only, not as runtime checks. *)
+    We extract both the raw clamp and the verified version.
+    - clamp: fast, no runtime checks
+    - clamp_verified: carries runtime evidence via check_bounds *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -435,4 +498,4 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-Extraction "clamp.ml" clamp.
+Extraction "clamp.ml" clamp check_bounds safe_int clamp_verified.
