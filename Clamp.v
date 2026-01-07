@@ -15,15 +15,6 @@
 (*                                                                            *)
 (******************************************************************************)
 
-(* TODO:
-   - Make clamp_R computable: replace Rle_dec with Rle_lt_dec.
-   - Add clamp_safe : Z -> Z -> Z -> option Z with runtime bounds check.
-   - Add Hint database for downstream proof automation.
-   - Add composition law for overlapping intervals.
-   - Add concrete witnesses (Example and Compute on specific values).
-   - Add negative tests demonstrating rejection of invalid inputs.
-*)
-
 Require Import ZArith.
 Require Import Lia.
 Require Import Morphisms.
@@ -116,6 +107,52 @@ Proof.
   - apply clamp_lower_bound.
   - apply clamp_upper_bound.
 Qed.
+
+(** * Concrete Examples
+
+    Sanity-check the definition with explicit computations. *)
+
+Example clamp_below : clamp 5 10 20 = 10.
+Proof. reflexivity. Qed.
+
+Example clamp_above : clamp 25 10 20 = 20.
+Proof. reflexivity. Qed.
+
+Example clamp_inside : clamp 15 10 20 = 15.
+Proof. reflexivity. Qed.
+
+Example clamp_at_lo : clamp 10 10 20 = 10.
+Proof. reflexivity. Qed.
+
+Example clamp_at_hi : clamp 20 10 20 = 20.
+Proof. reflexivity. Qed.
+
+Example clamp_swapped_bounds : clamp 15 20 10 = 15.
+Proof. reflexivity. Qed.
+
+Example clamp_equal_bounds : clamp 5 7 7 = 7.
+Proof. reflexivity. Qed.
+
+Example clamp_negative : clamp (-5) (-10) 0 = (-5).
+Proof. reflexivity. Qed.
+
+(** Compute directive for interactive verification. *)
+Compute (clamp 100 0 50).  (* = 50 *)
+Compute (clamp (-100) 0 50).  (* = 0 *)
+Compute (clamp 25 0 50).  (* = 25 *)
+
+(** * Negative Tests
+
+    Demonstrate that invalid claims are rejected. *)
+
+Example clamp_not_identity_below : clamp 5 10 20 <> 5.
+Proof. discriminate. Qed.
+
+Example clamp_not_identity_above : clamp 25 10 20 <> 25.
+Proof. discriminate. Qed.
+
+Example clamp_not_outside_bounds : ~ (clamp 15 10 20 < 10).
+Proof. unfold clamp. simpl. lia. Qed.
 
 (** * Trichotomy: The Three Cases
 
@@ -276,6 +313,47 @@ Proof.
   reflexivity.
 Qed.
 
+(** * Option Variant
+
+    clamp_safe returns None if lo > hi (malformed bounds),
+    Some result otherwise. Useful for untrusted input validation. *)
+
+Definition clamp_safe (x lo hi : Z) : option Z :=
+  if lo <=? hi then Some (clamp x lo hi) else None.
+
+Theorem clamp_safe_some_iff : forall x lo hi v,
+  clamp_safe x lo hi = Some v <-> (lo <= hi /\ v = clamp x lo hi).
+Proof.
+  intros x lo hi v. unfold clamp_safe.
+  destruct (lo <=? hi) eqn:E.
+  - apply Z.leb_le in E. split.
+    + intros H. inversion H. auto.
+    + intros [_ Hv]. subst. reflexivity.
+  - apply Z.leb_gt in E. split.
+    + intros H. discriminate.
+    + intros [Hle _]. lia.
+Qed.
+
+Theorem clamp_safe_none_iff : forall x lo hi,
+  clamp_safe x lo hi = None <-> hi < lo.
+Proof.
+  intros x lo hi. unfold clamp_safe.
+  destruct (lo <=? hi) eqn:E.
+  - apply Z.leb_le in E. split; [discriminate | lia].
+  - apply Z.leb_gt in E. split; [auto | intros; reflexivity].
+Qed.
+
+Theorem clamp_safe_in_bounds : forall x lo hi v,
+  clamp_safe x lo hi = Some v -> lo <= v <= hi.
+Proof.
+  intros x lo hi v H.
+  apply clamp_safe_some_iff in H. destruct H as [Hle Hv]. subst.
+  pose proof (clamp_in_bounds x lo hi) as [Hmin Hmax].
+  rewrite Z.min_l in Hmin by lia.
+  rewrite Z.max_r in Hmax by lia.
+  split; assumption.
+Qed.
+
 (** * Monotonicity
 
     clamp preserves order: if x <= y, then clamp x <= clamp y.
@@ -336,6 +414,42 @@ Proof.
   split.
   - apply Z.le_trans with (Z.min lo1 hi1); assumption.
   - apply Z.le_trans with (Z.max lo1 hi1); assumption.
+Qed.
+
+(** When intervals don't overlap, composition clamps to the gap point. *)
+
+Theorem clamp_disjoint_left : forall x lo1 hi1 lo2 hi2,
+  lo1 <= hi1 -> lo2 <= hi2 -> hi1 < lo2 ->
+  clamp (clamp x lo1 hi1) lo2 hi2 = lo2.
+Proof.
+  intros x lo1 hi1 lo2 hi2 H1 H2 Hgap.
+  pose proof (clamp_in_bounds x lo1 hi1) as [Hmin Hmax].
+  rewrite Z.min_l in Hmin by lia.
+  rewrite Z.max_r in Hmax by lia.
+  unfold clamp at 1.
+  rewrite Z.min_l by lia.
+  rewrite Z.max_r by lia.
+  assert (clamp x lo1 hi1 <? lo2 = true) as E.
+  { apply Z.ltb_lt. lia. }
+  rewrite E. reflexivity.
+Qed.
+
+Theorem clamp_disjoint_right : forall x lo1 hi1 lo2 hi2,
+  lo1 <= hi1 -> lo2 <= hi2 -> hi2 < lo1 ->
+  clamp (clamp x lo1 hi1) lo2 hi2 = hi2.
+Proof.
+  intros x lo1 hi1 lo2 hi2 H1 H2 Hgap.
+  pose proof (clamp_in_bounds x lo1 hi1) as [Hmin Hmax].
+  rewrite Z.min_l in Hmin by lia.
+  rewrite Z.max_r in Hmax by lia.
+  unfold clamp at 1.
+  rewrite Z.min_l by lia.
+  rewrite Z.max_r by lia.
+  assert (clamp x lo1 hi1 <? lo2 = false) as E1.
+  { apply Z.ltb_ge. lia. }
+  assert (clamp x lo1 hi1 >? hi2 = true) as E2.
+  { apply Z.gtb_lt. lia. }
+  rewrite E1, E2. reflexivity.
 Qed.
 
 (** * Bounded Integer Variant
@@ -442,8 +556,8 @@ Open Scope R_scope.
 Definition clamp_R (x lo hi : R) : R :=
   let lo' := Rmin lo hi in
   let hi' := Rmax lo hi in
-  if Rle_dec x lo' then lo'
-  else if Rle_dec hi' x then hi'
+  if Rle_lt_dec x lo' then lo'
+  else if Rle_lt_dec hi' x then hi'
   else x.
 
 Lemma Rmin_le_Rmax : forall a b, Rmin a b <= Rmax a b.
@@ -459,11 +573,11 @@ Theorem clamp_R_lower_bound : forall x lo hi,
 Proof.
   intros x lo hi.
   unfold clamp_R.
-  destruct (Rle_dec x (Rmin lo hi)) as [Hlt|Hge].
+  destruct (Rle_lt_dec x (Rmin lo hi)) as [Hlt|Hge].
   - apply Rle_refl.
-  - destruct (Rle_dec (Rmax lo hi) x) as [Hgt|Hle].
+  - destruct (Rle_lt_dec (Rmax lo hi) x) as [Hgt|Hle].
     + apply Rmin_le_Rmax.
-    + apply Rnot_le_gt in Hge. lra.
+    + lra.
 Qed.
 
 Theorem clamp_R_upper_bound : forall x lo hi,
@@ -471,11 +585,11 @@ Theorem clamp_R_upper_bound : forall x lo hi,
 Proof.
   intros x lo hi.
   unfold clamp_R.
-  destruct (Rle_dec x (Rmin lo hi)) as [Hlt|Hge].
+  destruct (Rle_lt_dec x (Rmin lo hi)) as [Hlt|Hge].
   - apply Rmin_le_Rmax.
-  - destruct (Rle_dec (Rmax lo hi) x) as [Hgt|Hle].
+  - destruct (Rle_lt_dec (Rmax lo hi) x) as [Hgt|Hle].
     + apply Rle_refl.
-    + apply Rnot_le_gt in Hle. lra.
+    + lra.
 Qed.
 
 Theorem clamp_R_in_bounds : forall x lo hi,
@@ -662,17 +776,45 @@ Section VerifiedClamp.
 
 End VerifiedClamp.
 
+(** * INT63 Instantiation for Extraction
+
+    Wrapper that fixes MIN/MAX to int63 bounds for cleaner OCaml API. *)
+
+Definition clamp_int63_verified (x : Z) (lo hi : safe_int INT63_MIN INT63_MAX)
+  : safe_int INT63_MIN INT63_MAX :=
+  clamp_verified INT63_MIN INT63_MAX x lo hi.
+
+Definition check_int63_bounds : Z -> bool := check_bounds INT63_MIN INT63_MAX.
+
+Definition clamp_int63_checked (x lo hi : Z) : Z * bool :=
+  clamp_checked INT63_MIN INT63_MAX x lo hi.
+
+(** * Hint Database
+
+    The [clamp] hint database provides automation for downstream proofs.
+    Use [auto with clamp] or [eauto with clamp] to apply these lemmas. *)
+
+#[export] Hint Resolve clamp_lower_bound : clamp.
+#[export] Hint Resolve clamp_upper_bound : clamp.
+#[export] Hint Resolve clamp_in_bounds : clamp.
+#[export] Hint Resolve clamp_idempotent : clamp.
+#[export] Hint Resolve clamp_symmetric : clamp.
+#[export] Hint Resolve clamp_monotone : clamp.
+#[export] Hint Resolve clamp_safe_in_bounds : clamp.
+#[export] Hint Resolve min_le_max : clamp.
+
 (** * Extraction
 
     - clamp: the core function, no runtime checks
+    - clamp_safe: returns [option Z], None if lo > hi
     - clamp_list: vectorized clamp over lists
     - check_bounds: runtime bounds test, extracts to bool-returning function
     - clamp_checked: returns (result, valid) pair for runtime validation
     - safe_int: extracts to just [int] (proof field erases)
     - clamp_verified: extracts to same as [clamp] (proofs erase)
 
-    NOTE: clamp_R is NOT extracted. It uses classical [Rle_dec] which
-    is non-computational. Use clamp_R for specification/proofs only. *)
+    NOTE: clamp_R uses [Rle_lt_dec] and is in principle extractable,
+    but depends on axiomatized reals. Not included in extraction. *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -680,4 +822,4 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-Extraction "clamp.ml" clamp clamp_list check_bounds clamp_checked safe_int clamp_verified.
+Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified.
