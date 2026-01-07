@@ -15,8 +15,6 @@
 (*                                                                            *)
 (******************************************************************************)
 
-(* No remaining TODOs. *)
-
 Require Import ZArith.
 Require Import Lia.
 Require Import Morphisms.
