@@ -17,7 +17,6 @@
 
 Require Import ZArith.
 Require Import Lia.
-Require Import Morphisms.
 Require Import Reals.
 Require Import Lra.
 
@@ -117,6 +116,52 @@ Proof.
   intros. split.
   - apply clamp_lower_bound.
   - apply clamp_upper_bound.
+Qed.
+
+(** * Tight Bounds
+
+    The bounds [Z.min lo hi] and [Z.max lo hi] are tight: there exist
+    inputs that achieve them. This proves the specification is not
+    vacuously satisfied by a constant function. *)
+
+Theorem clamp_achieves_lower : forall lo hi,
+  lo <= hi -> clamp (lo - 1) lo hi = lo.
+Proof.
+  intros lo hi Hle. unfold clamp.
+  replace (Z.min lo hi) with lo by (symmetry; apply Z.min_l; lia).
+  replace (Z.max lo hi) with hi by (symmetry; apply Z.max_r; lia).
+  replace (Z.min (lo - 1) hi) with (lo - 1) by (symmetry; apply Z.min_l; lia).
+  rewrite Z.max_l by lia.
+  reflexivity.
+Qed.
+
+Theorem clamp_achieves_upper : forall lo hi,
+  lo <= hi -> clamp (hi + 1) lo hi = hi.
+Proof.
+  intros lo hi Hle. unfold clamp.
+  replace (Z.min lo hi) with lo by (symmetry; apply Z.min_l; lia).
+  replace (Z.max lo hi) with hi by (symmetry; apply Z.max_r; lia).
+  replace (Z.min (hi + 1) hi) with hi by (symmetry; apply Z.min_r; lia).
+  rewrite Z.max_r by lia.
+  reflexivity.
+Qed.
+
+Theorem clamp_achieves_identity : forall x lo hi,
+  Z.min lo hi <= x <= Z.max lo hi -> clamp x lo hi = x.
+Proof.
+  intros x lo hi [Hlo Hhi]. unfold clamp.
+  rewrite (Z.min_l x (Z.max lo hi)) by exact Hhi.
+  apply Z.max_r. exact Hlo.
+Qed.
+
+Theorem clamp_bounds_tight : forall lo hi,
+  lo <= hi ->
+  (exists x, clamp x lo hi = lo) /\
+  (exists x, clamp x lo hi = hi).
+Proof.
+  intros lo hi Hle. split.
+  - exists (lo - 1). apply clamp_achieves_lower. exact Hle.
+  - exists (hi + 1). apply clamp_achieves_upper. exact Hle.
 Qed.
 
 (** * Concrete Examples
@@ -262,7 +307,16 @@ Qed.
 
 (** * Symmetry Under Bound Swap
 
-    Swapping lo and hi does not change the result. *)
+    Swapping lo and hi does not change the result. This follows
+    compositionally from the commutativity of [Z.min] and [Z.max]:
+
+      clamp x lo hi
+    = Z.max (Z.min lo hi) (Z.min x (Z.max lo hi))    [by definition]
+    = Z.max (Z.min hi lo) (Z.min x (Z.max hi lo))    [by Z.min_comm, Z.max_comm]
+    = clamp x hi lo                                   [by definition]
+
+    This derivation shows the symmetry is not accidental but inherent
+    in the algebraic structure of the definition. *)
 
 Theorem clamp_symmetric : forall x lo hi,
   clamp x lo hi = clamp x hi lo.
@@ -275,8 +329,21 @@ Qed.
 
 (** * Option Variant
 
-    clamp_safe returns None if lo > hi (malformed bounds),
-    Some result otherwise. Useful for untrusted input validation. *)
+    [clamp_safe] returns [None] if [lo > hi], treating this as malformed
+    input that the caller should handle explicitly.
+
+    Design rationale:
+    - [clamp] silently normalizes swapped bounds via min/max, which is
+      convenient but masks potential caller bugs.
+    - [clamp_safe] treats [lo > hi] as an error condition, forcing the
+      caller to handle it. Use this when swapped bounds indicate a bug
+      rather than a valid alternative representation.
+
+    The two functions are related by:
+      [clamp_safe x lo hi = Some v <-> lo <= hi /\ v = clamp x lo hi]
+
+    Choose [clamp] for internal code where you trust or normalize inputs.
+    Choose [clamp_safe] for API boundaries with untrusted input. *)
 
 Definition clamp_safe (x lo hi : Z) : option Z :=
   if lo <=? hi then Some (clamp x lo hi) else None.
@@ -351,13 +418,15 @@ Proof.
 Qed.
 *)
 
-(** * Proper Instance for Setoid Reasoning *)
+(** * Extensionality
 
-#[global]
-Instance clamp_proper : Proper (eq ==> eq ==> eq ==> eq) clamp.
+    Clamp respects equality: equal inputs yield equal outputs. *)
+
+Lemma clamp_ext : forall x1 x2 lo1 lo2 hi1 hi2,
+  x1 = x2 -> lo1 = lo2 -> hi1 = hi2 ->
+  clamp x1 lo1 hi1 = clamp x2 lo2 hi2.
 Proof.
-  intros x1 x2 Hx y1 y2 Hy z1 z2 Hz.
-  subst. reflexivity.
+  intros. subst. reflexivity.
 Qed.
 
 (** * Composition Theorem
@@ -487,8 +556,23 @@ End BoundedIntegers.
 
     Instantiate for OCaml int on 64-bit systems: 63 bits total,
     1 sign bit + 62 magnitude bits, giving range [-(2^62), 2^62 - 1].
-    Note: These constants are for specification only; the clamp function
-    itself operates on mathematical integers. *)
+
+    ** Overflow Safety Argument **
+
+    The clamp function uses only [Z.min] and [Z.max], which are
+    _selection_ operations: they return one of their inputs unchanged.
+    This means:
+
+    1. No arithmetic is performed (no addition, subtraction, multiplication)
+    2. If both inputs are in [INT63_MIN, INT63_MAX], the output is too
+    3. No intermediate computation can overflow
+
+    When extracted to OCaml, [Z.min] and [Z.max] become [Stdlib.min] and
+    [Stdlib.max], which are polymorphic comparison-based selections.
+    These are inherently overflow-safe for any integer type.
+
+    The theorems below prove this formally: if [lo] and [hi] are valid
+    int63 values, then [clamp x lo hi] is also valid, regardless of [x]. *)
 
 Definition INT63_MIN : Z := -(2^62).
 Definition INT63_MAX : Z := 2^62 - 1.
@@ -529,6 +613,38 @@ Proof.
     + exact HloMin.
     + apply Z.le_max_l.
   - apply Z.max_lub; assumption.
+Qed.
+
+(** min and max are selection operations: output equals one of the inputs. *)
+
+Lemma zmin_is_selection : forall a b, Z.min a b = a \/ Z.min a b = b.
+Proof.
+  intros a b.
+  destruct (Z.le_ge_cases a b) as [Hle | Hge].
+  - left. apply Z.min_l. exact Hle.
+  - right. apply Z.min_r. lia.
+Qed.
+
+Lemma zmax_is_selection : forall a b, Z.max a b = a \/ Z.max a b = b.
+Proof.
+  intros a b.
+  destruct (Z.le_ge_cases a b) as [Hle | Hge].
+  - right. apply Z.max_r. exact Hle.
+  - left. apply Z.max_l. lia.
+Qed.
+
+(** clamp output is one of: lo, hi, or x (when in bounds). *)
+Theorem clamp_is_selection : forall x lo hi,
+  clamp x lo hi = Z.min lo hi \/
+  clamp x lo hi = Z.max lo hi \/
+  clamp x lo hi = x.
+Proof.
+  intros x lo hi.
+  pose proof (clamp_trichotomy x lo hi) as Htri.
+  destruct Htri as [Hlt | Hgt | Hin].
+  - left. reflexivity.
+  - right. left. reflexivity.
+  - right. right. reflexivity.
 Qed.
 
 Theorem clamp_intermediates_safe : forall x lo hi,
@@ -803,6 +919,7 @@ Definition clamp_int63_checked (x lo hi : Z) : Z * bool :=
 
 (** * Extraction
 
+    Extracted functions:
     - clamp: the core function, no runtime checks
     - clamp_safe: returns [option Z], None if lo > hi
     - clamp_list: vectorized clamp over lists
@@ -811,8 +928,10 @@ Definition clamp_int63_checked (x lo hi : Z) : Z * bool :=
     - safe_int: extracts to just [int] (proof field erases)
     - clamp_verified: extracts to same as [clamp] (proofs erase)
 
-    NOTE: clamp_R uses [Rle_lt_dec] and is in principle extractable,
-    but depends on axiomatized reals. Not included in extraction. *)
+    NOT extracted (specification only):
+    - clamp_R: Real number variant. Uses classical axioms ([Rle_lt_dec])
+      that cannot be realized in executable code. Use for Coq-level
+      reasoning about continuous domains; do not extract. *)
 
 Require Extraction.
 Require ExtrOcamlBasic.
@@ -820,28 +939,7 @@ Require ExtrOcamlZInt.
 
 Extraction Language OCaml.
 
-(** Replace INT63 symbolic computation with literal Int.min_int/Int.max_int.
-    These constants are computed at Coq level but extract to efficient literals. *)
 Extract Inlined Constant INT63_MIN => "Int.min_int".
 Extract Inlined Constant INT63_MAX => "Int.max_int".
 
-(** Extraction of Coq reals to OCaml floats.
-    The Coq proofs assume exact real arithmetic. The extracted code uses
-    IEEE 754 floats which have finite precision, rounding, and special
-    values (NaN, ±infinity). For clamp_R specifically:
-    - Comparisons and min/max are exact for normal floats
-    - NaN behavior is unspecified (follows OCaml float semantics)
-    - No arithmetic is performed, so no rounding errors accumulate *)
-Extract Inlined Constant R => "float".
-Extract Inlined Constant R0 => "0.0".
-Extract Inlined Constant R1 => "1.0".
-Extract Inlined Constant Rplus => "( +. )".
-Extract Inlined Constant Rminus => "( -. )".
-Extract Inlined Constant Rmult => "( *. )".
-Extract Inlined Constant Ropp => "(fun x -> -. x)".
-Extract Inlined Constant Rinv => "(fun x -> 1.0 /. x)".
-Extract Inlined Constant Rmin => "Float.min".
-Extract Inlined Constant Rmax => "Float.max".
-Extract Inlined Constant Rle_lt_dec => "(fun x y -> x <= y)".
-
-Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified clamp_R.
+Extraction "clamp.ml" clamp clamp_safe clamp_list check_bounds clamp_checked safe_int clamp_verified check_int63_bounds clamp_int63_checked clamp_int63_verified.
